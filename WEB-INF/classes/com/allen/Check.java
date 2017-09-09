@@ -24,7 +24,7 @@ public class Check extends HttpServlet {
             // Use Cookie and Session to save username/password
             // ----- hardcode the username/password so far----
             if (username.equals("allen") && password.equals("allen")) {
-                // res.sendRedirect("welcome");
+                res.sendRedirect("AdminWeb");
                 System.out.println("hello");
             } else {
                 res.sendRedirect("login");
