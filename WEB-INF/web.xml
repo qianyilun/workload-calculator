@@ -47,4 +47,15 @@
         <url-pattern>/check</url-pattern>
     </servlet-mapping>
 
+<!-- AdminWeb.java for QM editing -->
+    <servlet>
+        <servlet-name>adminWeb</servlet-name>
+        <servlet-class>com.allen.AdminWeb</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminWeb</servlet-name>
+        <url-pattern>/adminWeb</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
