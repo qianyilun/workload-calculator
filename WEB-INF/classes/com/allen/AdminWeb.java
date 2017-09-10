@@ -2,6 +2,10 @@ package com.allen;
 
 import javax.servlet.http.*;
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 /*
 ** Show the Queue Manager webpage
@@ -13,10 +17,20 @@ public class AdminWeb extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) {
         try {
             PrintWriter pw = res.getWriter();
-            pw.println("Queue Manager, welcome back!");
 
             // suppose a NORMAL user
-            pw.println(htmlWriter());
+            pw.println("<html>");
+            pw.println("<head><title> Welcome back! </title></head>");
+            pw.println("<body>");
+            pw.println("<center>");
+            pw.println("<h1> Welcome back, Queue Manager </h1>");
+
+            drawUpperTable(pw);
+            drawLowerTable(pw);
+
+            pw.println("</center>");            
+            pw.println("<body>");
+            pw.println("</html>");        
         } catch (Exception e) {
             //TODO: handle exception
             e.printStackTrace();
@@ -28,7 +42,34 @@ public class AdminWeb extends HttpServlet {
         doGet(req, res);
     }
 
-    private String drawOuterTable() {
-        return "";
+
+    // table contains other Components except "NW"
+    private void drawUpperTable(PrintWriter pw) {
+        try {
+            String path = "/home/allen/Applications/apache-tomcat-8.5.16/webapps/QueueManager_Web/WEB-INF/resource/upperTable.html";
+            String html = loadhtml(path);
+            pw.println(html);       
+        } catch (Exception e) {
+            //TODO: handle exception
+            e.printStackTrace();
+        }
+    }
+
+    // table contains "NW" only    
+    private void drawLowerTable(PrintWriter pw) {
+        try {
+            String path = "/home/allen/Applications/apache-tomcat-8.5.16/webapps/QueueManager_Web/WEB-INF/resource/lowerTable.html";
+            String html = loadhtml(path);
+            pw.println(html);       
+        } catch (Exception e) {
+            //TODO: handle exception
+            e.printStackTrace();
+        }
+    }
+
+    private static String loadhtml(String path)
+        throws IOException  {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, Charset.defaultCharset());
     }
 }
