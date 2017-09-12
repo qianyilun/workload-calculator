@@ -49,7 +49,9 @@ public class NWDAO {
                 /*
                  * TEST ONLY
                  */
-                setEntry();
+                setEntry("Allen", "Qian", 10, 20);
+                setEntry("Julie", "Chu", 4, 6);
+                setEntry("Min", "Li", 8, 21);
             }
         } finally {
             if (connection != null) {
@@ -162,17 +164,17 @@ public class NWDAO {
     /**
      * Add one incident with personal information to the table.
      */
-    public void setEntry() throws SQLException {
+    public void setEntry(String fname, String lname, int x, int y) throws SQLException {
         Connection connection = dataSource.getConnection();
 
         try {
             PreparedStatement pstmt = connection
                     .prepareStatement("INSERT INTO NW (ID, FIRSTNAME, LASTNAME, AMOUNT, TOTAL) VALUES (?, ?, ?, ?, ?)");
             pstmt.setString(1, UUID.randomUUID().toString());
-            pstmt.setString(2, "Allen");
-            pstmt.setString(3, "Qian");
-            pstmt.setInt(4, 10);
-            pstmt.setInt(5, 20);
+            pstmt.setString(2, fname);
+            pstmt.setString(3, lname);
+            pstmt.setInt(4, x);
+            pstmt.setInt(5, y);
             pstmt.executeUpdate();
             System.out.println("Allen insert successful!");
         } finally {
