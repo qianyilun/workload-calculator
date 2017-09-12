@@ -58,7 +58,7 @@ public class QmPage extends HttpServlet {
     // table contains "NW" only    
     private void drawLowerTable(PrintWriter pw) {
         try {
-            String path = "C:\\Users\\I860745\\Documents\\Projects\\QueueManager_Web\\persistence-with-jdbc\\WebContent\\WEB-INF\\resource\\lowerTable.html";
+            String path = "C:\\Users\\I860745\\Documents\\Projects\\QueueManager_Web\\persistence-with-jdbc\\WebContent\\WEB-INF\\resourcelowerTable.html";
             String html = loadhtml(path);
             pw.println(html);       
         } catch (Exception e) {

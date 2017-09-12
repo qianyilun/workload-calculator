@@ -42,4 +42,14 @@
     <servlet-name>QmPage</servlet-name>
     <url-pattern>/qmpage</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PersistenceWithNW</display-name>
+    <servlet-name>PersistenceWithNW</servlet-name>
+    <servlet-class>com.allen.nw.PersistenceWithNW</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersistenceWithNW</servlet-name>
+    <url-pattern>/persistencewithnw</url-pattern>
+  </servlet-mapping>
 </web-app>
