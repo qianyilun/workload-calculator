@@ -85,10 +85,9 @@ public class PersistenceWithNW extends HttpServlet {
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         for (NW nw : resultList) {
-        	response.getWriter().println(resultList.size());
-            response.getWriter().println(
-                    "<tr><td>" + xssEncoder.encodeHTML(nw.getPerson().getFirstName()) + "</td>"
-					+ "<td>" + xssEncoder.encodeHTML(nw.getPerson().getLastName()) + "</td>"
+        	response.getWriter().println(
+                    "<tr><td>" + xssEncoder.encodeHTML(nw.getFirstName()) + "</td>"
+					+ "<td>" + xssEncoder.encodeHTML(nw.getLastName()) + "</td>"
 					+ "<td>" + nw.getAmount() + "</td>"
 					+ "<td>" + nw.getTotal() + "</td>"
 					+ "</tr>");
