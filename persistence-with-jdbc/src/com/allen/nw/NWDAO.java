@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -76,7 +77,7 @@ public class NWDAO {
     }
 
     /**
-     * Create the person table.
+     * Create the NW table.
      */
     private void createTable(Connection connection) throws SQLException {
         PreparedStatement pstmt = connection
@@ -150,6 +151,7 @@ public class NWDAO {
                 nw.setTotal(rs.getInt(5));
                 list.add(nw);
             }
+            Collections.sort(list);;
             return list;
         } finally {
             if (connection != null) {
