@@ -88,8 +88,8 @@ public class PersistenceWithNW extends HttpServlet {
         	response.getWriter().println(
                     "<tr><td>" + xssEncoder.encodeHTML(nw.getFirstName()) + "</td>"
 					+ "<td>" + xssEncoder.encodeHTML(nw.getLastName()) + "</td>"
-					+ "<td>" + nw.getAmount() + "</td>"
-					+ "<td>" + nw.getTotal() + "</td>"
+					+ "<td>" + nw.getAmount() + "</td>" // need to change to xssEncoder for getAmount()?
+					+ "<td>" + nw.getTotal() + "</td>" // need to change to xssEncoder for getTotal()?
 					+ "</tr>");
         }
         response.getWriter().println("</table></p>");

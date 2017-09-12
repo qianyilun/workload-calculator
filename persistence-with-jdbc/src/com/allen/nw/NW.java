@@ -18,8 +18,10 @@ public class NW {
 	public Person getPerson() {
 		return person;
 	}
-	public void setPerson(Person person) {
-		this.person = person;
+	public void setPerson() {
+		person = new Person();
+		person.setFirstName(firstName.trim());
+        person.setLastName(lastName.trim());
 	}
 	public String getFirstName() {
 		return firstName;
