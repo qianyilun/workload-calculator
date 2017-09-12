@@ -81,13 +81,15 @@ public class PersistenceWithNW extends HttpServlet {
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"3\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>First name</th><th>Last name</th><th>Amount</th><th>Total</th></tr>");
+            response.getWriter().println("<tr><th>First name</th><th>Last name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         for (NW nw : resultList) {
         	response.getWriter().println(
                     "<tr><td>" + xssEncoder.encodeHTML(nw.getFirstName()) + "</td>"
 					+ "<td>" + xssEncoder.encodeHTML(nw.getLastName()) + "</td>"
+					+ "<td>" + "<center><a style=\"color:blue\" href=\"https://www.w3schools.com/html/\">Add</a></center>" + "</td>"
+					+ "<td>" + "<center><a style=\"color:blue\" href=\"https://www.w3schools.com/html/\">Delete</a></center>" + "</td>"
 					+ "<td>" + nw.getAmount() + "</td>" // need to change to xssEncoder for getAmount()?
 					+ "<td>" + nw.getTotal() + "</td>" // need to change to xssEncoder for getTotal()?
 					+ "</tr>");
