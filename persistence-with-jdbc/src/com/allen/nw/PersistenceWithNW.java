@@ -76,18 +76,20 @@ public class PersistenceWithNW extends HttpServlet {
         // Append table that lists all persons
         List<NW> resultList = nwDAO.selectAllEntries();
         response.getWriter().println(
-                "<p><table width=70% border=\"1\"><tr><th colspan=\"4\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
+                "<p><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"4\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
                         + "Entries in the Database</th>"
                         + "<th colspan=\"2\">" + "Smart Sorted</th></tr>");
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>First name</th><th>Last name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th></tr>");
+            response.getWriter().println("<tr><th>Id</th><th>First name</th><th>Last name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
+        int index = 1;
         for (NW nw : resultList) {
         	response.getWriter().println(
-                    "<tr><td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getFirstName()) + "</center></td>"
+                    "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
+                    + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getFirstName()) + "</center></td>"
 					+ "<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getLastName()) + "</center></td>"
 					+ "<td>" + "<center><a style=\"color:blue\" href=\"https://www.w3schools.com/html/\">Add</a></center>" + "</td>"
 					+ "<td>" + "<center><a style=\"color:blue\" href=\"https://www.w3schools.com/html/\">Delete</a></center>" + "</td>"
