@@ -4,6 +4,7 @@ import com.sap.cloud.sample.persistence.Person;
 
 public class NW implements Comparable<NW>{
 	private Person person;
+	private String id;
 	private int amount;
 	private int total;
 	private String firstName;
@@ -62,6 +63,12 @@ public class NW implements Comparable<NW>{
 			return 1;
 		}
 		return 0;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	

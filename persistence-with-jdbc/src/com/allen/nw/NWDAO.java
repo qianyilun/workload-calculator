@@ -145,6 +145,7 @@ public class NWDAO {
             ArrayList<NW> list = new ArrayList<NW>();
             while (rs.next()) {
                 NW nw = new NW();
+                nw.setId(rs.getString(1));
                 nw.setFirstName(rs.getString(2));
                 nw.setLastName(rs.getString(3));
                 nw.setAmount(rs.getInt(4));
@@ -178,7 +179,6 @@ public class NWDAO {
             pstmt.setInt(4, x);
             pstmt.setInt(5, y);
             pstmt.executeUpdate();
-            System.out.println("Allen insert successful!");
         } finally {
             if (connection != null) {
                 connection.close();

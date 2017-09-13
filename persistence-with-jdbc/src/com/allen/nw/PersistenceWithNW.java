@@ -50,7 +50,6 @@ public class PersistenceWithNW extends HttpServlet {
         response.getWriter().println("<p>Persistence with JDBC NW table!</p>");
         try {
         	displayNWTable(response);
-//            appendAddForm(response);
         } catch (Exception e) {
             response.getWriter().println("Persistence operation failed with reason: " + e.getMessage());
             LOGGER.error("Persistence operation failed", e);
@@ -62,7 +61,14 @@ public class PersistenceWithNW extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
     	
-    	doGet(request, response);
+    	try {
+			doDecrease(request, response);
+			doGet(request, response);
+		} catch (Exception e) {
+            response.getWriter().println("Persistence operation failed with reason: " + e.getMessage());
+            LOGGER.error("Persistence operation failed", e);
+        }
+    	
 //        try {
 //            doAdd(request);
 //            doGet(request, response);
@@ -82,7 +88,7 @@ public class PersistenceWithNW extends HttpServlet {
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>Id</th><th>First name</th><th>Last name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th></tr>");
+            response.getWriter().println("<tr><th>#</th><th>First name</th><th>Last name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
@@ -91,13 +97,36 @@ public class PersistenceWithNW extends HttpServlet {
                     "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
                     + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getFirstName()) + "</center></td>"
 					+ "<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getLastName()) + "</center></td>"
-					+ "<td>" + "<center><a style=\"color:blue\" href=\"https://www.w3schools.com/html/\">Add</a></center>" + "</td>"
-					+ "<td>" + "<center><a style=\"color:blue\" href=\"https://www.w3schools.com/html/\">Delete</a></center>" + "</td>"
+					+ "<td><form action=\"persistencewithnw?Id="+ nw.getId() + "\"method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></td>"
+
+// 					+ "<td><center>" + "<a style=\"color:blue\" href=\"persistencewithnw?Id=" + nw.getId() + "\">Add</a>" + "</center></td>"
+ 
+ 
+					+ "<td>" + "<center><input type=\"submit\" value=\"-\"></center>" + "</td>"
 					+ "<td height=\"30\"><center>" + nw.getAmount() + "</center></td>" // need to change to xssEncoder for getAmount()?
 					+ "<td height=\"30\"><center>" + nw.getTotal() + "</center></td>" // need to change to xssEncoder for getTotal()?
 					+ "</tr>");
         }
         response.getWriter().println("</table></p>");
+    }
+    
+    private void doDecrease(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        // Extract name of person to be added from request
+        String id = request.getParameter("Id");
+        response.getWriter().println("ababdbsdbabsbfsabdfbsadf");
+        System.out.println(id);
+        
+        
+        /*
+        String lastName = request.getParameter("LastName");
+
+        // Add person if name is not null/empty
+        if (firstName != null && lastName != null && !firstName.trim().isEmpty() && !lastName.trim().isEmpty()) {
+            Person person = new Person();
+            person.setFirstName(firstName.trim());
+            person.setLastName(lastName.trim());
+            personDAO.addPerson(person);
+        }*/
     }
 
 }
