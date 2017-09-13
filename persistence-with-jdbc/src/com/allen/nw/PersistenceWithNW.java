@@ -76,22 +76,23 @@ public class PersistenceWithNW extends HttpServlet {
         // Append table that lists all persons
         List<NW> resultList = nwDAO.selectAllEntries();
         response.getWriter().println(
-                "<p><table border=\"1\"><tr><th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
-                        + "Entries in the Database</th></tr>");
+                "<p><table width=70% border=\"1\"><tr><th colspan=\"4\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
+                        + "Entries in the Database</th>"
+                        + "<th colspan=\"2\">" + "Smart Sorted</th></tr>");
         if (resultList.isEmpty()) {
-            response.getWriter().println("<tr><td colspan=\"3\">Database is empty</td></tr>");
+            response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
             response.getWriter().println("<tr><th>First name</th><th>Last name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         for (NW nw : resultList) {
         	response.getWriter().println(
-                    "<tr><td>" + xssEncoder.encodeHTML(nw.getFirstName()) + "</td>"
-					+ "<td>" + xssEncoder.encodeHTML(nw.getLastName()) + "</td>"
+                    "<tr><td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getFirstName()) + "</center></td>"
+					+ "<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getLastName()) + "</center></td>"
 					+ "<td>" + "<center><a style=\"color:blue\" href=\"https://www.w3schools.com/html/\">Add</a></center>" + "</td>"
 					+ "<td>" + "<center><a style=\"color:blue\" href=\"https://www.w3schools.com/html/\">Delete</a></center>" + "</td>"
-					+ "<td>" + nw.getAmount() + "</td>" // need to change to xssEncoder for getAmount()?
-					+ "<td>" + nw.getTotal() + "</td>" // need to change to xssEncoder for getTotal()?
+					+ "<td height=\"30\"><center>" + nw.getAmount() + "</center></td>" // need to change to xssEncoder for getAmount()?
+					+ "<td height=\"30\"><center>" + nw.getTotal() + "</center></td>" // need to change to xssEncoder for getTotal()?
 					+ "</tr>");
         }
         response.getWriter().println("</table></p>");
