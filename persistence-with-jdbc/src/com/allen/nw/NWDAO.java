@@ -93,17 +93,15 @@ public class NWDAO {
     /**
      * Add one incident with personal information to the table.
      */
-    public void addIncidentToPerson(NW nw) throws SQLException {
+    public void addIncidentToPerson(String id, int amount) throws SQLException {
         Connection connection = dataSource.getConnection();
 
         try {
             PreparedStatement pstmt = connection
                     .prepareStatement("UPDATE NW "
                 					+ "SET AMOUNT=?"
-                					+ "WHERE FIRSTNAME=? AND LASTNAME=?");
-            pstmt.setInt(1, nw.getAmount());
-            pstmt.setString(2, nw.getPerson().getFirstName());
-            pstmt.setString(3, nw.getPerson().getLastName());
+                					+ "WHERE Id='" + id + "'");
+            pstmt.setInt(1, amount);
             pstmt.executeUpdate();
         } finally {
             if (connection != null) {
@@ -113,24 +111,29 @@ public class NWDAO {
     }
     
     /**
-     * Get the number of incident for a person in the table.
+     * Get the number of NW incident for a person in the table.
      */
-    public void getIncidentOfPerson(Person person) throws SQLException {
+    public int getNWAmount(String id) throws SQLException {
         Connection connection = dataSource.getConnection();
-
+        ResultSet rs = null;
+        
         try {
             PreparedStatement pstmt = connection
                     .prepareStatement("SELECT AMOUNT "
-                    				+ "FROM NW"
-                    				+ "WHERE FIRSTNAME =? AND LASTNAME =?");
-            pstmt.setString(1, person.getFirstName());
-            pstmt.setString(2, person.getLastName());
-            pstmt.executeUpdate();
+                    				+ "FROM NW "
+                    				+ "WHERE ID='" + id + "'");
+//            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+            	return rs.getInt(1);
+            }
         } finally {
             if (connection != null) {
                 connection.close();
             }
         }
+		return -1;
     }
 
     /**

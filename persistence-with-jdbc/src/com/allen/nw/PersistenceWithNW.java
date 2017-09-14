@@ -1,6 +1,7 @@
 package com.allen.nw;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class PersistenceWithNW extends HttpServlet {
             IOException {
     	
     	try {
-			doDecrease(request, response);
+			doIncrease(request, response);
 			doGet(request, response);
 		} catch (Exception e) {
             response.getWriter().println("Persistence operation failed with reason: " + e.getMessage());
@@ -97,11 +98,7 @@ public class PersistenceWithNW extends HttpServlet {
                     "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
                     + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getFirstName()) + "</center></td>"
 					+ "<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getLastName()) + "</center></td>"
-					+ "<td><form action=\"persistencewithnw?Id="+ nw.getId() + "\"method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></td>"
-
-// 					+ "<td><center>" + "<a style=\"color:blue\" href=\"persistencewithnw?Id=" + nw.getId() + "\">Add</a>" + "</center></td>"
- 
- 
+					+ "<td><center><form action=\"persistencewithnw?Id="+ nw.getId() + "\"method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
 					+ "<td>" + "<center><input type=\"submit\" value=\"-\"></center>" + "</td>"
 					+ "<td height=\"30\"><center>" + nw.getAmount() + "</center></td>" // need to change to xssEncoder for getAmount()?
 					+ "<td height=\"30\"><center>" + nw.getTotal() + "</center></td>" // need to change to xssEncoder for getTotal()?
@@ -110,23 +107,14 @@ public class PersistenceWithNW extends HttpServlet {
         response.getWriter().println("</table></p>");
     }
     
-    private void doDecrease(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+    private void doIncrease(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         // Extract name of person to be added from request
         String id = request.getParameter("Id");
-        response.getWriter().println("ababdbsdbabsbfsabdfbsadf");
-        System.out.println(id);
-        
-        
-        /*
-        String lastName = request.getParameter("LastName");
-
-        // Add person if name is not null/empty
-        if (firstName != null && lastName != null && !firstName.trim().isEmpty() && !lastName.trim().isEmpty()) {
-            Person person = new Person();
-            person.setFirstName(firstName.trim());
-            person.setLastName(lastName.trim());
-            personDAO.addPerson(person);
-        }*/
+        ResultSet rs = null;
+        if (id != null && !id.trim().isEmpty()) {
+        	int amount = nwDAO.getNWAmount(id) + 1;
+        	nwDAO.addIncidentToPerson(id, amount);
+        }
     }
 
 }
