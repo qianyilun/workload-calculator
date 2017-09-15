@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import javax.sql.DataSource;
 
+import com.allen.NameHashTable;
 import com.sap.cloud.sample.persistence.Person;
 
 public class NWDAO {
@@ -19,6 +20,7 @@ public class NWDAO {
 	
 	public NWDAO(DataSource newDataSource) throws SQLException {
         setDataSource(newDataSource);
+        NameHashTable.initHash();
     }
 	
 	/**
@@ -50,9 +52,9 @@ public class NWDAO {
                 /*
                  * TEST ONLY
                  */
-                setEntry("Allen", "Qian", 10, 20);
-                setEntry("Julie", "Chu", 4, 6);
-                setEntry("Min", "Li", 8, 21);
+                setEntry("Allen", 10, 20);
+                setEntry("Julie", 4, 6);
+                setEntry("Alex", 8, 21);
             }
         } finally {
             if (connection != null) {
@@ -82,9 +84,8 @@ public class NWDAO {
     private void createTable(Connection connection) throws SQLException {
         PreparedStatement pstmt = connection
                 .prepareStatement("CREATE TABLE NW "
-                        + "(ID VARCHAR(255) PRIMARY KEY NOT NULL, "
-                        + "FIRSTNAME VARCHAR (255),"
-                        + "LASTNAME VARCHAR (255),"
+                        + "(ID INT PRIMARY KEY NOT NULL, "
+                        + "NAME VARCHAR (255),"
                         + "AMOUNT INT," 
                         + "TOTAL INT)");
         pstmt.executeUpdate();
@@ -100,7 +101,7 @@ public class NWDAO {
             PreparedStatement pstmt = connection
                     .prepareStatement("UPDATE NW "
                 					+ "SET AMOUNT=?"
-                					+ "WHERE Id='" + id + "'");
+                					+ "WHERE Id=" + id + "");
             pstmt.setInt(1, amount);
             pstmt.executeUpdate();
         } finally {
@@ -113,7 +114,7 @@ public class NWDAO {
     /**
      * Get the number of NW incident for a person in the table.
      */
-    public int getNWAmount(String id) throws SQLException {
+    public int getNWAmount(int id) throws SQLException {
         Connection connection = dataSource.getConnection();
         ResultSet rs = null;
         
@@ -121,8 +122,8 @@ public class NWDAO {
             PreparedStatement pstmt = connection
                     .prepareStatement("SELECT AMOUNT "
                     				+ "FROM NW "
-                    				+ "WHERE ID='" + id + "'");
-//            pstmt.setString(1, id);
+                    				+ "WHERE ID=?");
+            pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -148,11 +149,10 @@ public class NWDAO {
             ArrayList<NW> list = new ArrayList<NW>();
             while (rs.next()) {
                 NW nw = new NW();
-                nw.setId(rs.getString(1));
-                nw.setFirstName(rs.getString(2));
-                nw.setLastName(rs.getString(3));
-                nw.setAmount(rs.getInt(4));
-                nw.setTotal(rs.getInt(5));
+                nw.setId(new Integer(rs.getInt(1)));
+                nw.setName(rs.getString(2));
+                nw.setAmount(rs.getInt(3));
+                nw.setTotal(rs.getInt(4));
                 list.add(nw);
             }
             Collections.sort(list);;
@@ -170,17 +170,19 @@ public class NWDAO {
     /**
      * Add one incident with personal information to the table.
      */
-    public void setEntry(String fname, String lname, int x, int y) throws SQLException {
+    public void setEntry(String name, int x, int y) throws SQLException {
         Connection connection = dataSource.getConnection();
 
         try {
             PreparedStatement pstmt = connection
-                    .prepareStatement("INSERT INTO NW (ID, FIRSTNAME, LASTNAME, AMOUNT, TOTAL) VALUES (?, ?, ?, ?, ?)");
-            pstmt.setString(1, UUID.randomUUID().toString());
-            pstmt.setString(2, fname);
-            pstmt.setString(3, lname);
-            pstmt.setInt(4, x);
-            pstmt.setInt(5, y);
+                    .prepareStatement("INSERT INTO NW (ID, NAME, AMOUNT, TOTAL) VALUES (?, ?, ?, ?)");
+            
+           
+            NameHashTable.initHash();
+            pstmt.setInt(1, NameHashTable.hash.get(name).intValue());
+            pstmt.setString(2, name);
+            pstmt.setInt(3, x);
+            pstmt.setInt(4, y);
             pstmt.executeUpdate();
         } finally {
             if (connection != null) {

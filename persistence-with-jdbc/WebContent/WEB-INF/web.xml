@@ -52,4 +52,14 @@
     <servlet-name>PersistenceWithNW</servlet-name>
     <url-pattern>/persistencewithnw</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PersistenceWithMS</display-name>
+    <servlet-name>PersistenceWithMS</servlet-name>
+    <servlet-class>com.allen.ms.PersistenceWithMS</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersistenceWithMS</servlet-name>
+    <url-pattern>/PersistenceWithMS</url-pattern>
+  </servlet-mapping>
 </web-app>

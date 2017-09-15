@@ -85,13 +85,13 @@ public class PersistenceWithNW extends HttpServlet {
         // Append table that lists all persons
         List<NW> resultList = nwDAO.selectAllEntries();
         response.getWriter().println(
-                "<p><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"4\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
+                "<p><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
                         + "Entries in the Database</th>"
                         + "<th colspan=\"3\">" + "Smart Sorted</th></tr>");
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>#</th><th>First name</th><th>Last name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th><th>Score</th></tr>");
+            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th><th>Score</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
@@ -99,13 +99,12 @@ public class PersistenceWithNW extends HttpServlet {
         for (NW nw : resultList) {
         	response.getWriter().println(
                     "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
-                    + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getFirstName()) + "</center></td>"
-					+ "<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getLastName()) + "</center></td>"
+                    + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getName()) + "</center></td>"
 					+ "<td><center><form action=\"persistencewithnw?Id="+ nw.getId() + "\"method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
 					+ "<td>" + "<center><input type=\"submit\" value=\"-\"></center>" + "</td>"
 					+ "<td height=\"30\"><center>" + nw.getAmount() + "</center></td>" // need to change to xssEncoder for getAmount()?
 					+ "<td height=\"30\"><center>" + nw.getTotal() + "</center></td>" // need to change to xssEncoder for getTotal()?
-					+ "<td height=\"30\"><center>" + (nw.getAmount()*0.8 + (nw.getTotal()-nw.getAmount())*0.2 + nw.getTotal()) + "</center></td>"
+					+ "<td height=\"30\"><center>" + String.format("%.3f", (nw.getAmount()*0.8 + (nw.getTotal()-nw.getAmount())*0.2 + nw.getTotal()),2) + "</center></td>"
 					+ "</tr>");
         }
         response.getWriter().println("</table></p>");
@@ -116,7 +115,8 @@ public class PersistenceWithNW extends HttpServlet {
         String id = request.getParameter("Id");
         ResultSet rs = null;
         if (id != null && !id.trim().isEmpty()) {
-        	int amount = nwDAO.getNWAmount(id) + 1;
+        	int temp = Integer.parseInt(id);
+        	int amount = nwDAO.getNWAmount(temp) + 1;
         	nwDAO.addIncidentToPerson(id, amount);
         }
     }

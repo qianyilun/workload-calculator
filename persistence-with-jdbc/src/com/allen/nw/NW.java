@@ -3,13 +3,12 @@ package com.allen.nw;
 import com.sap.cloud.sample.persistence.Person;
 
 public class NW implements Comparable<NW>{
-	private Person person;
-	private String id;
+	private int id;
 	private int amount;
 	private int total;
-	private String firstName;
-	private String lastName;
+	private String name;
 	private boolean hide; 
+	
 	
 	public int getAmount() {
 		return amount;
@@ -17,25 +16,11 @@ public class NW implements Comparable<NW>{
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public Person getPerson() {
-		return person;
+	public String getName() {
+		return name;
 	}
-	public void setPerson() {
-		person = new Person();
-		person.setFirstName(firstName.trim());
-        person.setLastName(lastName.trim());
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public int getTotal() {
 		return total;
@@ -85,10 +70,10 @@ public class NW implements Comparable<NW>{
 		}
 		return 0;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 }
