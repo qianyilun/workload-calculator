@@ -3,6 +3,8 @@ package com.allen.nw;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.Collections;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -85,14 +87,15 @@ public class PersistenceWithNW extends HttpServlet {
         response.getWriter().println(
                 "<p><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"4\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
                         + "Entries in the Database</th>"
-                        + "<th colspan=\"2\">" + "Smart Sorted</th></tr>");
+                        + "<th colspan=\"3\">" + "Smart Sorted</th></tr>");
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>#</th><th>First name</th><th>Last name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th></tr>");
+            response.getWriter().println("<tr><th>#</th><th>First name</th><th>Last name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th><th>Score</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
+        Collections.sort(resultList);
         for (NW nw : resultList) {
         	response.getWriter().println(
                     "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
@@ -102,6 +105,7 @@ public class PersistenceWithNW extends HttpServlet {
 					+ "<td>" + "<center><input type=\"submit\" value=\"-\"></center>" + "</td>"
 					+ "<td height=\"30\"><center>" + nw.getAmount() + "</center></td>" // need to change to xssEncoder for getAmount()?
 					+ "<td height=\"30\"><center>" + nw.getTotal() + "</center></td>" // need to change to xssEncoder for getTotal()?
+					+ "<td height=\"30\"><center>" + (nw.getAmount()*0.8 + (nw.getTotal()-nw.getAmount())*0.2 + nw.getTotal()) + "</center></td>"
 					+ "</tr>");
         }
         response.getWriter().println("</table></p>");

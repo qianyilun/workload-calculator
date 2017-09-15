@@ -49,7 +49,7 @@ public class NW implements Comparable<NW>{
 	public void setHide(boolean hide) {
 		this.hide = hide;
 	}
-	@Override
+	/*@Override
 	public int compareTo(NW nw) {
 		// TODO Auto-generated method stub
 		double thisScore = this.amount * 0.2 + this.total * 0.8;
@@ -69,7 +69,26 @@ public class NW implements Comparable<NW>{
 	}
 	public void setId(String id) {
 		this.id = id;
+	}*/
+	
+	@Override
+	public int compareTo(NW nw) {
+		// TODO Auto-generated method stub
+		double thisScore = this.amount * 0.80 + (this.total-this.amount)/this.amount * 0.20 + 10;
+		double nwScore = nw.amount * 0.80 + (nw.total-nw.amount)/nw.amount * 0.20 + 10;
+
+		if (nwScore > thisScore) {
+			return -1;
+		}
+		if (nwScore < thisScore) {
+			return 1;
+		}
+		return 0;
 	}
-	
-	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 }
