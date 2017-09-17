@@ -18,10 +18,8 @@ import com.allen.NameHashTable;
 
 public class TemplateDAO {
 	private DataSource dataSource;
-	private String tableName;
 	
-	public TemplateDAO(DataSource newDataSource, String tableName) throws SQLException {
-		this.tableName = tableName;
+	public TemplateDAO(DataSource newDataSource) throws SQLException {
         setDataSource(newDataSource);
         NameHashTable.initHash();
     }
@@ -41,14 +39,6 @@ public class TemplateDAO {
         checkTable();
     }
     
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) throws SQLException {
-        this.tableName = tableName;
-    }
-    
     /**
      * Check if the table already exists and create it if not.
      */
@@ -63,9 +53,9 @@ public class TemplateDAO {
                 /*
                  * TEST ONLY
                  */
-                setEntry("Allen", 10, 20);
-                setEntry("Julie", 4, 6);
-                setEntry("Alex", 8, 21);
+                setEntry("Allen", 0, 0, 10, 0, 0, 0, 0, 0, 20);
+                setEntry("Julie", 0, 0, 4, 0, 0, 0, 0, 0, 6);
+                setEntry("Alex", 0, 0, 8, 0, 0, 0, 0, 0, 21);
             }
         } finally {
             if (connection != null) {
@@ -79,10 +69,10 @@ public class TemplateDAO {
      */
     private boolean existsTable(Connection conn) throws SQLException {
         DatabaseMetaData meta = conn.getMetaData();
-        ResultSet rs = meta.getTables(null, null, tableName, null);
+        ResultSet rs = meta.getTables(null, null, "ROOT", null);
         while (rs.next()) {
             String name = rs.getString("TABLE_NAME");
-            if (name.equals(tableName)) {
+            if (name.equals("ROOT")) {
                 return true;
             }
         }
@@ -94,10 +84,17 @@ public class TemplateDAO {
      */
     private void createTable(Connection connection) throws SQLException {
         PreparedStatement pstmt = connection
-                .prepareStatement("CREATE TABLE " + tableName
+                .prepareStatement("CREATE TABLE ROOT "
                         + " (ID INT PRIMARY KEY NOT NULL, "
                         + "NAME VARCHAR (255),"
-                        + "AMOUNT INT," 
+                        + "NW INT,"
+                        + "MS INT,"
+                        + "SM INT,"
+                        + "DSM INT,"
+                        + "FC INT,"
+                        + "LOD INT,"
+                        + "PCM INT,"
+                        + "SA INT," 
                         + "TOTAL INT)");
         pstmt.executeUpdate();
     }
@@ -105,13 +102,13 @@ public class TemplateDAO {
     /**
      * Add one incident with personal information to the table.
      */
-    public void addIncidentToPerson(String id, int amount) throws SQLException {
+    public void addIncidentToPerson(String id, int amount, String component) throws SQLException {
         Connection connection = dataSource.getConnection();
 
         try {
             PreparedStatement pstmt = connection
-                    .prepareStatement("UPDATE " + tableName
-                					+ " SET AMOUNT=?"
+                    .prepareStatement("UPDATE ROOT"
+                					+ " SET " + component + "=?"
                 					+ " WHERE Id=" + id + "");
             pstmt.setInt(1, amount);
             pstmt.executeUpdate();
@@ -125,14 +122,14 @@ public class TemplateDAO {
     /**
      * Get the number of incident for a person in the table.
      */
-    public int getAmount(int id) throws SQLException {
+    public int getAmount(String component, int id) throws SQLException {
         Connection connection = dataSource.getConnection();
         ResultSet rs = null;
         
         try {
             PreparedStatement pstmt = connection
-                    .prepareStatement("SELECT AMOUNT "
-                    				+ "FROM " + tableName
+                    .prepareStatement("SELECT " + component
+                    				+ " FROM ROOT"
                     				+ " WHERE ID=?");
             pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
@@ -156,20 +153,28 @@ public class TemplateDAO {
     /**
      * Add one incident with personal information to the table.
      */
-    public void setEntry(String name, int x, int y) throws SQLException {
+    public void setEntry(String name, int nw, int ms, int sm, int dsm, int fc, int lod, 
+    		int pcm, int sa, int total) throws SQLException {
         Connection connection = dataSource.getConnection();
 
         try {
             PreparedStatement pstmt = connection
-                    .prepareStatement("INSERT INTO " + tableName
-                    		+ " (ID, NAME, AMOUNT, TOTAL) VALUES (?, ?, ?, ?)");
+                    .prepareStatement("INSERT INTO ROOT "
+                    		+ " (ID, NAME, NW, MS, SM, DSM, FC, LOD, PCM, SA, TOTAL) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
             
            
             NameHashTable.initHash();
             pstmt.setInt(1, NameHashTable.hash.get(name).intValue());
             pstmt.setString(2, name);
-            pstmt.setInt(3, x);
-            pstmt.setInt(4, y);
+            pstmt.setInt(3, nw);
+            pstmt.setInt(4, ms);
+            pstmt.setInt(5, sm);
+            pstmt.setInt(6, dsm);
+            pstmt.setInt(7, fc);
+            pstmt.setInt(8, lod);
+            pstmt.setInt(9, pcm);
+            pstmt.setInt(10, sa);
+            pstmt.setInt(11, total);
             pstmt.executeUpdate();
         } finally {
             if (connection != null) {

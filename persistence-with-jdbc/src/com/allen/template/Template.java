@@ -8,18 +8,23 @@ package com.allen.template;
 
 public class Template {
 	private int id;
-	private int amount;
+	
+	private int nw;
+	private int ms;
+	private int sm;
+	private int dsm;
+	private int fc;
+	private int lod;
+	private int pcm;
+	private int sa;
+	
 	private int total;
+	
 	private String name;
 	private boolean hide; 
 	
 	
-	public int getAmount() {
-		return amount;
-	}
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
+	
 	public String getName() {
 		return name;
 	}
@@ -45,5 +50,53 @@ public class Template {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getNw() {
+		return nw;
+	}
+	public void setNw(int nw) {
+		this.nw = nw;
+	}
+	public int getMs() {
+		return ms;
+	}
+	public void setMs(int ms) {
+		this.ms = ms;
+	}
+	public int getSm() {
+		return sm;
+	}
+	public void setSm(int sm) {
+		this.sm = sm;
+	}
+	public int getDsm() {
+		return dsm;
+	}
+	public void setDsm(int dsm) {
+		this.dsm = dsm;
+	}
+	public int getFc() {
+		return fc;
+	}
+	public void setFc(int fc) {
+		this.fc = fc;
+	}
+	public int getLod() {
+		return lod;
+	}
+	public void setLod(int lod) {
+		this.lod = lod;
+	}
+	public int getPcm() {
+		return pcm;
+	}
+	public void setPcm(int pcm) {
+		this.pcm = pcm;
+	}
+	public int getSa() {
+		return sa;
+	}
+	public void setSa(int sa) {
+		this.sa = sa;
 	}
 }

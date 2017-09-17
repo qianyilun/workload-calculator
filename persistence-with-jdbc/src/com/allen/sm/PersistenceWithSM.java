@@ -22,7 +22,8 @@ import com.sap.security.core.server.csi.XSSEncoder;
  */
 public class PersistenceWithSM extends PersistenceWithTemplate {
 	private static final long serialVersionUID = 1L;
-	private static final String linkName = "persistencewithsm";
+	private static final String LINKNAME = "persistencewithsm";
+	private static final String COMPONENT = "SM";
 	private SMDAO smDAO; 
        
     /**
@@ -39,7 +40,7 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         try {
             InitialContext ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/DefaultDB");
-            smDAO = new SMDAO(ds,"SM");
+            smDAO = new SMDAO(ds);
         } catch (SQLException e) {
             throw new ServletException(e);
         } catch (NamingException e) {
@@ -67,11 +68,11 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         	response.getWriter().println(
                     "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
                     + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(sm.getName()) + "</center></td>"
-					+ "<td><center><form action=\"" + linkName + "?Id="+ sm.getId() + "\"method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
+					+ "<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "\"method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
 					+ "<td>" + "<center><input type=\"submit\" value=\"-\"></center>" + "</td>"
-					+ "<td height=\"30\"><center>" + sm.getAmount() + "</center></td>" // need to change to xssEncoder for getAmount()?
+					+ "<td height=\"30\"><center>" + sm.getSm() + "</center></td>" // need to change to xssEncoder for getAmount()?
 					+ "<td height=\"30\"><center>" + sm.getTotal() + "</center></td>" // need to change to xssEncoder for getTotal()?
-					+ "<td height=\"30\"><center>" + String.format("%.3f", (sm.getAmount()*0.8 + (sm.getTotal()-sm.getAmount())/sm.getAmount()*0.2 + 10),4) + "</center></td>"
+					+ "<td height=\"30\"><center>" + String.format("%.3f", (sm.getSm()*0.8 + (sm.getTotal()-sm.getSm())/sm.getSm()*0.2 + 10),4) + "</center></td>"
 					+ "</tr>");
         }
         response.getWriter().println("</table></center></p>");
@@ -82,9 +83,9 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         // Extract name of person to be added from request
         String id = request.getParameter("Id");
         if (id != null && !id.trim().isEmpty()) {
-        	int temp = Integer.parseInt(id);
-        	int amount = smDAO.getAmount(temp) + 1;
-        	smDAO.addIncidentToPerson(id, amount);
+        	int ID = Integer.parseInt(id);
+        	int amount = smDAO.getAmount(COMPONENT, ID) + 1;
+        	smDAO.addIncidentToPerson(id, amount, COMPONENT);
         }
     }
 

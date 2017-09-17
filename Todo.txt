@@ -4,3 +4,4 @@
 3. joke
 4. delete
 5. reset
+6. ignore
