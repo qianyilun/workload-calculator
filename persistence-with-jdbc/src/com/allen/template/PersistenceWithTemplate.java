@@ -27,7 +27,7 @@ import com.sap.security.core.server.csi.XSSEncoder;
 /**
  * Servlet implementation class PersistenceWithMS
  */
-public abstract class PersistenceWithTemplate <T> extends HttpServlet {
+public abstract class PersistenceWithTemplate extends HttpServlet {
 	 private static final long serialVersionUID = 1L;
 	 private static final Logger LOGGER = LoggerFactory.getLogger(PersistenceWithJDBCServlet.class);
 	 private String tableName;
