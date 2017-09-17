@@ -82,4 +82,54 @@
     <servlet-name>PersistenceWithSM</servlet-name>
     <url-pattern>/persistencewithsm</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PersistenceWithDSM</display-name>
+    <servlet-name>PersistenceWithDSM</servlet-name>
+    <servlet-class>com.allen.dsm.PersistenceWithDSM</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersistenceWithDSM</servlet-name>
+    <url-pattern>/persistencewithdsm</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PersistenceWithFC_EA_IC_FIM</display-name>
+    <servlet-name>PersistenceWithFC_EA_IC_FIM</servlet-name>
+    <servlet-class>com.allen.fc_ea_ic_fim.PersistenceWithFC_EA_IC_FIM</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersistenceWithFC_EA_IC_FIM</servlet-name>
+    <url-pattern>/persistencewithfc_ea_ic_fim</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PersistencWithLOD</display-name>
+    <servlet-name>PersistencWithLOD</servlet-name>
+    <servlet-class>com.allen.lod.PersistencWithLOD</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersistencWithLOD</servlet-name>
+    <url-pattern>/persistencwithlod</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PersistenceWithPCM</display-name>
+    <servlet-name>PersistenceWithPCM</servlet-name>
+    <servlet-class>com.allen.pcm.PersistenceWithPCM</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersistenceWithPCM</servlet-name>
+    <url-pattern>/persistencewithpcm</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PersistenceWithSA</display-name>
+    <servlet-name>PersistenceWithSA</servlet-name>
+    <servlet-class>com.allen.sa.PersistenceWithSA</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersistenceWithSA</servlet-name>
+    <url-pattern>/persistencewithsa</url-pattern>
+  </servlet-mapping>
 </web-app>
