@@ -104,13 +104,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>PersistencWithLOD</display-name>
-    <servlet-name>PersistencWithLOD</servlet-name>
-    <servlet-class>com.allen.lod.PersistencWithLOD</servlet-class>
+    <display-name>PersistenceWithLOD</display-name>
+    <servlet-name>PersistenceWithLOD</servlet-name>
+    <servlet-class>com.allen.lod.PersistenceWithLOD</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PersistencWithLOD</servlet-name>
-    <url-pattern>/persistencwithlod</url-pattern>
+    <servlet-name>PersistenceWithLOD</servlet-name>
+    <url-pattern>/persistencewithlod</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

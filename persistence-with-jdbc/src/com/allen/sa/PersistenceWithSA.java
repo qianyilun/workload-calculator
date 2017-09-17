@@ -56,7 +56,7 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         response.getWriter().println(
                 "<p><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
                         + "Entries in the Database</th>"
-                        + "<th colspan=\"3\">" + "SAart Sorted</th></tr>");
+                        + "<th colspan=\"3\">" + "Smart Sorted</th></tr>");
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
