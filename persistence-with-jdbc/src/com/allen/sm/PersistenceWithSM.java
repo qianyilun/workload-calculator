@@ -24,6 +24,7 @@ import com.sap.security.core.server.csi.XSSEncoder;
  */
 public class PersistenceWithSM extends PersistenceWithTemplate {
 	private static final long serialVersionUID = 1L;
+	private static final String linkName = "persistencewithsm";
 	private SMDAO smDAO; 
        
     /**
@@ -68,7 +69,7 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         	response.getWriter().println(
                     "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
                     + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(sm.getName()) + "</center></td>"
-					+ "<td><center><form action=\"persistencewithms?Id="+ sm.getId() + "\"method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
+					+ "<td><center><form action=\"" + linkName + "?Id="+ sm.getId() + "\"method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
 					+ "<td>" + "<center><input type=\"submit\" value=\"-\"></center>" + "</td>"
 					+ "<td height=\"30\"><center>" + sm.getAmount() + "</center></td>" // need to change to xssEncoder for getAmount()?
 					+ "<td height=\"30\"><center>" + sm.getTotal() + "</center></td>" // need to change to xssEncoder for getTotal()?
