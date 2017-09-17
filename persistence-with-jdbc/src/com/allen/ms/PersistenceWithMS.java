@@ -73,7 +73,7 @@ public class PersistenceWithMS extends PersistenceWithTemplate {
 					+ "<td>" + "<center><input type=\"submit\" value=\"-\"></center>" + "</td>"
 					+ "<td height=\"30\"><center>" + ms.getAmount() + "</center></td>" // need to change to xssEncoder for getAmount()?
 					+ "<td height=\"30\"><center>" + ms.getTotal() + "</center></td>" // need to change to xssEncoder for getTotal()?
-					+ "<td height=\"30\"><center>" + String.format("%.3f", (ms.getAmount()*0.8 + (ms.getTotal()-ms.getAmount())*0.2 + ms.getTotal()),2) + "</center></td>"
+					+ "<td height=\"30\"><center>" + String.format("%.3f", (ms.getAmount()*0.8 + (ms.getTotal()-ms.getAmount())/ms.getAmount()*0.2 + 10),3) + "</center></td>"
 					+ "</tr>");
         }
         response.getWriter().println("</table></p>");

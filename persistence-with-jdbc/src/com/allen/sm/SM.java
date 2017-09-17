@@ -1,6 +1,5 @@
 package com.allen.sm;
 
-import com.allen.ms.MS;
 import com.allen.template.Template;
 
 public class SM extends Template implements Comparable<SM>{
