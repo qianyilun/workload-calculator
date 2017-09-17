@@ -52,7 +52,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         // Append table that lists all persons
         List<DSM> resultList = dsmDAO.selectAllEntries();
         response.getWriter().println(
-                "<p><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
+                "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
                         + "Entries in the Database</th>"
                         + "<th colspan=\"3\">" + "Smart Sorted</th></tr>");
         if (resultList.isEmpty()) {
@@ -74,7 +74,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
 					+ "<td height=\"30\"><center>" + String.format("%.3f", (dsm.getAmount()*0.8 + (dsm.getTotal()-dsm.getAmount())/dsm.getAmount()*0.2 + 10),4) + "</center></td>"
 					+ "</tr>");
         }
-        response.getWriter().println("</table></p>");
+        response.getWriter().println("</table></center></p>");
     }
     
     @Override

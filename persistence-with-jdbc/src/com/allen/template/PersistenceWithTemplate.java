@@ -2,6 +2,7 @@ package com.allen.template;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +29,7 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
     /** {@inheritDoc} */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().println("<p>Persistence with JDBC table!</p>");
+    	response.getWriter().println("<h1><center>" + greetings() + "</center></h1>");
         try {
         	displayTable(response);
         } catch (Exception e) {
@@ -37,7 +38,25 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
         }
     }   
     
-    /** {@inheritDoc} */
+    // https://stackoverflow.com/questions/27589701/showing-morning-afternoon-evening-night-message-based-on-time-in-java
+    private String greetings() {
+		// TODO Auto-generated method stub
+    	Calendar c = Calendar.getInstance();
+    	int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+    	if(timeOfDay >= 0 && timeOfDay < 12){
+    	    return "Good Morning!";        
+    	}else if(timeOfDay >= 12 && timeOfDay < 16){
+    	    return "Good Afternoon!";
+    	}else if(timeOfDay >= 16 && timeOfDay < 21){
+    	    return "Good Evening!";
+    	}else if(timeOfDay >= 21 && timeOfDay < 24){
+    	    return "Good Night!";
+    	}
+    	return "unknow time";
+	}
+
+	/** {@inheritDoc} */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {

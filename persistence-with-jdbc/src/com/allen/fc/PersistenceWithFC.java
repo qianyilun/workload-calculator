@@ -57,7 +57,7 @@ public class PersistenceWithFC extends PersistenceWithTemplate {
         // Append table that lists all persons
         List<FC> resultList = fc.selectAllEntries();
         response.getWriter().println(
-                "<p><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
+                "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
                         + "Entries in the Database</th>"
                         + "<th colspan=\"3\">" + "Smart Sorted</th></tr>");
         if (resultList.isEmpty()) {
@@ -79,7 +79,7 @@ public class PersistenceWithFC extends PersistenceWithTemplate {
 					+ "<td height=\"30\"><center>" + String.format("%.3f", (fc.getAmount()*0.8 + (fc.getTotal()-fc.getAmount())/fc.getAmount()*0.2 + 10),4) + "</center></td>"
 					+ "</tr>");
         }
-        response.getWriter().println("</table></p>");
+        response.getWriter().println("</table></center></p>");
     }
     
     @Override
