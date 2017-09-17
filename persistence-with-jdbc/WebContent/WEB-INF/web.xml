@@ -94,13 +94,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>PersistenceWithFC_EA_IC_FIM</display-name>
-    <servlet-name>PersistenceWithFC_EA_IC_FIM</servlet-name>
-    <servlet-class>com.allen.fc_ea_ic_fim.PersistenceWithFC_EA_IC_FIM</servlet-class>
+    <display-name>PersistenceWithFC</display-name>
+    <servlet-name>PersistenceWithFC</servlet-name>
+    <servlet-class>com.allen.fc.PersistenceWithFC</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PersistenceWithFC_EA_IC_FIM</servlet-name>
-    <url-pattern>/persistencewithfc_ea_ic_fim</url-pattern>
+    <servlet-name>PersistenceWithFC</servlet-name>
+    <url-pattern>/persistencewithfc</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
