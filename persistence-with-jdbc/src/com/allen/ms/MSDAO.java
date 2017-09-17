@@ -12,6 +12,12 @@ import javax.sql.DataSource;
 
 import com.allen.template.TemplateDAO;
 
+/**
+ * Data access object encapsulating all JDBC operations for MS.
+ * 
+ * @author Allen Qian
+ */
+
 public class MSDAO extends TemplateDAO{
 	public MSDAO(DataSource newDataSource, String tableName) throws SQLException {
 		super(newDataSource, tableName);

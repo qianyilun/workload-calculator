@@ -8,9 +8,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/*
+ * @author Allen Qian
+ */
+
 import javax.sql.DataSource;
 
 import com.allen.template.TemplateDAO;
+
+/**
+ * Data access object encapsulating all JDBC operations for LOD-ANA-PL.
+ * 
+ * @author Allen Qian
+ */
 
 public class LODDAO extends TemplateDAO{
 	public LODDAO(DataSource newDataSource, String tableName) throws SQLException {

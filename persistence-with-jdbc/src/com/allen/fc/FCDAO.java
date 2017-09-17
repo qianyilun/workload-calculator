@@ -12,6 +12,12 @@ import javax.sql.DataSource;
 
 import com.allen.template.TemplateDAO;
 
+/**
+ * Data access object encapsulating all JDBC operations for FC/EA/IC/FIM
+ * 
+ * @author Allen Qian
+ */
+
 public class FCDAO extends TemplateDAO{
 	public FCDAO(DataSource newDataSource, String tableName) throws SQLException {
 		super(newDataSource, tableName);

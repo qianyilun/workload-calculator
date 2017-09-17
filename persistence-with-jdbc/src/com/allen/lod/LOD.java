@@ -2,6 +2,12 @@ package com.allen.lod;
 
 import com.allen.template.Template;
 
+/**
+ * Class holding information on a LOD-ANA-PL.
+ * 
+ * @author Allen Qian
+ */
+
 public class LOD extends Template implements Comparable<LOD>{
 
 	@Override

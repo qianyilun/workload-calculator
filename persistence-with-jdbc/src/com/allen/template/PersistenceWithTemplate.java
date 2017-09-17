@@ -1,28 +1,17 @@
 package com.allen.template;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.util.Collections;
-import java.util.List;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.sap.cloud.sample.persistence.PersistenceWithJDBCServlet;
-import com.sap.cloud.sample.persistence.Person;
-import com.sap.cloud.sample.persistence.PersonDAO;
-import com.sap.security.core.server.csi.IXSSEncoder;
-import com.sap.security.core.server.csi.XSSEncoder;
 
 /**
  * Servlet implementation class PersistenceWithMS

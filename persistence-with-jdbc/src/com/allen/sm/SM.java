@@ -2,6 +2,12 @@ package com.allen.sm;
 
 import com.allen.template.Template;
 
+/**
+ * Class holding information on a SM.
+ * 
+ * @author Allen Qian
+ */
+
 public class SM extends Template implements Comparable<SM>{
 
 	@Override

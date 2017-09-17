@@ -2,6 +2,12 @@ package com.allen.sa;
 
 import com.allen.template.Template;
 
+/**
+ * Class holding information on a SA.
+ * 
+ * @author Allen Qian
+ */
+
 public class SA extends Template implements Comparable<SA>{
 
 	@Override

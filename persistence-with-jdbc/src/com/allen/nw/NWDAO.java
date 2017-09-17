@@ -12,6 +12,12 @@ import javax.sql.DataSource;
 
 import com.allen.template.TemplateDAO;
 
+/**
+ * Data access object encapsulating all JDBC operations for NW.
+ * 
+ * @author Allen Qian
+ */
+
 public class NWDAO extends TemplateDAO{
 	public NWDAO(DataSource newDataSource, String tableName) throws SQLException {
 		super(newDataSource, tableName);

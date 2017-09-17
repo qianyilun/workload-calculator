@@ -1,5 +1,10 @@
 package com.allen.template;
 
+/**
+ * Class holding information on a template.
+ * 
+ * @author Allen Qian
+ */
 
 public class Template {
 	private int id;

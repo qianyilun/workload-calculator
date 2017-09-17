@@ -12,6 +12,11 @@ import javax.sql.DataSource;
 
 import com.allen.template.TemplateDAO;
 
+/**
+ * Data access object encapsulating all JDBC operations for SM.
+ * 
+ * @author Allen Qian
+ */
 public class SMDAO extends TemplateDAO{
 	public SMDAO(DataSource newDataSource, String tableName) throws SQLException {
 		super(newDataSource, tableName);

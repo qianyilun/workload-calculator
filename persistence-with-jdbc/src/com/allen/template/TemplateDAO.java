@@ -5,15 +5,16 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
 
 import javax.sql.DataSource;
 
 import com.allen.NameHashTable;
-import com.sap.cloud.sample.persistence.Person;
+
+/**
+ * Data access object encapsulating all JDBC operations for Template.
+ * 
+ * @author Allen Qian
+ */
 
 public class TemplateDAO {
 	private DataSource dataSource;

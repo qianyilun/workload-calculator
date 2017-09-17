@@ -1,7 +1,6 @@
 package com.allen.pcm;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import com.allen.template.PersistenceWithTemplate;
-import com.allen.template.TemplateDAO;
 import com.sap.security.core.server.csi.IXSSEncoder;
 import com.sap.security.core.server.csi.XSSEncoder;
 

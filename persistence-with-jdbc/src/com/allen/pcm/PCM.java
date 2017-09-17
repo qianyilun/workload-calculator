@@ -2,6 +2,12 @@ package com.allen.pcm;
 
 import com.allen.template.Template;
 
+/**
+ * Class holding information on a PCM.
+ * 
+ * @author Allen Qian
+ */
+
 public class PCM extends Template implements Comparable<PCM>{
 
 	@Override

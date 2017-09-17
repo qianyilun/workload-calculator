@@ -2,6 +2,12 @@ package com.allen.ms;
 
 import com.allen.template.Template;
 
+/**
+ * Class holding information on a MS.
+ * 
+ * @author Allen Qian
+ */
+
 public class MS extends Template implements Comparable<MS>{
 
 	@Override

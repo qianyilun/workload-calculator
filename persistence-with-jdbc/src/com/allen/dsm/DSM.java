@@ -2,6 +2,12 @@ package com.allen.dsm;
 
 import com.allen.template.Template;
 
+/**
+ * Class holding information on a DSM.
+ * 
+ * @author Allen Qian
+ */
+
 public class DSM extends Template implements Comparable<DSM>{
 
 	@Override

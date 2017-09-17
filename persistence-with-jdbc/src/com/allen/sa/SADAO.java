@@ -12,6 +12,12 @@ import javax.sql.DataSource;
 
 import com.allen.template.TemplateDAO;
 
+/**
+ * Data access object encapsulating all JDBC operations for SA.
+ * 
+ * @author Allen Qian
+ */
+
 public class SADAO extends TemplateDAO{
 	public SADAO(DataSource newDataSource, String tableName) throws SQLException {
 		super(newDataSource, tableName);

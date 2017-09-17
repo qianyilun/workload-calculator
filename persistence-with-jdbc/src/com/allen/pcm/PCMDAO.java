@@ -12,6 +12,12 @@ import javax.sql.DataSource;
 
 import com.allen.template.TemplateDAO;
 
+/**
+ * Data access object encapsulating all JDBC operations for PCM.
+ * 
+ * @author Allen Qian
+ */
+
 public class PCMDAO extends TemplateDAO{
 	public PCMDAO(DataSource newDataSource, String tableName) throws SQLException {
 		super(newDataSource, tableName);

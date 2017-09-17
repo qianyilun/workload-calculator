@@ -2,6 +2,12 @@ package com.allen.nw;
 
 import com.allen.template.Template;
 
+/**
+ * Class holding information on a NW.
+ * 
+ * @author Allen Qian
+ */
+
 public class NW extends Template implements Comparable<NW>{
 
 	@Override

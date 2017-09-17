@@ -2,6 +2,12 @@ package com.allen.fc;
 
 import com.allen.template.Template;
 
+/**
+ * Class holding information on a FC/EA/IC/FIM.
+ * 
+ * @author Allen Qian
+ */
+
 public class FC extends Template implements Comparable<FC>{
 
 	@Override
