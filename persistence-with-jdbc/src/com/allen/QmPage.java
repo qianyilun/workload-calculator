@@ -1,6 +1,9 @@
 package com.allen;
 
 import javax.servlet.http.*;
+
+import com.allen.nw.PersistenceWithNW;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -89,18 +92,10 @@ public class QmPage extends HttpServlet {
     // table contains "NW" only    
     private void drawLowerTable(PrintWriter pw) {
         try {
-            String path = "C:\\Users\\I860745\\Documents\\Projects\\QueueManager_Web\\persistence-with-jdbc\\WebContent\\WEB-INF\\resourcelowerTable.html";
-            String html = loadhtml(path);
-            pw.println(html);       
+            
         } catch (Exception e) {
             //TODO: handle exception
             e.printStackTrace();
         }
-    }
-
-    private static String loadhtml(String path)
-        throws IOException  {
-        byte[] encoded = Files.readAllBytes(Paths.get(path));
-        return new String(encoded, Charset.defaultCharset());
     }
 }

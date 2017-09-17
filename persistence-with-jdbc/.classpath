@@ -27,7 +27,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/I860745/Documents/Projects/neo-java-web-sdk-3.36.8/api/slf4j-api-1.7.19.jar">
+	<classpathentry exported="true" kind="lib" path="C:/Users/I860745/Documents/Projects/neo-java-web-sdk-3.36.8/api/slf4j-api-1.7.19.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="https://www.slf4j.org/apidocs/"/>
 		</attributes>

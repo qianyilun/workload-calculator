@@ -1,6 +1,7 @@
 package com.allen.nw;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
@@ -16,6 +17,9 @@ import javax.sql.DataSource;
 import com.allen.template.PersistenceWithTemplate;
 import com.sap.security.core.server.csi.IXSSEncoder;
 import com.sap.security.core.server.csi.XSSEncoder;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Servlet implementation class PersistencyWithNW
@@ -48,9 +52,77 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
     }
     
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	try {
+	    	PrintWriter pw = response.getWriter();
+	
+	        // suppose a NORMAL user
+	        pw.println("<html>");
+	        pw.println("<head><title> Welcome back! </title></head>");
+	        pw.println("<body>");
+	        pw.println("<center>");
+	        pw.println("<h1> Welcome back, Queue Manager </h1>");
+	
+	        drawUpperTable(pw);
+        	displayTable(response);
+        	
+        	pw.println("</center>");            
+            pw.println("<body>");
+            pw.println("</html>");                         
+        } catch (Exception e) {
+            response.getWriter().println("Persistence operation failed with reason: " + e.getMessage());
+        }
+    }   
+    
+    private void drawUpperTable(PrintWriter pw) {
+		// TODO Auto-generated method stub
+
+        try {
+            String upperTable = "" + 
+            		"<style>" + 
+            		"table {" + 
+            		"    font-family: arial, sans-serif;" + 
+            		"    border-collapse: collapse;" + 
+            		"    width: 95%;" + 
+            		"}" + 
+            		"" + 
+            		"td, th {" + 
+            		"    border: 1px solid #dddddd;" + 
+            		"    text-align: left;" + 
+            		"    padding: 8px;" + 
+            		"}" + 
+            		"" + 
+            		"</style>" + 
+            		" " + 
+            		"<h2>Other Components</h2>" + 
+            		"<table>" + 
+            		"  <tr>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithms\" >MS		  </a></center></td>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithsa\">SA		  </a></center></td>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithsm\">SM		  </a></center></td>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithfc\">FC/EA/IC/FIM</a></center></td>" + 
+            		"  </tr>" + 
+            		"  <tr>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithdsm\">DSM</a></center></td>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithpcm\">PCM</a></center></td>" + 
+            		"    <td><center>--></center></td>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithlod\">LOD-ANA-PL</a></center></td>" + 
+            		"  </tr>" + 
+            		"</table>" + 
+            		"";
+            
+            pw.println(upperTable);       
+        } catch (Exception e) {
+            //TODO: handle exception
+            e.printStackTrace();
+        }
+    }
+
+	@Override
     protected void displayTable(HttpServletResponse response) throws SQLException, IOException {
         // Append table that lists all persons
         List<NW> resultList = nwDAO.selectAllEntries();
+        response.getWriter().println("<br><br><h2>NW Component</h2>");
         response.getWriter().println(
                 "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
                         + "Entries in the Database</th>"
