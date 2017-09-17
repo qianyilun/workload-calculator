@@ -46,9 +46,40 @@ public class QmPage extends HttpServlet {
     // table contains other Components except "NW"
     private void drawUpperTable(PrintWriter pw) {
         try {
-            String path = "C:\\Users\\I860745\\Documents\\Projects\\QueueManager_Web\\persistence-with-jdbc\\WebContent\\WEB-INF\\resource\\upperTable.html";
-            String html = loadhtml(path);
-            pw.println(html);       
+            String upperTable = "" + 
+            		"<style>" + 
+            		"table {" + 
+            		"    font-family: arial, sans-serif;" + 
+            		"    border-collapse: collapse;" + 
+            		"    width: 95%;" + 
+            		"}" + 
+            		"" + 
+            		"td, th {" + 
+            		"    border: 1px solid #dddddd;" + 
+            		"    text-align: left;" + 
+            		"    padding: 8px;" + 
+            		"}" + 
+            		"" + 
+            		"</style>" + 
+            		" " + 
+            		"<h2>Other Components</h2>" + 
+            		"<table>" + 
+            		"  <tr>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithms\" >MS		  </a></center></td>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithsa\">SA		  </a></center></td>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithsm\">SM		  </a></center></td>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithfc\">FC/EA/IC/FIM</a></center></td>" + 
+            		"  </tr>" + 
+            		"  <tr>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithdsm\">DSM</a></center></td>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithpcm\">PCM</a></center></td>" + 
+            		"    <td><center>--></center></td>" + 
+            		"    <td><center><a style=\"color:blue\" href=\"persistencewithlod\">LOD-ANA-PL</a></center></td>" + 
+            		"  </tr>" + 
+            		"</table>" + 
+            		"";
+            
+            pw.println(upperTable);       
         } catch (Exception e) {
             //TODO: handle exception
             e.printStackTrace();
