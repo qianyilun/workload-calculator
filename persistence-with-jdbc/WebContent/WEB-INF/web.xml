@@ -60,6 +60,26 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PersistenceWithMS</servlet-name>
-    <url-pattern>/PersistenceWithMS</url-pattern>
+    <url-pattern>/persistencewithms</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PersistenceWithTemplate</display-name>
+    <servlet-name>PersistenceWithTemplate</servlet-name>
+    <servlet-class>com.allen.template.PersistenceWithTemplate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersistenceWithTemplate</servlet-name>
+    <url-pattern>/PersistenceWithTemplate</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PersistenceWithSM</display-name>
+    <servlet-name>PersistenceWithSM</servlet-name>
+    <servlet-class>com.allen.sm.PersistenceWithSM</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersistenceWithSM</servlet-name>
+    <url-pattern>/persistencewithsm</url-pattern>
   </servlet-mapping>
 </web-app>

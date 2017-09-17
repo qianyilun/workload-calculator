@@ -1,4 +1,4 @@
-package com.allen.ms;
+package com.allen.template;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -15,10 +15,12 @@ import javax.sql.DataSource;
 import com.allen.NameHashTable;
 import com.sap.cloud.sample.persistence.Person;
 
-public class MSDAO {
+public class TemplateDAO {
 	private DataSource dataSource;
+	private String tableName;
 	
-	public MSDAO(DataSource newDataSource) throws SQLException {
+	public TemplateDAO(DataSource newDataSource, String tableName) throws SQLException {
+		this.tableName = tableName;
         setDataSource(newDataSource);
         NameHashTable.initHash();
     }
@@ -38,8 +40,16 @@ public class MSDAO {
         checkTable();
     }
     
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) throws SQLException {
+        this.tableName = tableName;
+    }
+    
     /**
-     * Check if the MS table already exists and create it if not.
+     * Check if the table already exists and create it if not.
      */
     private void checkTable() throws SQLException {
         Connection connection = null;
@@ -64,14 +74,14 @@ public class MSDAO {
     }
     
     /**
-     * Check if the MS table already exists.
+     * Check if the table already exists.
      */
     private boolean existsTable(Connection conn) throws SQLException {
         DatabaseMetaData meta = conn.getMetaData();
-        ResultSet rs = meta.getTables(null, null, "MS", null);
+        ResultSet rs = meta.getTables(null, null, tableName, null);
         while (rs.next()) {
             String name = rs.getString("TABLE_NAME");
-            if (name.equals("MS")) {
+            if (name.equals(tableName)) {
                 return true;
             }
         }
@@ -79,12 +89,12 @@ public class MSDAO {
     }
 
     /**
-     * Create the MS table.
+     * Create the table.
      */
     private void createTable(Connection connection) throws SQLException {
         PreparedStatement pstmt = connection
-                .prepareStatement("CREATE TABLE MS "
-                        + "(ID INT PRIMARY KEY NOT NULL, "
+                .prepareStatement("CREATE TABLE " + tableName
+                        + " (ID INT PRIMARY KEY NOT NULL, "
                         + "NAME VARCHAR (255),"
                         + "AMOUNT INT," 
                         + "TOTAL INT)");
@@ -99,9 +109,9 @@ public class MSDAO {
 
         try {
             PreparedStatement pstmt = connection
-                    .prepareStatement("UPDATE MS "
-                					+ "SET AMOUNT=?"
-                					+ "WHERE Id=" + id + "");
+                    .prepareStatement("UPDATE " + tableName
+                					+ " SET AMOUNT=?"
+                					+ " WHERE Id=" + id + "");
             pstmt.setInt(1, amount);
             pstmt.executeUpdate();
         } finally {
@@ -112,17 +122,17 @@ public class MSDAO {
     }
     
     /**
-     * Get the number of MS incident for a person in the table.
+     * Get the number of incident for a person in the table.
      */
-    public int getMSAmount(int id) throws SQLException {
+    public int getAmount(int id) throws SQLException {
         Connection connection = dataSource.getConnection();
         ResultSet rs = null;
         
         try {
             PreparedStatement pstmt = connection
                     .prepareStatement("SELECT AMOUNT "
-                    				+ "FROM MS "
-                    				+ "WHERE ID=?");
+                    				+ "FROM " + tableName
+                    				+ " WHERE ID=?");
             pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
 
@@ -137,32 +147,7 @@ public class MSDAO {
 		return -1;
     }
 
-    /**
-     * Get all entries from the table.
-     */
-    public List<MS> selectAllEntries() throws SQLException {
-        Connection connection = dataSource.getConnection();
-        try {
-            PreparedStatement pstmt = connection
-                    .prepareStatement("SELECT * FROM MS");
-            ResultSet rs = pstmt.executeQuery();
-            ArrayList<MS> list = new ArrayList<MS>();
-            while (rs.next()) {
-                MS ms = new MS();
-                ms.setId(new Integer(rs.getInt(1)));
-                ms.setName(rs.getString(2));
-                ms.setAmount(rs.getInt(3));
-                ms.setTotal(rs.getInt(4));
-                list.add(ms);
-            }
-            Collections.sort(list);;
-            return list;
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
-        }
-    }
+    
     
     /*
      * Test purpose ONLY
@@ -175,7 +160,8 @@ public class MSDAO {
 
         try {
             PreparedStatement pstmt = connection
-                    .prepareStatement("INSERT INTO MS (ID, NAME, AMOUNT, TOTAL) VALUES (?, ?, ?, ?)");
+                    .prepareStatement("INSERT INTO " + tableName
+                    		+ " (ID, NAME, AMOUNT, TOTAL) VALUES (?, ?, ?, ?)");
             
            
             NameHashTable.initHash();

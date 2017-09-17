@@ -1,8 +1,7 @@
-package com.allen.ms;
+package com.allen.template;
 
-import com.sap.cloud.sample.persistence.Person;
 
-public class MS implements Comparable<MS>{
+public class Template {
 	private int id;
 	private int amount;
 	private int total;
@@ -35,20 +34,7 @@ public class MS implements Comparable<MS>{
 		this.hide = hide;
 	}
 	
-	@Override
-	public int compareTo(MS ms) {
-		// TODO Auto-generated method stub
-		double thisScore = this.amount * 0.80 + (this.total-this.amount)/this.amount * 0.20 + 10;
-		double nwScore = ms.amount * 0.80 + (ms.total-ms.amount)/ms.amount * 0.20 + 10;
-
-		if (nwScore > thisScore) {
-			return -1;
-		}
-		if (nwScore < thisScore) {
-			return 1;
-		}
-		return 0;
-	}
+	
 	public int getId() {
 		return id;
 	}
