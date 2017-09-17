@@ -1,0 +1,4 @@
+1. session
+2. cookie
+3. joke
+4. delete
