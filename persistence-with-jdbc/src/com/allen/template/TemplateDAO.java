@@ -5,6 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.sql.DataSource;
 
@@ -97,6 +98,17 @@ public class TemplateDAO {
                         + "SA INT," 
                         + "TOTAL INT)");
         pstmt.executeUpdate();
+        
+        pstmt.close();
+        
+        
+        Statement sm = connection.createStatement();
+        sm.executeQuery("CREATE VIEW VW_ROOT AS " + 
+		        		"SELECT ID, " + 
+		        		"  NW + MS + SM + DSM + FC + LOD + PCM + SA  AS SUM"
+		        		+ " FROM ROOT");	
+        
+        sm.close();
     }
     
     /**
@@ -120,7 +132,7 @@ public class TemplateDAO {
     }
     
     /**
-     * Get the number of incident for a person in the table.
+     * Get the number of incident for a specific component in the table.
      */
     public int getAmount(String component, int id) throws SQLException {
         Connection connection = dataSource.getConnection();
@@ -144,8 +156,33 @@ public class TemplateDAO {
         }
 		return -1;
     }
-
     
+    /**
+     * Get the total number (SUM) of incident for a specific person in the table.
+     */
+    public int getSum(int id) throws SQLException {
+        Connection connection = dataSource.getConnection();
+        ResultSet rs = null;
+        
+        try {
+            PreparedStatement pstmt = connection
+                    .prepareStatement("SELECT SUM"
+                    				+ " FROM VW_ROOT"
+                    				+ " WHERE ID=?");
+            pstmt.setInt(1, id);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+            	return rs.getInt(1);
+            }
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+		return -1;
+    }
+
     
     /*
      * Test purpose ONLY

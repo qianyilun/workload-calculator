@@ -71,8 +71,8 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 					+ "<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "\"method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
 					+ "<td>" + "<center><input type=\"submit\" value=\"-\"></center>" + "</td>"
 					+ "<td height=\"30\"><center>" + sm.getSm() + "</center></td>" // need to change to xssEncoder for getAmount()?
-					+ "<td height=\"30\"><center>" + sm.getTotal() + "</center></td>" // need to change to xssEncoder for getTotal()?
-					+ "<td height=\"30\"><center>" + String.format("%.3f", (sm.getSm()*0.8 + (sm.getTotal()-sm.getSm())/sm.getSm()*0.2 + 10),4) + "</center></td>"
+					+ "<td height=\"30\"><center>" + sm.getSum() + "</center></td>" // need to change to xssEncoder for getSum()?
+					+ "<td height=\"30\"><center>" + String.format("%.3f", (sm.getSm()*0.8 + (sm.getSum()-sm.getSm())/sm.getSm()*0.2 + 10),4) + "</center></td>"
 					+ "</tr>");
         }
         response.getWriter().println("</table></center></p>");

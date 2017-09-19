@@ -38,6 +38,10 @@ public class SMDAO extends TemplateDAO{
             while (rs.next()) {
                 SM sm = new SM();
                 sm.setId(new Integer(rs.getInt(1)));
+                
+                sm.setSum(super.getSum(sm.getId()));
+                
+                
                 sm.setName(rs.getString(2));
                 sm.setSm(rs.getInt(3));
                 sm.setTotal(rs.getInt(4));

@@ -20,6 +20,8 @@ public class Template {
 	
 	private int total;
 	
+	private int sum;
+	
 	private String name;
 	private boolean hide; 
 	
@@ -98,5 +100,11 @@ public class Template {
 	}
 	public void setSa(int sa) {
 		this.sa = sa;
+	}
+	public int getSum() {
+		return sum;
+	}
+	public void setSum(int sum) {
+		this.sum = sum;
 	}
 }
