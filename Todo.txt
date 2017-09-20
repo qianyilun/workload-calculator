@@ -1,7 +1,5 @@
-﻿0. 合并总table
-1. session
+﻿1. session
 2. cookie
 3. joke
-4. delete
-5. reset
 6. ignore
+7. implement all components
