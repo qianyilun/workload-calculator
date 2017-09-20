@@ -103,10 +103,10 @@ public class TemplateDAO {
         
         
         Statement sm = connection.createStatement();
-        sm.executeQuery("CREATE VIEW VW_ROOT AS " + 
-		        		"SELECT ID, " + 
-		        		"  NW + MS + SM + DSM + FC + LOD + PCM + SA  AS SUM"
-		        		+ " FROM ROOT");	
+//        sm.executeQuery("CREATE VIEW VW_ROOT AS " + 
+//		        		"SELECT ID, " + 
+//		        		"  NW + MS + SM + DSM + FC + LOD + PCM + SA  AS SUM"
+//		        		+ " FROM ROOT");	
         
         sm.close();
     }

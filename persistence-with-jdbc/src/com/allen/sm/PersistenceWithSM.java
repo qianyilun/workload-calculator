@@ -63,19 +63,20 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
-        Collections.sort(resultList);
+        Collections.sort(resultList); 
         for (SM sm : resultList) {
         	response.getWriter().println(
                     "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
                     + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(sm.getName()) + "</center></td>"
-					+ "<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "\"method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
+					+ "<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operator=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
 					+ "<td>" + "<center><input type=\"submit\" value=\"-\"></center>" + "</td>"
 					+ "<td height=\"30\"><center>" + sm.getSm() + "</center></td>" // need to change to xssEncoder for getAmount()?
-					+ "<td height=\"30\"><center>" + sm.getSum() + "</center></td>" // need to change to xssEncoder for getSum()?
-					+ "<td height=\"30\"><center>" + String.format("%.3f", (sm.getSm()*0.8 + (sm.getSum()-sm.getSm())/sm.getSm()*0.2 + 10),4) + "</center></td>"
+//					+ "<td height=\"30\"><center>" + sm.getSum() + "</center></td>" // need to change to xssEncoder for getSum()?
+//					+ "<td height=\"30\"><center>" + String.format("%.3f", (sm.getSm()*0.8 + (sm.getSum()-sm.getSm())/sm.getSm()*0.2 + 10),4) + "</center></td>"
 					+ "</tr>");
         }
         response.getWriter().println("</table></center></p>");
+        response.getWriter().println();
     }
     
     @Override
@@ -88,5 +89,17 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         	smDAO.addIncidentToPerson(id, amount, COMPONENT);
         }
     }
+
+	@Override
+	protected void doDecrease(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void doReset(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

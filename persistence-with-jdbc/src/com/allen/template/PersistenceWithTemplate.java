@@ -61,8 +61,16 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
     	
+    	String operation = request.getParameter("operator");
+    	
     	try {
-			doIncrease(request, response);
+    		if (operation.toLowerCase().equals("reset")) {
+    			doReset(request, response);
+    		} else if (operation.toLowerCase().equals("add")){
+    			doIncrease(request, response);
+    		} else if (operation.toLowerCase().equals("decrease")) {
+    			doDecrease(request, response);
+    		}
 			doGet(request, response);
 		} catch (Exception e) {
             response.getWriter().println("Persistence operation failed with reason: " + e.getMessage());
@@ -70,7 +78,11 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
         }
     }
     
-    protected abstract void displayTable(HttpServletResponse response) throws SQLException, IOException;
+    protected abstract void doDecrease(HttpServletRequest request, HttpServletResponse response);
+
+	protected abstract void doReset(HttpServletRequest request, HttpServletResponse response);
+
+	protected abstract void displayTable(HttpServletResponse response) throws SQLException, IOException;
     
     protected abstract void doIncrease(HttpServletRequest request, HttpServletResponse response) 
     		throws ServletException, IOException, SQLException;

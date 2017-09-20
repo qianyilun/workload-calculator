@@ -39,7 +39,7 @@ public class SMDAO extends TemplateDAO{
                 SM sm = new SM();
                 sm.setId(new Integer(rs.getInt(1)));
                 
-                sm.setSum(super.getSum(sm.getId()));
+//                sm.setSum(super.getSum(sm.getId()));
                 
                 
                 sm.setName(rs.getString(2));
