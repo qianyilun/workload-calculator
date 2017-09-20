@@ -68,15 +68,17 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         	response.getWriter().println(
                     "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
                     + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(sm.getName()) + "</center></td>"
-					+ "<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operator=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
-					+ "<td>" + "<center><input type=\"submit\" value=\"-\"></center>" + "</td>"
+					+ "<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
+					+ "<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>" 
 					+ "<td height=\"30\"><center>" + sm.getSm() + "</center></td>" // need to change to xssEncoder for getAmount()?
 //					+ "<td height=\"30\"><center>" + sm.getSum() + "</center></td>" // need to change to xssEncoder for getSum()?
 //					+ "<td height=\"30\"><center>" + String.format("%.3f", (sm.getSm()*0.8 + (sm.getSum()-sm.getSm())/sm.getSm()*0.2 + 10),4) + "</center></td>"
 					+ "</tr>");
         }
         response.getWriter().println("</table></center></p>");
-        response.getWriter().println();
+        
+        // Add reset buttom
+        response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
     }
     
     @Override
@@ -86,20 +88,25 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         if (id != null && !id.trim().isEmpty()) {
         	int ID = Integer.parseInt(id);
         	int amount = smDAO.getAmount(COMPONENT, ID) + 1;
-        	smDAO.addIncidentToPerson(id, amount, COMPONENT);
+        	smDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
     }
 
 	@Override
-	protected void doDecrease(HttpServletRequest request, HttpServletResponse response) {
+	protected void doDecrease(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		// TODO Auto-generated method stub
-		
+		String id = request.getParameter("Id");
+        if (id != null && !id.trim().isEmpty()) {
+        	int ID = Integer.parseInt(id);
+        	int amount = smDAO.getAmount(COMPONENT, ID) - 1;
+        	smDAO.updateIncidentToPerson(id, amount, COMPONENT);
+        }
 	}
 
 	@Override
-	protected void doReset(HttpServletRequest request, HttpServletResponse response) {
+	protected void doReset(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		// TODO Auto-generated method stub
-		
+		smDAO.resetIncidentToAll(COMPONENT);
 	}
 
 }

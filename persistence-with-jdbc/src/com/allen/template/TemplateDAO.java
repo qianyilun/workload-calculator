@@ -112,9 +112,9 @@ public class TemplateDAO {
     }
     
     /**
-     * Add one incident with personal information to the table.
+     * Update incident with personal information to the table.
      */
-    public void addIncidentToPerson(String id, int amount, String component) throws SQLException {
+    public void updateIncidentToPerson(String id, int amount, String component) throws SQLException {
         Connection connection = dataSource.getConnection();
 
         try {
@@ -123,6 +123,25 @@ public class TemplateDAO {
                 					+ " SET " + component + "=?"
                 					+ " WHERE Id=" + id + "");
             pstmt.setInt(1, amount);
+            pstmt.executeUpdate();
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
+    
+    /**
+     * Reset incident to all persons to the table.
+     */
+    public void resetIncidentToAll(String component) throws SQLException {
+        Connection connection = dataSource.getConnection();
+
+        try {
+            PreparedStatement pstmt = connection
+                    .prepareStatement("UPDATE ROOT"
+                					+ " SET " + component + "=0"
+                					+ " WHERE 1=1");
             pstmt.executeUpdate();
         } finally {
             if (connection != null) {

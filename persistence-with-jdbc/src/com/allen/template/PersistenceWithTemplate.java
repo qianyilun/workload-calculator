@@ -61,7 +61,7 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
     	
-    	String operation = request.getParameter("operator");
+    	String operation = request.getParameter("operation");
     	
     	try {
     		if (operation.toLowerCase().equals("reset")) {
@@ -78,9 +78,9 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
         }
     }
     
-    protected abstract void doDecrease(HttpServletRequest request, HttpServletResponse response);
+    protected abstract void doDecrease(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException;
 
-	protected abstract void doReset(HttpServletRequest request, HttpServletResponse response);
+	protected abstract void doReset(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException;
 
 	protected abstract void displayTable(HttpServletResponse response) throws SQLException, IOException;
     
