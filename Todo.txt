@@ -3,3 +3,5 @@
 3. joke
 6. ignore
 7. implement all components
+8. username/password --> db
+9. hardcode进人名

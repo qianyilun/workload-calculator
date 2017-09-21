@@ -54,9 +54,9 @@ public class TemplateDAO {
                 /*
                  * TEST ONLY
                  */
-                setEntry("Allen", 0, 0, 10, 0, 0, 0, 0, 0, 20);
-                setEntry("Julie", 0, 0, 4, 0, 0, 0, 0, 0, 6);
-                setEntry("Alex", 0, 0, 8, 0, 0, 0, 0, 0, 21);
+                setEntry("Allen", 1, 0, 10, 0, 0, 0, 0, 0, 20);
+                setEntry("Julie", 1, 0, 4, 0, 0, 0, 0, 0, 6);
+                setEntry("Alex", 1, 0, 8, 0, 0, 0, 0, 0, 21);
             }
         } finally {
             if (connection != null) {

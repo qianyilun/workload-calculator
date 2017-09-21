@@ -67,8 +67,10 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         Collections.sort(resultList); 
         for (SM sm : resultList) {
         	// Get score
-        	double score = sm.getSm() * 0.80 + (sm.getTotal()-sm.getSm())/sm.getSm() * 0.20 + 10;
-        	
+        	double score = 0;
+        	if (sm.getNw() != 0) {
+        		score = sm.getNw() * 0.80 + (sm.getTotal()-sm.getNw())/sm.getNw() * 0.20 + 10;
+        	}
         	response.getWriter().println(
                     "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
                     + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(sm.getName()) + "</center></td>"
@@ -81,7 +83,7 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 					+ "<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will not be shown today!')\" value=\"ignore\" />" + "</form></center></td>" 
 					);
         	
-        	if (sm.getSm() > FIXEDVALUE) {
+        	if (sm.getSm() >= FIXEDVALUE) {
         		response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>" 
 					);
         	} 
