@@ -70,6 +70,10 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
     			doIncrease(request, response);
     		} else if (operation.toLowerCase().equals("decrease")) {
     			doDecrease(request, response);
+    		} else if (operation.toLowerCase().equals("ignore")) {
+    			doIgnore(request, response);
+    		} else if (operation.toLowerCase().equals("undo")) {
+    			doUndo(request, response);
     		}
 			doGet(request, response);
 		} catch (Exception e) {
@@ -78,7 +82,11 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
         }
     }
     
-    protected abstract void doDecrease(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException;
+    protected abstract void doUndo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException;
+
+    protected abstract void doIgnore(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException;
+
+	protected abstract void doDecrease(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException;
 
 	protected abstract void doReset(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException;
 

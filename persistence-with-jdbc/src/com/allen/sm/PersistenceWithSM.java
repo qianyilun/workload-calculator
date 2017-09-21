@@ -24,6 +24,7 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 	private static final long serialVersionUID = 1L;
 	private static final String LINKNAME = "persistencewithsm";
 	private static final String COMPONENT = "SM";
+	private static final int FIXEDVALUE = 9999;
 	private SMDAO smDAO; 
        
     /**
@@ -65,6 +66,9 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         int index = 1;
         Collections.sort(resultList); 
         for (SM sm : resultList) {
+        	// Get score
+        	double score = sm.getSm() * 0.80 + (sm.getTotal()-sm.getSm())/sm.getSm() * 0.20 + 10;
+        	
         	response.getWriter().println(
                     "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
                     + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(sm.getName()) + "</center></td>"
@@ -72,8 +76,16 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 					+ "<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>" 
 					+ "<td height=\"30\"><center>" + sm.getSm() + "</center></td>" // need to change to xssEncoder for getAmount()?
 //					+ "<td height=\"30\"><center>" + sm.getSum() + "</center></td>" // need to change to xssEncoder for getSum()?
-//					+ "<td height=\"30\"><center>" + String.format("%.3f", (sm.getSm()*0.8 + (sm.getSum()-sm.getSm())/sm.getSm()*0.2 + 10),4) + "</center></td>"
-					+ "</tr>");
+//					+ "<td height=\"30\"><center>" + score + "</center></td>"
+						
+					+ "<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will not be shown today!')\" value=\"ignore\" />" + "</form></center></td>" 
+					);
+        	
+        	if (sm.getSm() > FIXEDVALUE) {
+        		response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>" 
+					);
+        	} 
+			response.getWriter().println("</tr>");
         }
         response.getWriter().println("</table></center></p>");
         
@@ -107,6 +119,30 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 	protected void doReset(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		// TODO Auto-generated method stub
 		smDAO.resetIncidentToAll(COMPONENT);
+	}
+
+	@Override
+	protected void doUndo(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		// TODO Auto-generated method stub
+		String id = request.getParameter("Id");
+        if (id != null && !id.trim().isEmpty()) {
+        	int ID = Integer.parseInt(id);
+        	int amount = smDAO.getAmount(COMPONENT, ID) - FIXEDVALUE;
+        	smDAO.updateIncidentToPerson(id, amount, COMPONENT);
+        }
+	}
+
+	@Override
+	protected void doIgnore(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		// TODO Auto-generated method stub
+		String id = request.getParameter("Id");
+        if (id != null && !id.trim().isEmpty()) {
+        	int ID = Integer.parseInt(id);
+        	int amount = smDAO.getAmount(COMPONENT, ID) + FIXEDVALUE;
+        	smDAO.updateIncidentToPerson(id, amount, COMPONENT);
+        }
 	}
 
 }
