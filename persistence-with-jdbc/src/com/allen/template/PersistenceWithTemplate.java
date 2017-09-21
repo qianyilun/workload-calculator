@@ -29,7 +29,8 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
     /** {@inheritDoc} */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	response.getWriter().println("<h1><center>" + greetings() + "</center></h1>");
+    	response.getWriter().println("<title>QM Web</title>");
+    	response.getWriter().println("<body><h1><center>" + greetings() + "</center></h1>");
         try {
         	displayTable(response);
         } catch (Exception e) {
