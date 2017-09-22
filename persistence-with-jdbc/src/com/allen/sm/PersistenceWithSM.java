@@ -91,7 +91,7 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         }
         response.getWriter().println("</table></center></p></body>");
         
-        // Add reset buttom
+        // Add reset button
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
     }
     

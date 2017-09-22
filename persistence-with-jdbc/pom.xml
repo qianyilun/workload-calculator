@@ -30,6 +30,7 @@
             <scope>system</scope>
             <systemPath>${basedir}/WebContent/WEB-INF/lib/com.sap.security.core.server.csi_1.0.1.jar</systemPath>
         </dependency>
+        
     </dependencies>
 
     <properties>

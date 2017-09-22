@@ -14,7 +14,7 @@ public class Login extends HttpServlet {
         try {
             PrintWriter pw = res.getWriter();
             pw.println("<html>");
-            pw.println("<body>");
+            pw.println("<body><center>");
             pw.println("<h1> SAP QueueManager Login </h1>");
             pw.println("<form action=check method=post>");
 
@@ -27,7 +27,7 @@ public class Login extends HttpServlet {
             pw.println("<input type=submit value=Submit>");
             
             pw.println("</form>");                        
-            pw.println("</body>");            
+            pw.println("</center></body>");            
             pw.println("</html>");
 
         } catch (Exception e) {
