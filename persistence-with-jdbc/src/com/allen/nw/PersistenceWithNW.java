@@ -81,7 +81,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
     	String url = request.getQueryString();
     	if (url == null) {
     		nwDAO.addTimes();
-    	} else if (!(url.contains("ignore") ||url.contains("undo"))) {
+    	} else if (!(url.contains("ignore") ||url.contains("undo") || url.contains("delete"))) {
     		nwDAO.addTimes();
     	}
 	}
