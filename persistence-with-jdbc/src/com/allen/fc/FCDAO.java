@@ -13,14 +13,14 @@ import javax.sql.DataSource;
 import com.allen.template.TemplateDAO;
 
 /**
- * Data access object encapsulating all JDBC operations for FC/EA/IC/FIM
+ * Data access object encapsulating all JDBC operations for FC.
  * 
  * @author Allen Qian
  */
-
 public class FCDAO extends TemplateDAO{
-	public FCDAO(DataSource newDataSource, String tableName) throws SQLException {
-		super(newDataSource, tableName);
+	private static final String COMPONENT = "FC";
+	public FCDAO(DataSource newDataSource) throws SQLException {
+		super(newDataSource);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -31,16 +31,21 @@ public class FCDAO extends TemplateDAO{
         Connection connection = super.getDataSource().getConnection();
         try {
             PreparedStatement pstmt = connection
-                    .prepareStatement("SELECT * FROM FC");
+                    .prepareStatement("SELECT ID, NAME," + COMPONENT + ",TOTAL "
+                    				+ "FROM ROOT");
             ResultSet rs = pstmt.executeQuery();
             ArrayList<FC> list = new ArrayList<FC>();
             while (rs.next()) {
-                FC fc_ea_ic_fim = new FC();
-                fc_ea_ic_fim.setId(new Integer(rs.getInt(1)));
-                fc_ea_ic_fim.setName(rs.getString(2));
-                fc_ea_ic_fim.setAmount(rs.getInt(3));
-                fc_ea_ic_fim.setTotal(rs.getInt(4));
-                list.add(fc_ea_ic_fim);
+                FC fc = new FC();
+                fc.setId(new Integer(rs.getInt(1)));
+                
+//                fc.setSum(super.getSum(FC.getId()));
+                
+                
+                fc.setName(rs.getString(2));
+                fc.setFc(rs.getInt(3));
+                fc.setTotal(rs.getInt(4));
+                list.add(fc);
             }
             Collections.sort(list);;
             return list;
