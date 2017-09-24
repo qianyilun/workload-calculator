@@ -2,6 +2,7 @@ package com.allen.pcm;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +23,9 @@ import com.sap.security.core.server.csi.XSSEncoder;
  */
 public class PersistenceWithPCM extends PersistenceWithTemplate {
 	private static final long serialVersionUID = 1L;
-	private static final String linkName = "persistencewithpcm";
+	private static final String LINKNAME = "persistencewithpcm";
+	private static final String COMPONENT = "PCM";
+	private static final int FIXEDVALUE = 9999;
 	private PCMDAO pcmDAO; 
        
     /**
@@ -39,7 +42,7 @@ public class PersistenceWithPCM extends PersistenceWithTemplate {
         try {
             InitialContext ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/DefaultDB");
-            pcmDAO = new PCMDAO(ds,"PCM");
+            pcmDAO = new PCMDAO(ds);
         } catch (SQLException e) {
             throw new ServletException(e);
         } catch (NamingException e) {
@@ -62,19 +65,47 @@ public class PersistenceWithPCM extends PersistenceWithTemplate {
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
-        Collections.sort(resultList);
-        for (PCM pcm : resultList) {
-        	response.getWriter().println(
-                    "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
-                    + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(pcm.getName()) + "</center></td>"
-					+ "<td><center><form action=\"" + linkName + "?Id="+ pcm.getId() + "\"method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
-					+ "<td>" + "<center><input type=\"submit\" value=\"-\"></center>" + "</td>"
-					+ "<td height=\"30\"><center>" + pcm.getAmount() + "</center></td>" // need to change to xssEncoder for getAmount()?
-					+ "<td height=\"30\"><center>" + pcm.getTotal() + "</center></td>" // need to change to xssEncoder for getTotal()?
-					+ "<td height=\"30\"><center>" + String.format("%.3f", (pcm.getAmount()*0.8 + (pcm.getTotal()-pcm.getAmount())/pcm.getAmount()*0.2 + 10),4) + "</center></td>"
-					+ "</tr>");
+        Collections.sort(resultList); 
+     
+        // Add reset button
+        response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
+
+        for (PCM pcm : resultList) {        	
+        	// Get score
+        	String score = "0";
+        	if (pcm.getPcm() != 0) {
+        		double express = pcm.getPcm() * 0.80 + (pcm.getTotal()-pcm.getPcm())/pcm.getPcm() * 0.20 + 10;
+        		DecimalFormat df = new DecimalFormat("#.###");
+        		score = df.format(express); 	
+        	}
+        	
+        	if (pcm.getPcm() < FIXEDVALUE) {
+        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
+	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(pcm.getName()) + "</center></td>");
+	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ pcm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
+	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ pcm.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
+	        	response.getWriter().println("<td height=\"30\"><center>" + pcm.getPcm() + "</center></td>");
+	//			response.getWriter().println("<td height=\"30\"><center>" + pcm.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
+	        	response.getWriter().println("<td height=\"30\"><center>" + score + "</center></td>");
+	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ pcm.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be in vacation and you can undo anytime!')\" value=\"vacation\" />" + "</form></center></td>");
+        	} else {
+	        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
+	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(pcm.getName() + ": VACATION") + "</center></td>");
+	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
+	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
+	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+				response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+				response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ pcm.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>");
+        	}
+        	
+			response.getWriter().println("</tr>");
         }
-        response.getWriter().println("</table></center></p>");
+        response.getWriter().println("</table></center></p></body>");
+        
+             
+        // Home button
+        response.getWriter().println("<p><center><form action=\"" + "persistencewithnw" + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
+        
     }
     
     @Override
@@ -82,10 +113,51 @@ public class PersistenceWithPCM extends PersistenceWithTemplate {
         // Extract name of person to be added from request
         String id = request.getParameter("Id");
         if (id != null && !id.trim().isEmpty()) {
-        	int temp = Integer.parseInt(id);
-        	int amount = pcmDAO.getAmount(temp) + 1;
-        	pcmDAO.addIncidentToPerson(id, amount);
+        	int ID = Integer.parseInt(id);
+        	int amount = pcmDAO.getAmount(COMPONENT, ID) + 1;
+        	pcmDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
     }
+
+	@Override
+	protected void doDecrease(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+		// TODO Auto-generated method stub
+		String id = request.getParameter("Id");
+        if (id != null && !id.trim().isEmpty()) {
+        	int ID = Integer.parseInt(id);
+        	int amount = pcmDAO.getAmount(COMPONENT, ID) - 1;
+        	pcmDAO.updateIncidentToPerson(id, amount, COMPONENT);
+        }
+	}
+
+	@Override
+	protected void doReset(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+		// TODO Auto-generated method stub
+		pcmDAO.resetIncidentToAll(COMPONENT);
+	}
+
+	@Override
+	protected void doUndo(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		// TODO Auto-generated method stub
+		String id = request.getParameter("Id");
+        if (id != null && !id.trim().isEmpty()) {
+        	int ID = Integer.parseInt(id);
+        	int amount = pcmDAO.getAmount(COMPONENT, ID) - FIXEDVALUE;
+        	pcmDAO.updateIncidentToPerson(id, amount, COMPONENT);
+        }
+	}
+
+	@Override
+	protected void doIgnore(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		// TODO Auto-generated method stub
+		String id = request.getParameter("Id");
+        if (id != null && !id.trim().isEmpty()) {
+        	int ID = Integer.parseInt(id);
+        	int amount = pcmDAO.getAmount(COMPONENT, ID) + FIXEDVALUE;
+        	pcmDAO.updateIncidentToPerson(id, amount, COMPONENT);
+        }
+	}
 
 }
