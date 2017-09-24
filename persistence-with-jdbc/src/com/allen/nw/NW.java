@@ -9,7 +9,6 @@ import com.allen.template.Template;
  */
 
 public class NW extends Template implements Comparable<NW>{
-
 	@Override
 	public int compareTo(NW nw) {
 		// TODO Auto-generated method stub
@@ -28,5 +27,7 @@ public class NW extends Template implements Comparable<NW>{
 		}
 		return 0;
 	}
+
+
 	
 }

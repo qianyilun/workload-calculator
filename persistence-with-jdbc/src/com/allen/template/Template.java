@@ -26,7 +26,6 @@ public class Template {
 	private boolean hide; 
 	
 	
-	
 	public String getName() {
 		return name;
 	}

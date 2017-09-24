@@ -40,7 +40,53 @@ public class TemplateDAO {
         checkTable();
     }
     
-    /**
+//    private void checkCounter() throws SQLException {
+//		// TODO Auto-generated method stub
+//    	Connection connection = null;
+//
+//        try {
+//            connection = dataSource.getConnection();
+//            if (!existsCounter(connection)) {
+//                createCounter(connection);
+//                
+//                /*
+//                 * TEST ONLY
+//                 */
+//                setCounter(0);
+//            }
+//        } finally {
+//            if (connection != null) {
+//                connection.close();
+//            }
+//        }
+//	}
+//
+//	private void createCounter(Connection connection) throws SQLException {
+//		// TODO Auto-generated method stub
+//		PreparedStatement pstmt = connection
+//                .prepareStatement("CREATE TABLE COUNTER "
+//                        + " (TIMES INT PRIMARY KEY NOT NULL)");
+//        pstmt.executeUpdate();
+//        
+//        pstmt.close();
+//        
+//  
+//	}
+//
+//	private boolean existsCounter(Connection connection) throws SQLException {
+//		// TODO Auto-generated method stub
+//		DatabaseMetaData meta = connection.getMetaData();
+//        ResultSet rs = meta.getTables(null, null, "ROOT", null);
+//        while (rs.next()) {
+//            String name = rs.getString("TABLE_NAME");
+//            if (name.equals("ROOT")) {
+//                return true;
+//            }
+//        }
+//        return false;
+//	}
+
+	/**
      * Check if the table already exists and create it if not.
      */
     private void checkTable() throws SQLException {
