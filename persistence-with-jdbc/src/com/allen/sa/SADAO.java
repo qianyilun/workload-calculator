@@ -17,10 +17,10 @@ import com.allen.template.TemplateDAO;
  * 
  * @author Allen Qian
  */
-
 public class SADAO extends TemplateDAO{
-	public SADAO(DataSource newDataSource, String tableName) throws SQLException {
-		super(newDataSource, tableName);
+	private static final String COMPONENT = "SA";
+	public SADAO(DataSource newDataSource) throws SQLException {
+		super(newDataSource);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -31,14 +31,19 @@ public class SADAO extends TemplateDAO{
         Connection connection = super.getDataSource().getConnection();
         try {
             PreparedStatement pstmt = connection
-                    .prepareStatement("SELECT * FROM SA");
+                    .prepareStatement("SELECT ID, NAME," + COMPONENT + ",TOTAL "
+                    				+ "FROM ROOT");
             ResultSet rs = pstmt.executeQuery();
             ArrayList<SA> list = new ArrayList<SA>();
             while (rs.next()) {
                 SA sa = new SA();
                 sa.setId(new Integer(rs.getInt(1)));
+                
+//                sa.setSum(super.getSum(sa.getId()));
+                
+                
                 sa.setName(rs.getString(2));
-                sa.setAmount(rs.getInt(3));
+                sa.setSa(rs.getInt(3));
                 sa.setTotal(rs.getInt(4));
                 list.add(sa);
             }
@@ -49,5 +54,5 @@ public class SADAO extends TemplateDAO{
                 connection.close();
             }
         }
-    }
+    }	
 }

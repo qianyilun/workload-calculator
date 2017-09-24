@@ -13,8 +13,12 @@ public class SA extends Template implements Comparable<SA>{
 	@Override
 	public int compareTo(SA sa) {
 		// TODO Auto-generated method stub
-		double thisScore = super.getAmount() * 0.80 + (super.getTotal()-super.getAmount())/super.getAmount() * 0.20 + 10;
-		double saScore = sa.getAmount() * 0.80 + (sa.getTotal()-sa.getAmount())/sa.getAmount() * 0.20 + 10;
+		
+		if (super.getSa()==(double)0 || sa.getSa()==(double)0) {
+			return 0;
+		}
+		double thisScore = super.getSa() * 0.80 + (super.getTotal()-super.getSa())/super.getSa() * 0.20 + 10;
+		double saScore = sa.getSa() * 0.80 + (sa.getTotal()-sa.getSa())/sa.getSa() * 0.20 + 10;
 
 		if (saScore > thisScore) {
 			return -1;
@@ -24,5 +28,4 @@ public class SA extends Template implements Comparable<SA>{
 		}
 		return 0;
 	}
-	
 }

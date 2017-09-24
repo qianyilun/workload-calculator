@@ -54,7 +54,5 @@ public class DSMDAO extends TemplateDAO{
                 connection.close();
             }
         }
-    }
-
-	
+    }	
 }
