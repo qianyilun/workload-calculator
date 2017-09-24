@@ -8,23 +8,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/*
- * @author Allen Qian
- */
-
 import javax.sql.DataSource;
 
 import com.allen.template.TemplateDAO;
 
 /**
- * Data access object encapsulating all JDBC operations for LOD-ANA-PL.
+ * Data access object encapsulating all JDBC operations for LOD.
  * 
  * @author Allen Qian
  */
-
 public class LODDAO extends TemplateDAO{
-	public LODDAO(DataSource newDataSource, String tableName) throws SQLException {
-		super(newDataSource, tableName);
+	private static final String COMPONENT = "LOD";
+	public LODDAO(DataSource newDataSource) throws SQLException {
+		super(newDataSource);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -35,14 +31,19 @@ public class LODDAO extends TemplateDAO{
         Connection connection = super.getDataSource().getConnection();
         try {
             PreparedStatement pstmt = connection
-                    .prepareStatement("SELECT * FROM LOD");
+                    .prepareStatement("SELECT ID, NAME," + COMPONENT + ",TOTAL "
+                    				+ "FROM ROOT");
             ResultSet rs = pstmt.executeQuery();
             ArrayList<LOD> list = new ArrayList<LOD>();
             while (rs.next()) {
                 LOD lod = new LOD();
                 lod.setId(new Integer(rs.getInt(1)));
+                
+//                lod.setSum(super.getSum(LOD.getId()));
+                
+                
                 lod.setName(rs.getString(2));
-                lod.setAmount(rs.getInt(3));
+                lod.setLod(rs.getInt(3));
                 lod.setTotal(rs.getInt(4));
                 list.add(lod);
             }
@@ -54,4 +55,6 @@ public class LODDAO extends TemplateDAO{
             }
         }
     }
+
+	
 }

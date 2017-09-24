@@ -2,6 +2,7 @@ package com.allen.lod;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,12 +20,12 @@ import com.sap.security.core.server.csi.XSSEncoder;
 
 /**
  * Servlet implementation class PersistencyWithLOD
- * 
- * @author Allen Qian
  */
 public class PersistenceWithLOD extends PersistenceWithTemplate {
 	private static final long serialVersionUID = 1L;
-	private static final String linkName = "persistencewithlod";
+	private static final String LINKNAME = "persistencewithlod";
+	private static final String COMPONENT = "LOD";
+	private static final int FIXEDVALUE = 9999;
 	private LODDAO lodDAO; 
        
     /**
@@ -41,7 +42,7 @@ public class PersistenceWithLOD extends PersistenceWithTemplate {
         try {
             InitialContext ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/DefaultDB");
-            lodDAO = new LODDAO(ds,"LOD");
+            lodDAO = new LODDAO(ds);
         } catch (SQLException e) {
             throw new ServletException(e);
         } catch (NamingException e) {
@@ -64,19 +65,47 @@ public class PersistenceWithLOD extends PersistenceWithTemplate {
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
-        Collections.sort(resultList);
-        for (LOD lod : resultList) {
-        	response.getWriter().println(
-                    "<tr><td height=\"30\"><center>" + (index++) + "</center></td>"
-                    + "<td height=\"30\"><center>" + xssEncoder.encodeHTML(lod.getName()) + "</center></td>"
-					+ "<td><center><form action=\"" + linkName + "?Id="+ lod.getId() + "\"method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>" 
-					+ "<td>" + "<center><input type=\"submit\" value=\"-\"></center>" + "</td>"
-					+ "<td height=\"30\"><center>" + lod.getAmount() + "</center></td>" // need to change to xssEncoder for getAmount()?
-					+ "<td height=\"30\"><center>" + lod.getTotal() + "</center></td>" // need to change to xssEncoder for getTotal()?
-					+ "<td height=\"30\"><center>" + String.format("%.3f", (lod.getAmount()*0.8 + (lod.getTotal()-lod.getAmount())/lod.getAmount()*0.2 + 10),4) + "</center></td>"
-					+ "</tr>");
+        Collections.sort(resultList); 
+     
+        // Add reset button
+        response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
+
+        for (LOD lod : resultList) {        	
+        	// Get score
+        	String score = "0";
+        	if (lod.getLod() != 0) {
+        		double express = lod.getLod() * 0.80 + (lod.getTotal()-lod.getLod())/lod.getLod() * 0.20 + 10;
+        		DecimalFormat df = new DecimalFormat("#.###");
+        		score = df.format(express); 	
+        	}
+        	
+        	if (lod.getLod() < FIXEDVALUE) {
+        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
+	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(lod.getName()) + "</center></td>");
+	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
+	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
+	        	response.getWriter().println("<td height=\"30\"><center>" + lod.getLod() + "</center></td>");
+	//			response.getWriter().println("<td height=\"30\"><center>" + lod.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
+	        	response.getWriter().println("<td height=\"30\"><center>" + score + "</center></td>");
+	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be in vacation and you can undo anytime!')\" value=\"vacation\" />" + "</form></center></td>");
+        	} else {
+	        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
+	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(lod.getName() + ": VACATION") + "</center></td>");
+	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
+	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
+	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+				response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+				response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>");
+        	}
+        	
+			response.getWriter().println("</tr>");
         }
-        response.getWriter().println("</table></center></p>");
+        response.getWriter().println("</table></center></p></body>");
+        
+             
+        // Home button
+        response.getWriter().println("<p><center><form action=\"" + "persistencewithnw" + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
+        
     }
     
     @Override
@@ -84,10 +113,51 @@ public class PersistenceWithLOD extends PersistenceWithTemplate {
         // Extract name of person to be added from request
         String id = request.getParameter("Id");
         if (id != null && !id.trim().isEmpty()) {
-        	int temp = Integer.parseInt(id);
-        	int amount = lodDAO.getAmount(temp) + 1;
-        	lodDAO.addIncidentToPerson(id, amount);
+        	int ID = Integer.parseInt(id);
+        	int amount = lodDAO.getAmount(COMPONENT, ID) + 1;
+        	lodDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
     }
+
+	@Override
+	protected void doDecrease(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+		// TODO Auto-generated method stub
+		String id = request.getParameter("Id");
+        if (id != null && !id.trim().isEmpty()) {
+        	int ID = Integer.parseInt(id);
+        	int amount = lodDAO.getAmount(COMPONENT, ID) - 1;
+        	lodDAO.updateIncidentToPerson(id, amount, COMPONENT);
+        }
+	}
+
+	@Override
+	protected void doReset(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+		// TODO Auto-generated method stub
+		lodDAO.resetIncidentToAll(COMPONENT);
+	}
+
+	@Override
+	protected void doUndo(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		// TODO Auto-generated method stub
+		String id = request.getParameter("Id");
+        if (id != null && !id.trim().isEmpty()) {
+        	int ID = Integer.parseInt(id);
+        	int amount = lodDAO.getAmount(COMPONENT, ID) - FIXEDVALUE;
+        	lodDAO.updateIncidentToPerson(id, amount, COMPONENT);
+        }
+	}
+
+	@Override
+	protected void doIgnore(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		// TODO Auto-generated method stub
+		String id = request.getParameter("Id");
+        if (id != null && !id.trim().isEmpty()) {
+        	int ID = Integer.parseInt(id);
+        	int amount = lodDAO.getAmount(COMPONENT, ID) + FIXEDVALUE;
+        	lodDAO.updateIncidentToPerson(id, amount, COMPONENT);
+        }
+	}
 
 }
