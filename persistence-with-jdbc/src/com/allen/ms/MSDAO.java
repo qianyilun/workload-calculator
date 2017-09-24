@@ -17,10 +17,10 @@ import com.allen.template.TemplateDAO;
  * 
  * @author Allen Qian
  */
-
 public class MSDAO extends TemplateDAO{
-	public MSDAO(DataSource newDataSource, String tableName) throws SQLException {
-		super(newDataSource, tableName);
+	private static final String COMPONENT = "MS";
+	public MSDAO(DataSource newDataSource) throws SQLException {
+		super(newDataSource);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -31,14 +31,19 @@ public class MSDAO extends TemplateDAO{
         Connection connection = super.getDataSource().getConnection();
         try {
             PreparedStatement pstmt = connection
-                    .prepareStatement("SELECT * FROM MS");
+                    .prepareStatement("SELECT ID, NAME," + COMPONENT + ",TOTAL "
+                    				+ "FROM ROOT");
             ResultSet rs = pstmt.executeQuery();
             ArrayList<MS> list = new ArrayList<MS>();
             while (rs.next()) {
                 MS ms = new MS();
                 ms.setId(new Integer(rs.getInt(1)));
+                
+//                ms.setSum(super.getSum(MS.getId()));
+                
+                
                 ms.setName(rs.getString(2));
-                ms.setAmount(rs.getInt(3));
+                ms.setMs(rs.getInt(3));
                 ms.setTotal(rs.getInt(4));
                 list.add(ms);
             }
@@ -50,4 +55,6 @@ public class MSDAO extends TemplateDAO{
             }
         }
     }
+
+	
 }
