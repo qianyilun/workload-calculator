@@ -89,7 +89,7 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sa.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + sa.getSa() + "</center></td>");
 					response.getWriter().println("<td height=\"30\"><center>" + sa.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
-		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sa.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be in vacation and you can undo anytime!')\" value=\"vacation\" />" + "</form></center></td>");
+		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sa.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
 	        	} else {
 		        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(sa.getName() + ": VACATION") + "</center></td>");
