@@ -45,7 +45,7 @@ public class NWDAO extends TemplateDAO{
                 NW nw = new NW();
                 nw.setId(new Integer(rs.getInt(1)));
                 
-//                NW.setSum(super.getSum(NW.getId()));
+                nw.setSum(super.getSum(nw.getId()));
                 
                 
                 nw.setName(rs.getString(2));

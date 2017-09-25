@@ -39,7 +39,7 @@ public class DSMDAO extends TemplateDAO{
                 DSM dsm = new DSM();
                 dsm.setId(new Integer(rs.getInt(1)));
                 
-//                dsm.setSum(super.getSum(DSM.getId()));
+                dsm.setSum(super.getSum(dsm.getId()));
                 
                 
                 dsm.setName(rs.getString(2));

@@ -39,7 +39,7 @@ public class LODDAO extends TemplateDAO{
                 LOD lod = new LOD();
                 lod.setId(new Integer(rs.getInt(1)));
                 
-//                lod.setSum(super.getSum(LOD.getId()));
+                lod.setSum(super.getSum(lod.getId()));
                 
                 
                 lod.setName(rs.getString(2));

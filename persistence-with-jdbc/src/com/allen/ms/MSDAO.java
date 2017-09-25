@@ -39,7 +39,7 @@ public class MSDAO extends TemplateDAO{
                 MS ms = new MS();
                 ms.setId(new Integer(rs.getInt(1)));
                 
-//                ms.setSum(super.getSum(MS.getId()));
+                ms.setSum(super.getSum(ms.getId()));
                 
                 
                 ms.setName(rs.getString(2));

@@ -39,7 +39,7 @@ public class SADAO extends TemplateDAO{
                 SA sa = new SA();
                 sa.setId(new Integer(rs.getInt(1)));
                 
-//                sa.setSum(super.getSum(sa.getId()));
+                sa.setSum(super.getSum(sa.getId()));
                 
                 
                 sa.setName(rs.getString(2));

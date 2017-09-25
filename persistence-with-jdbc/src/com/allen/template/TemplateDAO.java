@@ -40,52 +40,6 @@ public class TemplateDAO {
         checkTable();
     }
     
-//    private void checkCounter() throws SQLException {
-//		// TODO Auto-generated method stub
-//    	Connection connection = null;
-//
-//        try {
-//            connection = dataSource.getConnection();
-//            if (!existsCounter(connection)) {
-//                createCounter(connection);
-//                
-//                /*
-//                 * TEST ONLY
-//                 */
-//                setCounter(0);
-//            }
-//        } finally {
-//            if (connection != null) {
-//                connection.close();
-//            }
-//        }
-//	}
-//
-//	private void createCounter(Connection connection) throws SQLException {
-//		// TODO Auto-generated method stub
-//		PreparedStatement pstmt = connection
-//                .prepareStatement("CREATE TABLE COUNTER "
-//                        + " (TIMES INT PRIMARY KEY NOT NULL)");
-//        pstmt.executeUpdate();
-//        
-//        pstmt.close();
-//        
-//  
-//	}
-//
-//	private boolean existsCounter(Connection connection) throws SQLException {
-//		// TODO Auto-generated method stub
-//		DatabaseMetaData meta = connection.getMetaData();
-//        ResultSet rs = meta.getTables(null, null, "ROOT", null);
-//        while (rs.next()) {
-//            String name = rs.getString("TABLE_NAME");
-//            if (name.equals("ROOT")) {
-//                return true;
-//            }
-//        }
-//        return false;
-//	}
-
 	/**
      * Check if the table already exists and create it if not.
      */
@@ -100,9 +54,9 @@ public class TemplateDAO {
                 /*
                  * TEST ONLY
                  */
-                setEntry("Allen", 1, 0, 10, 0, 0, 0, 0, 0, 20);
-                setEntry("Julie", 1, 0, 4, 0, 0, 0, 0, 0, 6);
-                setEntry("Alex", 1, 0, 8, 0, 0, 0, 0, 0, 21);
+//                setEntry("Allen", 2, 0, 10, 0, 0, 0, 0, 0, 20);
+//                setEntry("Julie", 3, 0, 4, 0, 0, 0, 0, 0, 6);
+//                setEntry("Alex", 1, 0, 8, 0, 0, 0, 0, 0, 21);
             }
         } finally {
             if (connection != null) {
@@ -148,13 +102,13 @@ public class TemplateDAO {
         pstmt.close();
         
         
-        Statement sm = connection.createStatement();
+//        Statement sm = connection.createStatement();
 //        sm.executeQuery("CREATE VIEW VW_ROOT AS " + 
 //		        		"SELECT ID, " + 
 //		        		"  NW + MS + SM + DSM + FC + LOD + PCM + SA  AS SUM"
 //		        		+ " FROM ROOT");	
-        
-        sm.close();
+//        
+//        sm.close();
     }
     
     /**
@@ -186,7 +140,7 @@ public class TemplateDAO {
         try {
             PreparedStatement pstmt = connection
                     .prepareStatement("UPDATE ROOT"
-                					+ " SET " + component + "=0"
+                					+ " SET NW=0,MS=0,SM=0,DSM=0,FC=0,LOD=0,PCM=0,SA=0,TOTAL=0"
                 					+ " WHERE 1=1");
             pstmt.executeUpdate();
         } finally {

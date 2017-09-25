@@ -85,8 +85,7 @@ public class PersistenceWithMS extends PersistenceWithTemplate {
 	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ ms.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
 	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ ms.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 	        	response.getWriter().println("<td height=\"30\"><center>" + ms.getMs() + "</center></td>");
-	//			response.getWriter().println("<td height=\"30\"><center>" + ms.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
-	        	response.getWriter().println("<td height=\"30\"><center>" + score + "</center></td>");
+				response.getWriter().println("<td height=\"30\"><center>" + ms.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
 	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ ms.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be in vacation and you can undo anytime!')\" value=\"vacation\" />" + "</form></center></td>");
         	} else {
 	        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");

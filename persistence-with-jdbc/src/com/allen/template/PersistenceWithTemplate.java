@@ -65,16 +65,18 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
     	String operation = request.getParameter("operation");
     	
     	try {
-    		if (operation.toLowerCase().equals("reset")) {
-    			doReset(request, response);
-    		} else if (operation.toLowerCase().equals("add")){
-    			doIncrease(request, response);
-    		} else if (operation.toLowerCase().equals("decrease")) {
-    			doDecrease(request, response);
-    		} else if (operation.toLowerCase().equals("ignore")) {
-    			doIgnore(request, response);
-    		} else if (operation.toLowerCase().equals("undo")) {
-    			doUndo(request, response);
+    		if (operation != null) {
+	    		if (operation.toLowerCase().equals("reset")) {
+	    			doReset(request, response);
+	    		} else if (operation.toLowerCase().equals("add")){
+	    			doIncrease(request, response);
+	    		} else if (operation.toLowerCase().equals("decrease")) {
+	    			doDecrease(request, response);
+	    		} else if (operation.toLowerCase().equals("ignore")) {
+	    			doIgnore(request, response);
+	    		} else if (operation.toLowerCase().equals("undo")) {
+	    			doUndo(request, response);
+	    		}
     		}
 			doGet(request, response);
 		} catch (Exception e) {

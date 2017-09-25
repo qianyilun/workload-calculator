@@ -39,7 +39,7 @@ public class FCDAO extends TemplateDAO{
                 FC fc = new FC();
                 fc.setId(new Integer(rs.getInt(1)));
                 
-//                fc.setSum(super.getSum(FC.getId()));
+                fc.setSum(super.getSum(fc.getId()));
                 
                 
                 fc.setName(rs.getString(2));
