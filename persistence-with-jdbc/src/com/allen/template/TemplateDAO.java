@@ -54,9 +54,9 @@ public class TemplateDAO {
                 /*
                  * TEST ONLY
                  */
-//                setEntry("Allen", 2, 0, 10, 0, 0, 0, 0, 0, 20);
-//                setEntry("Julie", 3, 0, 4, 0, 0, 0, 0, 0, 6);
-//                setEntry("Alex", 1, 0, 8, 0, 0, 0, 0, 0, 21);
+                setEntry("Allen", 2, 0, 10, 0, 0, 0, 0, 0, 20);
+                setEntry("Julie", 3, 0, 4, 0, 0, 0, 0, 0, 6);
+                setEntry("Alex", 1, 0, 8, 0, 0, 0, 0, 0, 21);
             }
         } finally {
             if (connection != null) {
@@ -102,13 +102,13 @@ public class TemplateDAO {
         pstmt.close();
         
         
-//        Statement sm = connection.createStatement();
-//        sm.executeQuery("CREATE VIEW VW_ROOT AS " + 
-//		        		"SELECT ID, " + 
-//		        		"  NW + MS + SM + DSM + FC + LOD + PCM + SA  AS SUM"
-//		        		+ " FROM ROOT");	
-//        
-//        sm.close();
+        Statement sm = connection.createStatement();
+        sm.executeQuery("CREATE VIEW VW_ROOT AS " + 
+		        		"SELECT ID, " + 
+		        		"  NW + MS + SM + DSM + FC + LOD + PCM + SA  AS SUM"
+		        		+ " FROM ROOT");	
+        
+        sm.close();
     }
     
     /**
