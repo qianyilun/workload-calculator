@@ -158,9 +158,9 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         		score = df.format(express); 	
         	}
         	
-        	if (nw.getNw() < FIXEDVALUE) {
+        	if (nw.getSum() < FIXEDVALUE) {
         		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getName()) + "</center></td>");
+	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getName()+" ("+nw.getiNumber()+")") + "</center></td>");
 	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
 	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 	        	response.getWriter().println("<td height=\"30\"><center>" + nw.getNw() + "</center></td>");

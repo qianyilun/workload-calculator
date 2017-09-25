@@ -43,6 +43,7 @@ public class SADAO extends TemplateDAO{
                 
                 
                 sa.setName(rs.getString(2));
+                sa.generateINumber();
                 sa.setSa(rs.getInt(3));
                 sa.setTotal(rs.getInt(4));
                 list.add(sa);

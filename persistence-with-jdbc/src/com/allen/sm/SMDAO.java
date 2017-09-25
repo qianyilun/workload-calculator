@@ -43,6 +43,7 @@ public class SMDAO extends TemplateDAO{
                 
                 
                 sm.setName(rs.getString(2));
+                sm.generateINumber();
                 sm.setSm(rs.getInt(3));
                 sm.setTotal(rs.getInt(4));
                 list.add(sm);

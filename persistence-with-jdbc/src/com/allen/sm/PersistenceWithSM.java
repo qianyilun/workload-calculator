@@ -82,9 +82,9 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 	        		score = df.format(express); 	
 	        	}
 	        	
-	        	if (sm.getSm() < FIXEDVALUE) {
+	        	if (sm.getSum() < FIXEDVALUE) {
 	        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(sm.getName()) + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(sm.getName()+" ("+sm.getiNumber()+")") + "</center></td>");
 		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
 		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + sm.getSm() + "</center></td>");

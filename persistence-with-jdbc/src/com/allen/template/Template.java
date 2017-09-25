@@ -24,6 +24,7 @@ public class Template {
 	
 	private String name;
 	private boolean hide; 
+	private String iNumber;
 	
 	
 	public String getName() {
@@ -105,5 +106,55 @@ public class Template {
 	}
 	public void setSum(int sum) {
 		this.sum = sum;
+	}
+	public String getiNumber() {
+		return iNumber;
+	}
+	public void setiNumber(String iNumber) {
+		this.iNumber = iNumber;
+	}
+	public void generateINumber() {
+		if (this.name.equals("Alex")) {
+			iNumber = "I819350";
+		} 
+		if (this.name.equals("Allen")) {
+			iNumber = "I860745";
+		}
+		if (this.name.equals("April")) {
+			iNumber = "I817290";
+		}
+		if (this.name.equals("Carlos")) {
+			iNumber = "I822917";
+		}
+		if (this.name.equals("Graham")) {
+			iNumber = "I819047";
+		}
+		if (this.name.equals("Hitomi")) {
+			iNumber = "I819718";
+		}
+		if (this.name.equals("JohnH")) {
+			iNumber = "I817231";
+		}
+		if (this.name.equals("JohnL")) {
+			iNumber = "I818799";
+		}
+		if (this.name.equals("Julie")) {
+			iNumber = "I037162";
+		}
+		if (this.name.equals("Leila")) {
+			iNumber = "I815070";
+		}
+		if (this.name.equals("Marc")) {
+			iNumber = "I819935";
+		}
+		if (this.name.equals("Pedro")) {
+			iNumber = "I829115";
+		}
+		if (this.name.equals("Stefan")) {
+			iNumber = "I819795";
+		}
+		if (this.name.equals("Yvonne")) {
+			iNumber = "I819958";
+		}
 	}
 }

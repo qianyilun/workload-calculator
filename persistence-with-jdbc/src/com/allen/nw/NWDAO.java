@@ -49,6 +49,7 @@ public class NWDAO extends TemplateDAO{
                 
                 
                 nw.setName(rs.getString(2));
+                nw.generateINumber();
                 nw.setNw(rs.getInt(3));
                 nw.setTotal(rs.getInt(4));
                 list.add(nw);
