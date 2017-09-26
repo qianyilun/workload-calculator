@@ -13,6 +13,11 @@ public class SM extends Template implements Comparable<SM>{
 	@Override
 	public int compareTo(SM sm) {
 		// TODO Auto-generated method stub
+		if (this.getSum() < sm.getSum()) {
+			return -1;
+		} else if (this.getSum() > sm.getSum()) {
+			return 1;
+		} 
 		
 		if (super.getSm()==(double)0 || sm.getSm()==(double)0) {
 			return 0;

@@ -12,6 +12,11 @@ public class NW extends Template implements Comparable<NW>{
 	@Override
 	public int compareTo(NW nw) {
 		// TODO Auto-generated method stub
+		if (this.getSum() < nw.getSum()) {
+			return -1;
+		} else if (this.getSum() > nw.getSum()) {
+			return 1;
+		} 
 		
 		if (super.getNw()==(double)0 || nw.getNw()==(double)0) {
 			return 0;
