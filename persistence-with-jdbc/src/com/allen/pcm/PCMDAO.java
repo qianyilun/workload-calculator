@@ -43,6 +43,7 @@ public class PCMDAO extends TemplateDAO{
                 
                 
                 pcm.setName(rs.getString(2));
+                pcm.generateINumber();
                 pcm.setPcm(rs.getInt(3));
                 pcm.setTotal(rs.getInt(4));
                 list.add(pcm);

@@ -43,6 +43,9 @@ public class DSMDAO extends TemplateDAO{
                 
                 
                 dsm.setName(rs.getString(2));
+                
+                dsm.generateINumber();
+                
                 dsm.setDsm(rs.getInt(3));
                 dsm.setTotal(rs.getInt(4));
                 list.add(dsm);

@@ -43,6 +43,8 @@ public class MSDAO extends TemplateDAO{
                 
                 
                 ms.setName(rs.getString(2));
+                ms.generateINumber();
+                
                 ms.setMs(rs.getInt(3));
                 ms.setTotal(rs.getInt(4));
                 list.add(ms);

@@ -42,7 +42,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         try {
             InitialContext ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/DefaultDB");
-            dsmDAO = new dsmDAO(ds);
+            dsmDAO = new DSMDAO(ds);
         } catch (SQLException e) {
             throw new ServletException(e);
         } catch (NamingException e) {

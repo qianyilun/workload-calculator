@@ -43,6 +43,8 @@ public class LODDAO extends TemplateDAO{
                 
                 
                 lod.setName(rs.getString(2));
+                lod.generateINumber();
+                
                 lod.setLod(rs.getInt(3));
                 lod.setTotal(rs.getInt(4));
                 list.add(lod);

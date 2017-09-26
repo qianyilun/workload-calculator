@@ -43,6 +43,8 @@ public class FCDAO extends TemplateDAO{
                 
                 
                 fc.setName(rs.getString(2));
+                fc.generateINumber();
+                
                 fc.setFc(rs.getInt(3));
                 fc.setTotal(rs.getInt(4));
                 list.add(fc);
