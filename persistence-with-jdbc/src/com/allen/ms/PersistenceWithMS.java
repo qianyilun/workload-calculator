@@ -57,7 +57,7 @@ public class PersistenceWithMS extends PersistenceWithTemplate {
         response.getWriter().println(
                 "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
                         + "Entries in the Database</th>"
-                        + "<th colspan=\"3\">" + "Smart Sorted</th></tr>");
+                        + "<th colspan=\"3\">" + "MSart Sorted</th></tr>");
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
@@ -71,39 +71,43 @@ public class PersistenceWithMS extends PersistenceWithTemplate {
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
         for (MS ms : resultList) {        	
-        	// Get score
-        	String score = "0";
-        	if (ms.getMs() != 0) {
-        		double express = ms.getMs() * 0.80 + (ms.getTotal()-ms.getMs())/ms.getMs() * 0.20 + 10;
-        		DecimalFormat df = new DecimalFormat("#.###");
-        		score = df.format(express); 	
-        	}
+        	// Graham = 5, Stefan = 13, April = 3, John L = 8
+        	if (ms.getId() == 5 || ms.getId()==13 || ms.getId()==3 || ms.getId()==8) {
         	
-        	if (ms.getMs() < FIXEDVALUE) {
-        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(ms.getName()) + "</center></td>");
-	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ ms.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
-	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ ms.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
-	        	response.getWriter().println("<td height=\"30\"><center>" + ms.getMs() + "</center></td>");
-				response.getWriter().println("<td height=\"30\"><center>" + ms.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
-	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ ms.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be in vacation and you can undo anytime!')\" value=\"vacation\" />" + "</form></center></td>");
-        	} else {
-	        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(ms.getName() + ": VACATION") + "</center></td>");
-	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
-				response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
-				response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ ms.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>");
+	        	// Get score
+	        	String score = "0";
+	        	if (ms.getMs() != 0) {
+	        		double express = ms.getMs() * 0.80 + (ms.getSum()-ms.getMs())/ms.getMs() * 0.20 + 10;
+	        		DecimalFormat df = new DecimalFormat("#.###");
+	        		score = df.format(express); 	
+	        	}
+	        	
+	        	if (ms.getSum() < FIXEDVALUE) {
+	        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(ms.getName()+" ("+ms.getiNumber()+")") + "</center></td>");
+		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ ms.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
+		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ ms.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
+		        	response.getWriter().println("<td height=\"30\"><center>" + ms.getMs() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + ms.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
+		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ ms.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
+	        	} else {
+		        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(ms.getName() + ": UNAVAILABLE") + "</center></td>");
+		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
+		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
+		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+					response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+					response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ ms.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>");
+	        	}
+	        	
+				response.getWriter().println("</tr>");
         	}
-        	
-			response.getWriter().println("</tr>");
         }
-        response.getWriter().println("</table></center></p></body>");
-        
-             
-        // Home button
-        response.getWriter().println("<p><center><form action=\"" + "persistencewithnw" + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
+		response.getWriter().println("</table></center></p></body>");
+        	     
+		// Home button
+		response.getWriter().println("<p><center><form action=\"" + "persistencewithnw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
+        	
         
     }
     

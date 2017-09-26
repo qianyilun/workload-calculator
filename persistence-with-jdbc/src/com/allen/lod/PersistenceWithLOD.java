@@ -71,39 +71,43 @@ public class PersistenceWithLOD extends PersistenceWithTemplate {
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
         for (LOD lod : resultList) {        	
-        	// Get score
-        	String score = "0";
-        	if (lod.getLod() != 0) {
-        		double express = lod.getLod() * 0.80 + (lod.getTotal()-lod.getLod())/lod.getLod() * 0.20 + 10;
-        		DecimalFormat df = new DecimalFormat("#.###");
-        		score = df.format(express); 	
-        	}
+        	// John L = 8, Julie = 9
+        	if (lod.getId() == 8 || lod.getId()==9) {
         	
-        	if (lod.getLod() < FIXEDVALUE) {
-        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(lod.getName()) + "</center></td>");
-	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
-	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
-	        	response.getWriter().println("<td height=\"30\"><center>" + lod.getLod() + "</center></td>");
-				response.getWriter().println("<td height=\"30\"><center>" + lod.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
-	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be in vacation and you can undo anytime!')\" value=\"vacation\" />" + "</form></center></td>");
-        	} else {
-	        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(lod.getName() + ": VACATION") + "</center></td>");
-	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
-				response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
-				response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>");
+	        	// Get score
+	        	String score = "0";
+	        	if (lod.getLod() != 0) {
+	        		double express = lod.getLod() * 0.80 + (lod.getSum()-lod.getLod())/lod.getLod() * 0.20 + 10;
+	        		DecimalFormat df = new DecimalFormat("#.###");
+	        		score = df.format(express); 	
+	        	}
+	        	
+	        	if (lod.getSum() < FIXEDVALUE) {
+	        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(lod.getName()+" ("+lod.getiNumber()+")") + "</center></td>");
+		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
+		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
+		        	response.getWriter().println("<td height=\"30\"><center>" + lod.getLod() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + lod.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
+		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
+	        	} else {
+		        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(lod.getName() + ": UNAVAILABLE") + "</center></td>");
+		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
+		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
+		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+					response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+					response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>");
+	        	}
+	        	
+				response.getWriter().println("</tr>");
         	}
-        	
-			response.getWriter().println("</tr>");
         }
-        response.getWriter().println("</table></center></p></body>");
-        
-             
-        // Home button
-        response.getWriter().println("<p><center><form action=\"" + "persistencewithnw" + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
+		response.getWriter().println("</table></center></p></body>");
+        	     
+		// Home button
+		response.getWriter().println("<p><center><form action=\"" + "persistencewithnw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
+        	
         
     }
     

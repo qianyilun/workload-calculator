@@ -153,7 +153,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         for (NW nw : resultList) {
         	String score = "0";
         	if (nw.getNw() != 0) {
-        		double express = nw.getNw() * 0.80 + (nw.getTotal()-nw.getNw())/nw.getNw() * 0.20 + 10;
+        		double express = nw.getNw() * 0.80 + (nw.getSum()-nw.getNw())/nw.getNw() * 0.20 + 10;
         		DecimalFormat df = new DecimalFormat("#.###");
         		score = df.format(express); 	
         	}
@@ -168,7 +168,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
 	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
         	} else {
 	        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getName() + ": VACATION") + "</center></td>");
+	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getName() + ": UNAVAILABLE") + "</center></td>");
 	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");

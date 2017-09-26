@@ -42,7 +42,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         try {
             InitialContext ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/DefaultDB");
-            dsmDAO = new DSMDAO(ds);
+            dsmDAO = new dsmDAO(ds);
         } catch (SQLException e) {
             throw new ServletException(e);
         } catch (NamingException e) {
@@ -71,39 +71,43 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
         for (DSM dsm : resultList) {        	
-        	// Get score
-        	String score = "0";
-        	if (dsm.getDsm() != 0) {
-        		double express = dsm.getDsm() * 0.80 + (dsm.getTotal()-dsm.getDsm())/dsm.getDsm() * 0.20 + 10;
-        		DecimalFormat df = new DecimalFormat("#.###");
-        		score = df.format(express); 	
-        	}
+        	// Graham = 5, Marc = 11
+        	if (dsm.getId() == 5 || dsm.getId()==11) {
         	
-        	if (dsm.getDsm() < FIXEDVALUE) {
-        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(dsm.getName()) + "</center></td>");
-	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
-	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
-	        	response.getWriter().println("<td height=\"30\"><center>" + dsm.getDsm() + "</center></td>");
-				response.getWriter().println("<td height=\"30\"><center>" + dsm.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
-	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be in vacation and you can undo anytime!')\" value=\"vacation\" />" + "</form></center></td>");
-        	} else {
-	        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(dsm.getName() + ": VACATION") + "</center></td>");
-	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
-				response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
-				response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>");
+	        	// Get score
+	        	String score = "0";
+	        	if (dsm.getDsm() != 0) {
+	        		double express = dsm.getDsm() * 0.80 + (dsm.getSum()-dsm.getDsm())/dsm.getDsm() * 0.20 + 10;
+	        		DecimalFormat df = new DecimalFormat("#.###");
+	        		score = df.format(express); 	
+	        	}
+	        	
+	        	if (dsm.getSum() < FIXEDVALUE) {
+	        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(dsm.getName()+" ("+dsm.getiNumber()+")") + "</center></td>");
+		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
+		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
+		        	response.getWriter().println("<td height=\"30\"><center>" + dsm.getDsm() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + dsm.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
+		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
+	        	} else {
+		        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(dsm.getName() + ": UNAVAILABLE") + "</center></td>");
+		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
+		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
+		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+					response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+					response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>");
+	        	}
+	        	
+				response.getWriter().println("</tr>");
         	}
-        	
-			response.getWriter().println("</tr>");
         }
-        response.getWriter().println("</table></center></p></body>");
-        
-             
-        // Home button
-        response.getWriter().println("<p><center><form action=\"" + "persistencewithnw" + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
+		response.getWriter().println("</table></center></p></body>");
+        	     
+		// Home button
+		response.getWriter().println("<p><center><form action=\"" + "persistencewithnw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
+        	
         
     }
     

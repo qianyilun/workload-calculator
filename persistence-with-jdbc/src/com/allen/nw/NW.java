@@ -21,8 +21,8 @@ public class NW extends Template implements Comparable<NW>{
 		if (super.getNw()==(double)0 || nw.getNw()==(double)0) {
 			return 0;
 		}
-		double thisScore = super.getNw() * 0.80 + (super.getTotal()-super.getNw())/super.getNw() * 0.20 + 10;
-		double nwScore = nw.getNw() * 0.80 + (nw.getTotal()-nw.getNw())/nw.getNw() * 0.20 + 10;
+		double thisScore = super.getNw() * 0.80 + (super.getSum()-super.getNw())/super.getNw() * 0.20 + 10;
+		double nwScore = nw.getNw() * 0.80 + (nw.getSum()-nw.getNw())/nw.getNw() * 0.20 + 10;
 
 		if (nwScore > thisScore) {
 			return -1;

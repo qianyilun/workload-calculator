@@ -13,12 +13,17 @@ public class FC extends Template implements Comparable<FC>{
 	@Override
 	public int compareTo(FC fc) {
 		// TODO Auto-generated method stub
+		if (this.getSum() < fc.getSum()) {
+			return -1;
+		} else if (this.getSum() > fc.getSum()) {
+			return 1;
+		} 
 		
 		if (super.getFc()==(double)0 || fc.getFc()==(double)0) {
 			return 0;
 		}
-		double thisScore = super.getFc() * 0.80 + (super.getTotal()-super.getFc())/super.getFc() * 0.20 + 10;
-		double fcScore = fc.getFc() * 0.80 + (fc.getTotal()-fc.getFc())/fc.getFc() * 0.20 + 10;
+		double thisScore = super.getFc() * 0.80 + (super.getSum()-super.getFc())/super.getFc() * 0.20 + 10;
+		double fcScore = fc.getFc() * 0.80 + (fc.getSum()-fc.getFc())/fc.getFc() * 0.20 + 10;
 
 		if (fcScore > thisScore) {
 			return -1;
@@ -28,5 +33,4 @@ public class FC extends Template implements Comparable<FC>{
 		}
 		return 0;
 	}
-	
 }
