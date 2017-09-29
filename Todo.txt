@@ -6,3 +6,18 @@
 8. username/password --> db
 9. hardcode进人名
 10. 计数器
+
+
+
+
+HANA Cloud Platform & Cloud Computing -- fast, clean, stable
+Smart sort -- recommendation for the next dispatch, no confusing anymore
+Increase/decrease buttom -- easy to coordinate your operation
+Vacation/Absent/Training ==> Unavabible -- move to the end, not show anymore
+	--> Can cancel any time
+
+Reset supported
+Score system --> competition
+multi-component supported
+跨浏览器支持
+greetings :)
