@@ -23,7 +23,7 @@ import com.sap.security.core.server.csi.XSSEncoder;
  */
 public class PersistenceWithPCM extends PersistenceWithTemplate {
 	private static final long serialVersionUID = 1L;
-	private static final String LINKNAME = "persistencewithpcm";
+	private static final String LINKNAME = "pcm";
 	private static final String COMPONENT = "PCM";
 	private static final int FIXEDVALUE = 9999;
 	private PCMDAO pcmDAO; 
@@ -106,7 +106,7 @@ public class PersistenceWithPCM extends PersistenceWithTemplate {
 		response.getWriter().println("</table></center></p></body>");
         	     
 		// Home button
-		response.getWriter().println("<p><center><form action=\"" + "persistencewithnw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
+		response.getWriter().println("<p><center><form action=\"" + "nw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
         	
         
     }
@@ -161,6 +161,12 @@ public class PersistenceWithPCM extends PersistenceWithTemplate {
         	int amount = pcmDAO.getAmount(COMPONENT, ID) + FIXEDVALUE;
         	pcmDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+	}
+
+	@Override
+	protected String getComponent() {
+		// TODO Auto-generated method stub
+		return "PCM";
 	}
 
 }

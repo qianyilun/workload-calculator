@@ -50,7 +50,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PersistenceWithNW</servlet-name>
-    <url-pattern>/persistencewithnw</url-pattern>
+    <url-pattern>/nw</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -60,7 +60,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PersistenceWithMS</servlet-name>
-    <url-pattern>/persistencewithms</url-pattern>
+    <url-pattern>/ms</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -80,7 +80,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PersistenceWithSM</servlet-name>
-    <url-pattern>/persistencewithsm</url-pattern>
+    <url-pattern>/sm</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -90,7 +90,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PersistenceWithDSM</servlet-name>
-    <url-pattern>/persistencewithdsm</url-pattern>
+    <url-pattern>/dsm</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -100,7 +100,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PersistenceWithFC</servlet-name>
-    <url-pattern>/persistencewithfc</url-pattern>
+    <url-pattern>/fc</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -110,7 +110,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PersistenceWithLOD</servlet-name>
-    <url-pattern>/persistencewithlod</url-pattern>
+    <url-pattern>/lod</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -120,7 +120,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PersistenceWithPCM</servlet-name>
-    <url-pattern>/persistencewithpcm</url-pattern>
+    <url-pattern>/pcm</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -130,6 +130,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PersistenceWithSA</servlet-name>
-    <url-pattern>/persistencewithsa</url-pattern>
+    <url-pattern>/sa</url-pattern>
   </servlet-mapping>
 </web-app>

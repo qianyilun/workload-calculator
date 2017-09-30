@@ -20,4 +20,5 @@ Reset supported
 Score system --> competition
 multi-component supported
 跨浏览器支持
+access anytime and anywhere
 greetings :)

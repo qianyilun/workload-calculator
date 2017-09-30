@@ -24,7 +24,7 @@ import com.sap.security.core.server.csi.XSSEncoder;
  */
 public class PersistenceWithNW extends PersistenceWithTemplate {
 	private static final long serialVersionUID = 1L;
-	private static final String LINKNAME = "persistencewithnw";
+	private static final String LINKNAME = "nw";
 	private static final String COMPONENT = "NW";
 	private static final int FIXEDVALUE = 9999;
 	private NWDAO nwDAO; 
@@ -64,6 +64,8 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
             pw.println("<h1> Welcome back, Queue Manager </h1>");
     
             drawUpperTable(pw);
+            
+            
             displayTable(response);
             
             checkCounter(request);
@@ -109,16 +111,16 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
                     "<h2>Other Components</h2>" + 
                     "<table>" + 
                     "  <tr>" + 
-                    "    <td><center><a style=\"color:blue\" href=\"persistencewithms\" >MS       </a></center></td>" + 
-                    "    <td><center><a style=\"color:blue\" href=\"persistencewithsa\">SA        </a></center></td>" + 
-                    "    <td><center><a style=\"color:blue\" href=\"persistencewithsm\">SM        </a></center></td>" + 
-                    "    <td><center><a style=\"color:blue\" href=\"persistencewithfc\">FC/EA/IC/FIM</a></center></td>" + 
+                    "    <td><center><a style=\"color:blue\" href=\"ms\" >MS       </a></center></td>" + 
+                    "    <td><center><a style=\"color:blue\" href=\"sa\">SA        </a></center></td>" + 
+                    "    <td><center><a style=\"color:blue\" href=\"sm\">SM        </a></center></td>" + 
+                    "    <td><center><a style=\"color:blue\" href=\"fc\">FC/EA/IC/FIM</a></center></td>" + 
                     "  </tr>" + 
                     "  <tr>" + 
-                    "    <td><center><a style=\"color:blue\" href=\"persistencewithdsm\">DSM</a></center></td>" + 
-                    "    <td><center><a style=\"color:blue\" href=\"persistencewithpcm\">PCM</a></center></td>" + 
+                    "    <td><center><a style=\"color:blue\" href=\"dsm\">DSM</a></center></td>" + 
+                    "    <td><center><a style=\"color:blue\" href=\"pcm\">PCM</a></center></td>" + 
                     "    <td><center>--></center></td>" + 
-                    "    <td><center><a style=\"color:blue\" href=\"persistencewithlod\">LOD-ANA-PL</a></center></td>" + 
+                    "    <td><center><a style=\"color:blue\" href=\"lod\">LOD-ANA-PL</a></center></td>" + 
                     "  </tr>" + 
                     "</table>" + 
                     "";
@@ -150,6 +152,8 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         // Add reset button
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
+        response.getWriter().println("<h2>NW / XLS</h2>");
+        
         for (NW nw : resultList) {
         	String score = "0";
         	if (nw.getNw() != 0) {
@@ -236,6 +240,12 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         	int amount = nwDAO.getAmount(COMPONENT, ID) + FIXEDVALUE;
         	nwDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+	}
+
+	@Override
+	protected String getComponent() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

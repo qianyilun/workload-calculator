@@ -30,7 +30,7 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	response.getWriter().println("<title>QM Web</title>");
-    	response.getWriter().println("<body><h1><center>" + greetings() + "</center></h1>");
+    	response.getWriter().println("<body><h1><center>" + getComponent() + "</center></h1>");
         try {
         	displayTable(response);
         } catch (Exception e) {
@@ -38,6 +38,8 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
             LOGGER.error("Persistence operation failed", e);
         }
     }   
+    
+    protected abstract String getComponent();
     
     // https://stackoverflow.com/questions/27589701/showing-morning-afternoon-evening-night-message-based-on-time-in-java
     private String greetings() {

@@ -23,7 +23,7 @@ import com.sap.security.core.server.csi.XSSEncoder;
  */
 public class PersistenceWithSM extends PersistenceWithTemplate {
 	private static final long serialVersionUID = 1L;
-	private static final String LINKNAME = "persistencewithsm";
+	private static final String LINKNAME = "sm";
 	private static final String COMPONENT = "SM";
 	private static final int FIXEDVALUE = 9999;
 	private SMDAO smDAO; 
@@ -106,7 +106,7 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 		response.getWriter().println("</table></center></p></body>");
         	     
 		// Home button
-		response.getWriter().println("<p><center><form action=\"" + "persistencewithnw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
+		response.getWriter().println("<p><center><form action=\"" + "nw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
         	
         
     }
@@ -161,6 +161,12 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         	int amount = smDAO.getAmount(COMPONENT, ID) + FIXEDVALUE;
         	smDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+	}
+
+	@Override
+	protected String getComponent() {
+		// TODO Auto-generated method stub
+		return "SM";
 	}
 
 }

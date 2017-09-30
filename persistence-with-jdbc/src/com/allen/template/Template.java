@@ -132,10 +132,10 @@ public class Template {
 		if (this.name.equals("Hitomi")) {
 			iNumber = "I819718";
 		}
-		if (this.name.equals("JohnH")) {
+		if (this.name.equals("John H")) {
 			iNumber = "I817231";
 		}
-		if (this.name.equals("JohnL")) {
+		if (this.name.equals("John L")) {
 			iNumber = "I818799";
 		}
 		if (this.name.equals("Julie")) {
