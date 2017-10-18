@@ -71,8 +71,8 @@ public class PersistenceWithFC extends PersistenceWithTemplate {
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
         for (FC fc : resultList) {        	
-        	// Marc = 11, Yvonne = 14
-        	if (fc.getId() == 11 || fc.getId()==14) {
+        	// Marc = 10, Yvonne = 13
+        	if (fc.getId() == 10 || fc.getId()== 13) {
         	
 	        	// Get score
 	        	String score = "0";

@@ -71,8 +71,8 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
         for (SA sa : resultList) {        	
-        	// Hitomi = 6, JohnH = 7
-        	if (sa.getId() == 6 || sa.getId()==7) {
+        	// Hitomi = 5, JohnH = 6
+        	if (sa.getId() == 5 || sa.getId()== 6) {
         	
 	        	// Get score
 	        	String score = "0";

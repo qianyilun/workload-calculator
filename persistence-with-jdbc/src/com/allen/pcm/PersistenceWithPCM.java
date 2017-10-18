@@ -71,8 +71,8 @@ public class PersistenceWithPCM extends PersistenceWithTemplate {
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
         for (PCM pcm : resultList) {        	
-        	// April = 3, John H = 7
-        	if (pcm.getId() == 3 || pcm.getId()==7) {
+        	// April = 3, John H = 6
+        	if (pcm.getId() == 3 || pcm.getId()== 6) {
         	
 	        	// Get score
 	        	String score = "0";

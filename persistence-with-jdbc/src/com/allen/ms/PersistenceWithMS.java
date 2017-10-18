@@ -71,8 +71,8 @@ public class PersistenceWithMS extends PersistenceWithTemplate {
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
         for (MS ms : resultList) {        	
-        	// Graham = 5, Stefan = 13, April = 3, John L = 8
-        	if (ms.getId() == 5 || ms.getId()==13 || ms.getId()==3 || ms.getId()==8) {
+        	// Graham = 4, Stefan = 12, April = 3, John L = 7
+        	if (ms.getId() == 4 || ms.getId()== 12 || ms.getId()== 3 || ms.getId()== 7) {
         	
 	        	// Get score
 	        	String score = "0";

@@ -71,8 +71,8 @@ public class PersistenceWithLOD extends PersistenceWithTemplate {
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
         for (LOD lod : resultList) {        	
-        	// John L = 8, Julie = 9
-        	if (lod.getId() == 8 || lod.getId()==9) {
+        	// John L = 7, Julie = 8
+        	if (lod.getId() == 7 || lod.getId()== 8) {
         	
 	        	// Get score
 	        	String score = "0";

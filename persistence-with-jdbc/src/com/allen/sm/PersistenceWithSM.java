@@ -71,8 +71,8 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
         for (SM sm : resultList) {        	
-        	// Graham = 5, Stefan = 13
-        	if (sm.getId() == 5 || sm.getId()==13) {
+        	// Graham = 4, Stefan = 12
+        	if (sm.getId() == 4 || sm.getId()==12) {
         	
 	        	// Get score
 	        	String score = "0";

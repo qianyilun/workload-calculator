@@ -71,8 +71,8 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
         for (DSM dsm : resultList) {        	
-        	// Graham = 5, Marc = 11
-        	if (dsm.getId() == 5 || dsm.getId()==11) {
+        	// Graham = 4, Marc = 10
+        	if (dsm.getId() == 4 || dsm.getId()==10) {
         	
 	        	// Get score
 	        	String score = "0";
