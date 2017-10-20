@@ -53,7 +53,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
     @Override
     protected void displayTable(HttpServletResponse response) throws SQLException, IOException {
         // Append table that lists all persons
-        List<DSM> resultList = dsmDAO.selectAllEntries();
+    	List<DSM> resultList = dsmDAO.selectAllEntries();
         response.getWriter().println(
                 "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
                         + "Entries in the Database</th>"
@@ -82,10 +82,12 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
 	        		score = df.format(express); 	
 	        	}
 	        	
+	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: Ctrl+C, Enter','" + dsm.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
+	        	
 	        	if (dsm.getSum() < FIXEDVALUE) {
 	        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(dsm.getName()+" ("+dsm.getiNumber()+")") + "</center></td>");
-		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
+		        	response.getWriter().println(link); 
 		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + dsm.getDsm() + "</center></td>");
 					response.getWriter().println("<td height=\"30\"><center>" + dsm.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
