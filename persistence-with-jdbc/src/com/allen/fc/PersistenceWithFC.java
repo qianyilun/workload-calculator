@@ -52,7 +52,9 @@ public class PersistenceWithFC extends PersistenceWithTemplate {
     
     @Override
     protected void displayTable(HttpServletResponse response) throws SQLException, IOException {
-        // Append table that lists all persons
+    	response.setIntHeader("Refresh", 5);
+    	
+    	// Append table that lists all persons
         List<FC> resultList = fcDAO.selectAllEntries();
         response.getWriter().println(
                 "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
@@ -74,15 +76,17 @@ public class PersistenceWithFC extends PersistenceWithTemplate {
         	// Marc = 10, Yvonne = 13
         	if (fc.getId() == 10 || fc.getId()== 13) {
         	
-	        	// Get score
+        		// Get score
 	        	String score = "0";
-	        	if (fc.getFc() != 0) {
-	        		double express = fc.getFc() * 0.80 + (fc.getSum()-fc.getFc())/fc.getFc() * 0.20 + 10;
+	        	if (fc.getDsm() != 0) {
+//	        		double express = dsm.getDsm() * 0.80 + (dsm.getSum()-dsm.getDsm())/dsm.getDsm() * 0.20 + 10;
 	        		DecimalFormat df = new DecimalFormat("#.###");
-	        		score = df.format(express); 	
+//	        		score = df.format(express);
+	        		
+	        		score = df.format(fc.getPoint());
 	        	}
 	        	
-	        	String pop = fc.getName() + " hass been +1, please go for assign..." + "\n";
+	        	String pop = fc.getName() + " hass been +1, please go for assign.";
 	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ fc.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + fc.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
 	        	
 	        	if (fc.getSum() < FIXEDVALUE) {
@@ -92,12 +96,8 @@ public class PersistenceWithFC extends PersistenceWithTemplate {
 		        	} else {
 		        		response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(fc.getName()+" ("+fc.getiNumber()+")") + "</center></td>");
 		        	}
-		        	response.getWriter().println(link);
-		        	
-	        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(fc.getName()+" ("+fc.getiNumber()+")") + "</center></td>");
-		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ fc.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
-		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ fc.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
+	        		response.getWriter().println(link); 
+	        		response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ fc.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + fc.getFc() + "</center></td>");
 					response.getWriter().println("<td height=\"30\"><center>" + fc.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
 		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ fc.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");

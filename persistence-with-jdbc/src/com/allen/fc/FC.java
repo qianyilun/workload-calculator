@@ -9,7 +9,13 @@ import com.allen.template.Template;
  */
 
 public class FC extends Template implements Comparable<FC>{
+	private double point;
 
+	public double getPoint() {
+		return point = super.getFc() * 0.80 + (super.getSum()-super.getFc())/super.getFc() * 0.20 + 10;
+		
+	}
+	
 	@Override
 	public int compareTo(FC fc) {
 		// TODO Auto-generated method stub
