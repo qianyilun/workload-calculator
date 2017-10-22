@@ -82,7 +82,18 @@ public class PersistenceWithFC extends PersistenceWithTemplate {
 	        		score = df.format(express); 	
 	        	}
 	        	
+	        	String pop = fc.getName() + " hass been +1, please go for assign..." + "\n";
+	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ fc.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + fc.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
+	        	
 	        	if (fc.getSum() < FIXEDVALUE) {
+	        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
+		        	if (index == 2) {
+		        		response.getWriter().println("<td height=\"30\"><center><mark><b>" + xssEncoder.encodeHTML(fc.getName()+" ("+fc.getiNumber()+")") + "</b></mark></center></td>");
+		        	} else {
+		        		response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(fc.getName()+" ("+fc.getiNumber()+")") + "</center></td>");
+		        	}
+		        	response.getWriter().println(link);
+		        	
 	        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(fc.getName()+" ("+fc.getiNumber()+")") + "</center></td>");
 		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ fc.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
