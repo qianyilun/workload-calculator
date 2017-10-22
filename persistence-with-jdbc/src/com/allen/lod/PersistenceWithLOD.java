@@ -74,19 +74,26 @@ public class PersistenceWithLOD extends PersistenceWithTemplate {
         	// John L = 7, Julie = 8
         	if (lod.getId() == 7 || lod.getId()== 8) {
         	
-	        	// Get score
+        		// Get score
 	        	String score = "0";
 	        	if (lod.getLod() != 0) {
-	        		double express = lod.getLod() * 0.80 + (lod.getSum()-lod.getLod())/lod.getLod() * 0.20 + 10;
 	        		DecimalFormat df = new DecimalFormat("#.###");
-	        		score = df.format(express); 	
+	        		
+	        		score = df.format(lod.getPoint());
 	        	}
+	        	
+	        	String pop = lod.getName() + " hass been +1, please go for assign.";
+	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + lod.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
 	        	
 	        	if (lod.getSum() < FIXEDVALUE) {
 	        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(lod.getName()+" ("+lod.getiNumber()+")") + "</center></td>");
-		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
-		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
+		        	if (index == 2) {
+		        		response.getWriter().println("<td height=\"30\"><center><mark><b>" + xssEncoder.encodeHTML(lod.getName()+" ("+lod.getiNumber()+")") + "</b></mark></center></td>");
+		        	} else {
+		        		response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(lod.getName()+" ("+lod.getiNumber()+")") + "</center></td>");
+		        	}
+	        		response.getWriter().println(link); 
+	        		response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + lod.getLod() + "</center></td>");
 					response.getWriter().println("<td height=\"30\"><center>" + lod.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
 		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");

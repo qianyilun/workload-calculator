@@ -78,11 +78,8 @@ public class PersistenceWithFC extends PersistenceWithTemplate {
         	
         		// Get score
 	        	String score = "0";
-	        	if (fc.getDsm() != 0) {
-//	        		double express = dsm.getDsm() * 0.80 + (dsm.getSum()-dsm.getDsm())/dsm.getDsm() * 0.20 + 10;
+	        	if (fc.getFc() != 0) {
 	        		DecimalFormat df = new DecimalFormat("#.###");
-//	        		score = df.format(express);
-	        		
 	        		score = df.format(fc.getPoint());
 	        	}
 	        	

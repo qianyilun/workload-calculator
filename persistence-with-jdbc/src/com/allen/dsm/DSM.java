@@ -9,10 +9,8 @@ import com.allen.template.Template;
  */
 
 public class DSM extends Template implements Comparable<DSM>{
-	private double point;
-
 	public double getPoint() {
-		return point = super.getDsm() * 0.80 + (super.getSum()-super.getDsm())/super.getDsm() * 0.20 + 10;
+		return super.getDsm() * 0.80 + (super.getSum()-super.getDsm())/super.getDsm() * 0.20 + 10;
 		
 	}
 	
@@ -31,8 +29,6 @@ public class DSM extends Template implements Comparable<DSM>{
 		double thisScore = super.getDsm() * 0.80 + (super.getSum()-super.getDsm())/super.getDsm() * 0.20 + 10;
 		double dsmScore = dsm.getDsm() * 0.80 + (dsm.getSum()-dsm.getDsm())/dsm.getDsm() * 0.20 + 10;
 
-		point = thisScore;
-		
 		if (dsmScore > thisScore) {
 			return -1;
 		}
