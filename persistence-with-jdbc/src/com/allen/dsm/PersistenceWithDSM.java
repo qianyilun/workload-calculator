@@ -87,7 +87,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
 	        		score = df.format(dsm.getPoint());
 	        	}
 	        	
-	        	String pop = dsm.getName() + " hass been +1, please go for assign..." + "\n";
+	        	String pop = dsm.getName() + " hass been +1, please go for assign.";
 	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + dsm.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
 	        	
 	        	if (dsm.getSum() < FIXEDVALUE) {
