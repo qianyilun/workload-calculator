@@ -130,6 +130,12 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         	int amount = dsmDAO.getAmount(COMPONENT, ID) + 1;
         	dsmDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+        
+        /*******
+        response.sendRedirect(LINKNAME);
+        
+        
+        ********/
     }
 
 	@Override
