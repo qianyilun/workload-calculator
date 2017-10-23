@@ -52,7 +52,9 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
     
     @Override
     protected void displayTable(HttpServletResponse response) throws SQLException, IOException {
-        // Append table that lists all persons
+    	response.setIntHeader("Refresh", 5);
+    	
+    	// Append table that lists all persons
         List<SA> resultList = saDAO.selectAllEntries();
         response.getWriter().println(
                 "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
@@ -61,7 +63,7 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th><th>Score</th></tr>");
+            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
@@ -74,21 +76,28 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         	// Hitomi = 5, JohnH = 6
         	if (sa.getId() == 5 || sa.getId()== 6) {
         	
-	        	// Get score
+        		// Get score
 	        	String score = "0";
 	        	if (sa.getSa() != 0) {
-	        		double express = sa.getSa() * 0.80 + (sa.getSum()-sa.getSa())/sa.getSa() * 0.20 + 10;
 	        		DecimalFormat df = new DecimalFormat("#.###");
-	        		score = df.format(express); 	
+	        		score = df.format(sa.getPoint());
 	        	}
+	        	
+	        	String pop = sa.getName() + " hass been +1, please go for assign.";
+	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ sa.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + sa.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
 	        	
 	        	if (sa.getSum() < FIXEDVALUE) {
 	        		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(sa.getName()+" ("+sa.getiNumber()+")") + "</center></td>");
-		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sa.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
-		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sa.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
+		        	if (index == 2) {
+		        		response.getWriter().println("<td height=\"30\"><center><mark><b>" + xssEncoder.encodeHTML(sa.getName()+" ("+sa.getiNumber()+")") + "</b></mark></center></td>");
+		        	} else {
+		        		response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(sa.getName()+" ("+sa.getiNumber()+")") + "</center></td>");
+		        	}
+	        		response.getWriter().println(link); 
+	        		response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sa.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + sa.getSa() + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + sa.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
+//					response.getWriter().println("<td height=\"30\"><center>" + sa.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + sa.getSum() + "</center></td>");
 		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sa.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
 	        	} else {
 		        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");

@@ -9,7 +9,11 @@ import com.allen.template.Template;
  */
 
 public class MS extends Template implements Comparable<MS>{
-
+	public double getPoint() {
+		return super.getMs() * 0.80 + (super.getSum()-super.getMs())/super.getMs() * 0.20 + 10;
+		
+	}
+	
 	@Override
 	public int compareTo(MS ms) {
 		// TODO Auto-generated method stub

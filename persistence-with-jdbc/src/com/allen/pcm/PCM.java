@@ -9,7 +9,11 @@ import com.allen.template.Template;
  */
 
 public class PCM extends Template implements Comparable<PCM>{
-
+	public double getPoint() {
+		return super.getPcm() * 0.80 + (super.getSum()-super.getPcm())/super.getPcm() * 0.20 + 10;
+		
+	}
+	
 	@Override
 	public int compareTo(PCM pcm) {
 		// TODO Auto-generated method stub

@@ -117,7 +117,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
                     "    <td><center><a style=\"color:blue\" href=\"fc\">FC/EA/IC/FIM</a></center></td>" + 
                     "  </tr>" + 
                     "  <tr>" + 
-                    "    <td><center><a style=\"color:blue\" href=\"dsm\">DSM</a></center></td>" + 
+                    "    <td><center><a style=\"color:blue\" href=\"nw\">nw</a></center></td>" + 
                     "    <td><center><a style=\"color:blue\" href=\"pcm\">PCM</a></center></td>" + 
                     "    <td><center>--></center></td>" + 
                     "    <td><center><a style=\"color:blue\" href=\"lod\">LOD-ANA-PL</a></center></td>" + 
@@ -134,7 +134,9 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
     
     @Override
     protected void displayTable(HttpServletResponse response) throws SQLException, IOException {
-        // Append table that lists all persons
+    	response.setIntHeader("Refresh", 5);
+    	
+    	// Append table that lists all persons
         List<NW> resultList = nwDAO.selectAllEntries();
         response.getWriter().println(
                 "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
@@ -143,7 +145,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th><th>Score</th></tr>");
+            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
@@ -155,20 +157,28 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         response.getWriter().println("<h2>NW / XLS</h2>");
         
         for (NW nw : resultList) {
+        	// Get score
         	String score = "0";
         	if (nw.getNw() != 0) {
-        		double express = nw.getNw() * 0.80 + (nw.getSum()-nw.getNw())/nw.getNw() * 0.20 + 10;
         		DecimalFormat df = new DecimalFormat("#.###");
-        		score = df.format(express); 	
+        		score = df.format(nw.getPoint());
         	}
+        	
+        	String pop = nw.getName() + " hass been +1, please go for assign.";
+        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + nw.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
         	
         	if (nw.getSum() < FIXEDVALUE) {
         		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
-	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getName()+" ("+nw.getiNumber()+")") + "</center></td>");
-	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
+	        	if (index == 2) {
+	        		response.getWriter().println("<td height=\"30\"><center><mark><b>" + xssEncoder.encodeHTML(nw.getName()+" ("+nw.getiNumber()+")") + "</b></mark></center></td>");
+	        	} else {
+	        		response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getName()+" ("+nw.getiNumber()+")") + "</center></td>");
+	        	}
+        		response.getWriter().println(link); 
 	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 	        	response.getWriter().println("<td height=\"30\"><center>" + nw.getNw() + "</center></td>");
-				response.getWriter().println("<td height=\"30\"><center>" + nw.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
+//				response.getWriter().println("<td height=\"30\"><center>" + nw.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
+	        	response.getWriter().println("<td height=\"30\"><center>" + nw.getSum() + "</center></td>");
 	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
         	} else {
 	        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");

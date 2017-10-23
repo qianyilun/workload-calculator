@@ -9,6 +9,11 @@ import com.allen.template.Template;
  */
 
 public class NW extends Template implements Comparable<NW>{
+	public double getPoint() {
+		return super.getNw() * 0.80 + (super.getSum()-super.getNw())/super.getNw() * 0.20 + 10;
+		
+	}
+	
 	@Override
 	public int compareTo(NW nw) {
 		// TODO Auto-generated method stub
