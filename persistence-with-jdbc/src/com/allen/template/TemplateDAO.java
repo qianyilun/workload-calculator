@@ -10,6 +10,7 @@ import java.sql.Statement;
 import javax.sql.DataSource;
 
 import com.allen.NameHashTable;
+import com.allen.QueueDays;
 
 /**
  * Data access object encapsulating all JDBC operations for Template.
@@ -23,6 +24,7 @@ public class TemplateDAO {
 	public TemplateDAO(DataSource newDataSource) throws SQLException {
         setDataSource(newDataSource);
         NameHashTable.initHash();
+        QueueDays.initHash();
     }
 	
 	/**
@@ -220,6 +222,7 @@ public class TemplateDAO {
             
            
             NameHashTable.initHash();
+            
             pstmt.setInt(1, NameHashTable.hash.get(name).intValue());
             pstmt.setString(2, name);
             pstmt.setInt(3, nw);

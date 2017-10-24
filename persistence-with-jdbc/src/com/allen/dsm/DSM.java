@@ -1,5 +1,6 @@
 package com.allen.dsm;
 
+import com.allen.QueueDays;
 import com.allen.template.Template;
 
 /**
@@ -17,17 +18,17 @@ public class DSM extends Template implements Comparable<DSM>{
 	@Override
 	public int compareTo(DSM dsm) {
 		// TODO Auto-generated method stub
-		if (this.getSum() < dsm.getSum()) {
-			return -1;
-		} else if (this.getSum() > dsm.getSum()) {
-			return 1;
-		} 
-		
-		if (super.getDsm()==(double)0 || dsm.getDsm()==(double)0) {
-			return 0;
-		}
-		double thisScore = super.getDsm() * 0.80 + (super.getSum()-super.getDsm())/super.getDsm() * 0.20 + 10;
-		double dsmScore = dsm.getDsm() * 0.80 + (dsm.getSum()-dsm.getDsm())/dsm.getDsm() * 0.20 + 10;
+//		if (this.getSum() < dsm.getSum()) {
+//			return -1;
+//		} else if (this.getSum() > dsm.getSum()) {
+//			return 1;
+//		} 
+//		
+//		if (super.getDsm()==(double)0 || dsm.getDsm()==(double)0) {
+//			return 0;
+//		}
+		double thisScore = super.getSum() / QueueDays.hash.get(super.getName());
+		double dsmScore = dsm.getSum() / QueueDays.hash.get(dsm.getName());
 
 		if (dsmScore > thisScore) {
 			return -1;

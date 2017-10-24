@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.allen.QueueDays;
 import com.allen.template.PersistenceWithTemplate;
 import com.sap.security.core.server.csi.IXSSEncoder;
 import com.sap.security.core.server.csi.XSSEncoder;
@@ -63,7 +64,7 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th></tr>");
+            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th><th>AVG Q-DAY</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
@@ -80,7 +81,7 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
 	        	String score = "0";
 	        	if (sa.getSa() != 0) {
 	        		DecimalFormat df = new DecimalFormat("#.###");
-	        		score = df.format(sa.getPoint());
+	        		score = df.format(((double)sa.getSum()) / QueueDays.hash.get(sa.getName()));
 	        	}
 	        	
 	        	String pop = sa.getName() + " hass been +1, please go for assign.";
@@ -96,8 +97,8 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
 	        		response.getWriter().println(link); 
 	        		response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sa.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + sa.getSa() + "</center></td>");
-//					response.getWriter().println("<td height=\"30\"><center>" + sa.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
-		        	response.getWriter().println("<td height=\"30\"><center>" + sa.getSum() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + sa.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
+//		        	response.getWriter().println("<td height=\"30\"><center>" + sa.getSum() + "</center></td>");
 		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sa.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
 	        	} else {
 		        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
@@ -129,6 +130,8 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         	int amount = saDAO.getAmount(COMPONENT, ID) + 1;
         	saDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+        
+        response.sendRedirect(LINKNAME);
     }
 
 	@Override
@@ -140,12 +143,16 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         	int amount = saDAO.getAmount(COMPONENT, ID) - 1;
         	saDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+        
+        response.sendRedirect(LINKNAME);
 	}
 
 	@Override
 	protected void doReset(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		// TODO Auto-generated method stub
 		saDAO.resetIncidentToAll(COMPONENT);
+		
+		response.sendRedirect(LINKNAME);
 	}
 
 	@Override
@@ -158,6 +165,8 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         	int amount = saDAO.getAmount(COMPONENT, ID) - FIXEDVALUE;
         	saDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+        
+        response.sendRedirect(LINKNAME);
 	}
 
 	@Override
@@ -170,6 +179,8 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         	int amount = saDAO.getAmount(COMPONENT, ID) + FIXEDVALUE;
         	saDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+        
+        response.sendRedirect(LINKNAME);
 	}
 
 	@Override

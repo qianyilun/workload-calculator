@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.allen.QueueDays;
 import com.allen.template.PersistenceWithTemplate;
 import com.sap.security.core.server.csi.IXSSEncoder;
 import com.sap.security.core.server.csi.XSSEncoder;
@@ -63,7 +64,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th></tr>");
+            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th><th>AVG Q-DAY</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
@@ -81,10 +82,10 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
 	        	String score = "0";
 	        	if (dsm.getDsm() != 0) {
 	        		DecimalFormat df = new DecimalFormat("#.###");
-	        		score = df.format(dsm.getPoint());
+	        		score = df.format(((double)dsm.getSum()) / QueueDays.hash.get(dsm.getName()));
 	        	}
 	        	
-	        	String pop = dsm.getName() + " hass been +1, please go for assign.";
+	        	String pop = dsm.getName() + " has been +1, please go for assign.";
 	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + dsm.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
 	        	
 	        	if (dsm.getSum() < FIXEDVALUE) {
@@ -97,8 +98,8 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
 	        		response.getWriter().println(link); 
 		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + dsm.getDsm() + "</center></td>");
-//					response.getWriter().println("<td height=\"30\"><center>" + dsm.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + dsm.getSum() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + dsm.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
+//					response.getWriter().println("<td height=\"30\"><center>" + dsm.getSum() + "</center></td>");
 					response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
 	        	} else {
 		        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
@@ -131,11 +132,11 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         	dsmDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
         
-        /*******
+        
         response.sendRedirect(LINKNAME);
         
         
-        ********/
+        
     }
 
 	@Override
@@ -147,6 +148,8 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         	int amount = dsmDAO.getAmount(COMPONENT, ID) - 1;
         	dsmDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+        
+        response.sendRedirect(LINKNAME);
 	}
 
 	@Override
@@ -165,6 +168,8 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         	int amount = dsmDAO.getAmount(COMPONENT, ID) - FIXEDVALUE;
         	dsmDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+        
+        response.sendRedirect(LINKNAME);
 	}
 
 	@Override
@@ -177,6 +182,8 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         	int amount = dsmDAO.getAmount(COMPONENT, ID) + FIXEDVALUE;
         	dsmDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+        
+        response.sendRedirect(LINKNAME);
 	}
 
 	@Override

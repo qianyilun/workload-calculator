@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.allen.QueueDays;
 import com.allen.template.PersistenceWithTemplate;
 import com.sap.security.core.server.csi.IXSSEncoder;
 import com.sap.security.core.server.csi.XSSEncoder;
@@ -80,7 +81,7 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 	        	String score = "0";
 	        	if (sm.getSm() != 0) {
 	        		DecimalFormat df = new DecimalFormat("#.###");
-	        		score = df.format(sm.getPoint());
+	        		score = df.format(((double)sm.getSum()) / QueueDays.hash.get(sm.getName()));
 	        	}
 	        	
 	        	String pop = sm.getName() + " hass been +1, please go for assign.";
@@ -96,8 +97,8 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 	        		response.getWriter().println(link); 
 	        		response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + sm.getSm() + "</center></td>");
-//					response.getWriter().println("<td height=\"30\"><center>" + sm.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
-		        	response.getWriter().println("<td height=\"30\"><center>" + sm.getSum() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + sm.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
+//		        	response.getWriter().println("<td height=\"30\"><center>" + sm.getSum() + "</center></td>");
 		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
 	        	} else {
 		        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
@@ -129,6 +130,8 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         	int amount = smDAO.getAmount(COMPONENT, ID) + 1;
         	smDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+        
+        response.sendRedirect(LINKNAME);
     }
 
 	@Override
@@ -140,12 +143,16 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         	int amount = smDAO.getAmount(COMPONENT, ID) - 1;
         	smDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+        
+        response.sendRedirect(LINKNAME);
 	}
 
 	@Override
 	protected void doReset(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		// TODO Auto-generated method stub
 		smDAO.resetIncidentToAll(COMPONENT);
+		
+		response.sendRedirect(LINKNAME);
 	}
 
 	@Override
@@ -158,6 +165,8 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         	int amount = smDAO.getAmount(COMPONENT, ID) - FIXEDVALUE;
         	smDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+        
+        response.sendRedirect(LINKNAME);
 	}
 
 	@Override
@@ -170,6 +179,8 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         	int amount = smDAO.getAmount(COMPONENT, ID) + FIXEDVALUE;
         	smDAO.updateIncidentToPerson(id, amount, COMPONENT);
         }
+        
+        response.sendRedirect(LINKNAME);
 	}
 
 	@Override
