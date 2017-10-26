@@ -99,8 +99,6 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + dsm.getDsm() + "</center></td>");
 					response.getWriter().println("<td height=\"30\"><center>" + dsm.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
-//					response.getWriter().println("<td height=\"30\"><center>" + dsm.getSum() + "</center></td>");
-					response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
 	        	} else {
 		        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(dsm.getName() + ": UNAVAILABLE") + "</center></td>");
@@ -108,8 +106,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
 					response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
-					response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>");
-	        	}
+				}
 	        	
 				response.getWriter().println("</tr>");
         	}

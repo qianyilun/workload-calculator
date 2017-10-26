@@ -98,9 +98,7 @@ public class PersistenceWithLOD extends PersistenceWithTemplate {
 	        		response.getWriter().println(link); 
 	        		response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + lod.getLod() + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + lod.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
-//		        	response.getWriter().println("<td height=\"30\"><center>" + lod.getSum() + "</center></td>");
-		        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + lod.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");		        	
 	        	} else {
 		        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(lod.getName() + ": UNAVAILABLE") + "</center></td>");
@@ -108,7 +106,6 @@ public class PersistenceWithLOD extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
 					response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
-					response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>");
 	        	}
 	        	
 				response.getWriter().println("</tr>");
