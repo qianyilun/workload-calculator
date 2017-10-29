@@ -54,10 +54,14 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
     @Override
     protected void displayTable(HttpServletResponse response) throws SQLException, IOException {
         response.setIntHeader("Refresh", 5);
-    	
+        
     	// Append table that lists all persons
     	List<DSM> resultList = dsmDAO.selectAllEntries();
-        response.getWriter().println(
+        
+    	response.getWriter().println(super.checkRCC());
+    	
+    	
+    	response.getWriter().println(
                 "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
                         + "Entries in the Database</th>"
                         + "<th colspan=\"3\">" + "Smart Sorted</th></tr>");

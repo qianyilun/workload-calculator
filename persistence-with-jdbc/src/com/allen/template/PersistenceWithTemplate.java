@@ -41,22 +41,16 @@ public abstract class PersistenceWithTemplate extends HttpServlet {
     
     protected abstract String getComponent();
     
-    // https://stackoverflow.com/questions/27589701/showing-morning-afternoon-evening-night-message-based-on-time-in-java
-    private String greetings() {
+    protected String checkRCC() {
 		// TODO Auto-generated method stub
     	Calendar c = Calendar.getInstance();
     	int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-
-    	if(timeOfDay >= 0 && timeOfDay < 12){
-    	    return "Good Morning!";        
-    	}else if(timeOfDay >= 12 && timeOfDay < 16){
-    	    return "Good Afternoon!";
-    	}else if(timeOfDay >= 16 && timeOfDay < 21){
-    	    return "Good Evening!";
-    	}else if(timeOfDay >= 21 && timeOfDay < 24){
-    	    return "Good Night!";
+    	
+    	if (timeOfDay == 15 || timeOfDay == 20) {
+    		return "<center>Please check RCC before dispatching...</center>";
     	}
-    	return "unknow time";
+    	
+    	return "";
 	}
 
 	/** {@inheritDoc} */
