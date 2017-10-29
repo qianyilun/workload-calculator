@@ -79,10 +79,10 @@ public class PersistenceWithMS extends PersistenceWithTemplate {
         	
         		// Get score
 	        	String score = "0";
-	        	if (ms.getMs() != 0) {
-	        		DecimalFormat df = new DecimalFormat("#.###");
-	        		score = df.format(((double)ms.getSum()) / QueueDays.hash.get(ms.getName()));
-	        	}
+	        	
+        		DecimalFormat df = new DecimalFormat("#.###");
+        		score = df.format(((double)ms.getSum()) / QueueDays.hash.get(ms.getName()));
+        	
 	        	
 	        	String pop = ms.getName() + " hass been +1, please go for assign.";
 	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ ms.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + ms.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";

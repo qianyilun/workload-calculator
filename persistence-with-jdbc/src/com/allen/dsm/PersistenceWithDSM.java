@@ -58,7 +58,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
     	// Append table that lists all persons
     	List<DSM> resultList = dsmDAO.selectAllEntries();
         
-    	response.getWriter().println(super.checkRCC());
+//    	response.getWriter().println(super.checkRCC());
     	
     	
     	response.getWriter().println(
@@ -84,10 +84,8 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         	
 	        	// Get score
 	        	String score = "0";
-	        	if (dsm.getDsm() != 0) {
-	        		DecimalFormat df = new DecimalFormat("#.###");
-	        		score = df.format(((double)dsm.getSum()) / QueueDays.hash.get(dsm.getName()));
-	        	}
+        		DecimalFormat df = new DecimalFormat("#.###");
+        		score = df.format(((double)dsm.getSum()) / QueueDays.hash.get(dsm.getName()));
 	        	
 	        	String pop = dsm.getName() + " has been +1, please go for assign.";
 	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ dsm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + dsm.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";

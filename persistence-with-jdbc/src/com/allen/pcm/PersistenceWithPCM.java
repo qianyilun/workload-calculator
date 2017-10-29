@@ -79,10 +79,10 @@ public class PersistenceWithPCM extends PersistenceWithTemplate {
         	
         		// Get score
 	        	String score = "0";
-	        	if (pcm.getPcm() != 0) {
-	        		DecimalFormat df = new DecimalFormat("#.###");
-	        		score = df.format(((double)pcm.getSum()) / QueueDays.hash.get(pcm.getName()));
-	        	}
+	        	
+        		DecimalFormat df = new DecimalFormat("#.###");
+        		score = df.format(((double)pcm.getSum()) / QueueDays.hash.get(pcm.getName()));
+        	
 	        	
 	        	String pop = pcm.getName() + " hass been +1, please go for assign.";
 	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ pcm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + pcm.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";

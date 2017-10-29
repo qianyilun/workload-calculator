@@ -79,10 +79,10 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         	
         		// Get score
 	        	String score = "0";
-	        	if (sa.getSa() != 0) {
-	        		DecimalFormat df = new DecimalFormat("#.###");
-	        		score = df.format(((double)sa.getSum()) / QueueDays.hash.get(sa.getName()));
-	        	}
+	        	
+        		DecimalFormat df = new DecimalFormat("#.###");
+        		score = df.format(((double)sa.getSum()) / QueueDays.hash.get(sa.getName()));
+        	
 	        	
 	        	String pop = sa.getName() + " hass been +1, please go for assign.";
 	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ sa.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + sa.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
