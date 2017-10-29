@@ -84,7 +84,7 @@ public class PersistenceWithLOD extends PersistenceWithTemplate {
         		score = df.format(((double)lod.getSum()) / QueueDays.hash.get(lod.getName()));
         	
 	        	
-	        	String pop = lod.getName() + " hass been +1, please go for assign.";
+	        	String pop = lod.getName() + " has been +1, please go for assign.";
 	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ lod.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + lod.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
 	        	
 	        	if (lod.getSum() < FIXEDVALUE) {

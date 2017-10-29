@@ -56,7 +56,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             PrintWriter pw = response.getWriter();
-    
+            
             // suppose a NORMAL user
             pw.println("<html>");
             pw.println("<head><title> Welcome back! </title></head>");
@@ -82,9 +82,8 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
     private void checkCounter(HttpServletRequest request) throws SQLException {
 		// TODO Auto-generated method stub
     	String url = request.getQueryString();
-    	if (url == null) {
-    		nwDAO.addTimes();
-    	} else if (!(url.contains("ignore") ||url.contains("undo") || url.contains("delete"))) {
+    	
+    	if (url.contains("operation") || url.contains("ignore") ||url.contains("undo") || url.contains("delete")) {
     		nwDAO.addTimes();
     	}
 	}
@@ -165,7 +164,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         		score = df.format(((double)nw.getSum()) / QueueDays.hash.get(nw.getName()));
 //        	}
         	
-        	String pop = nw.getName() + " hass been +1, please go for assign.";
+        	String pop = nw.getName() + " has been +1, please go for assign.";
         	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + nw.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
         	
         	if (nw.getSum() < FIXEDVALUE) {
