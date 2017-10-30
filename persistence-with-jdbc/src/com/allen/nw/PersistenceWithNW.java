@@ -137,7 +137,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
     
     @Override
     protected void displayTable(HttpServletResponse response) throws SQLException, IOException {
-    	response.setIntHeader("Refresh", 5);
+    	response.setIntHeader("Refresh", 120);
     	
     	// Append table that lists all persons
         List<NW> resultList = nwDAO.selectAllEntries();
