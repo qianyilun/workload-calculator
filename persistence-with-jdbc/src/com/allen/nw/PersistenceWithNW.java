@@ -83,6 +83,9 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
 		// TODO Auto-generated method stub
     	String url = request.getQueryString();
     	
+    	if (url == null) {
+    		return;
+    	}
     	if (url.contains("operation") || url.contains("ignore") ||url.contains("undo") || url.contains("delete")) {
     		nwDAO.addTimes();
     	}
