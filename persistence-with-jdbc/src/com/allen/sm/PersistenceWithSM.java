@@ -73,10 +73,13 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         // Add reset button
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
+        int smIncidents = 0;
         for (SM sm : resultList) {        	
         	// Graham = 4, Stefan = 12
         	if (sm.getId() == 4 || sm.getId()==12) {
-        	
+        		// Calculate incident number
+        		smIncidents += sm.getSm();
+        		
         		// Get score
 	        	String score = "0";
 	        	
@@ -103,14 +106,17 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(sm.getName() + ": UNAVAILABLE") + "</center></td>");
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-		        	response.getWriter().println("<td height=\"30\"><center>" + (sm.getSm()-FIXEDVALUE) + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + (sm.getSum()-FIXEDVALUE) + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + sm.getSm() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + sm.getSum() + "</center></td>");
 	        	}
 	        	
 				response.getWriter().println("</tr>");
         	}
         }
-		response.getWriter().println("</table></center></p></body>");
+        response.getWriter().println("</table></center></p>");
+		
+		response.getWriter().println("<p><center>SM has <mark>" + smIncidents + "</mark> incidents" + "</center></p>");
+		response.getWriter().println("</body>");
         	     
 		// Home button
 		response.getWriter().println("<p><center><form action=\"" + "nw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");

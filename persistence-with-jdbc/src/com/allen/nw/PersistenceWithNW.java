@@ -159,18 +159,27 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
 
         response.getWriter().println("<h2>NW / XLS</h2>");
         
+        int nwIncidents = 0;
+        int globalIncidents = 0;
         for (NW nw : resultList) {
+        	
+    		
+    		
         	// Get score
         	String score = "0";
-//        	if (nw.getNw() != 0) {
-        		DecimalFormat df = new DecimalFormat("#.###");
-        		score = df.format(((double)nw.getSum()) / QueueDays.hash.get(nw.getName()));
-//        	}
+
+    		DecimalFormat df = new DecimalFormat("#.###");
+    		score = df.format(((double)nw.getSum()) / QueueDays.hash.get(nw.getName()));
+
         	
         	String pop = nw.getName() + " has been +1, please go for assign.";
         	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + nw.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
         	
         	if (nw.getSum() < FIXEDVALUE) {
+        		// Calculate incident number
+        		nwIncidents += nw.getNw();
+        		globalIncidents += nw.getSum();
+        		
         		response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
 	        	if (index == 2) {
 	        		response.getWriter().println("<td height=\"30\"><center><mark><b>" + xssEncoder.encodeHTML(nw.getName()+" ("+nw.getiNumber()+")") + "</b></mark></center></td>");
@@ -183,6 +192,10 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
 				response.getWriter().println("<td height=\"30\"><center>" + nw.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
 	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
         	} else {
+        		// Calculate incident number
+        		nwIncidents = nwIncidents + nw.getNw()-FIXEDVALUE;
+        		globalIncidents = globalIncidents + nw.getSum()-FIXEDVALUE;
+        		
 	        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
 	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getName() + ": UNAVAILABLE") + "</center></td>");
 	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
@@ -196,7 +209,10 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         }
          
         response.getWriter().println("</table></center></p>");
-        
+		
+		response.getWriter().println("<p><b><center>NW has <mark>" + nwIncidents + "</mark> incidents" + " and SUM is <mark>" + globalIncidents + "</mark></center></b></p>");
+		response.getWriter().println("</body>");
+       
         
         response.getWriter().println("<center><p>We have been serving " + nwDAO.getTimes() + " times</p></center>");
         

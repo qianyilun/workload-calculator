@@ -73,10 +73,13 @@ public class PersistenceWithLOD extends PersistenceWithTemplate {
         // Add reset button
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
+        int lodIncidents = 0;
         for (LOD lod : resultList) {        	
         	// John L = 7, Julie = 8
         	if (lod.getId() == 7 || lod.getId()== 8) {
-        	
+        		// Calculate incident number
+        		lodIncidents += lod.getLod();
+        		
         		// Get score
 	        	String score = "0";
 	        	
@@ -103,14 +106,17 @@ public class PersistenceWithLOD extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(lod.getName() + ": UNAVAILABLE") + "</center></td>");
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-		        	response.getWriter().println("<td height=\"30\"><center>" + (lod.getLod()-FIXEDVALUE) + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + (lod.getSum()-FIXEDVALUE) + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + lod.getLod() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + lod.getSum() + "</center></td>");
 	        	}
 	        	
 				response.getWriter().println("</tr>");
         	}
         }
-		response.getWriter().println("</table></center></p></body>");
+    	response.getWriter().println("</table></center></p>");
+		
+		response.getWriter().println("<p><center>LOD has <mark>" + lodIncidents + "</mark> incidents" + "</center></p>");
+		response.getWriter().println("</body>");
         	     
 		// Home button
 		response.getWriter().println("<p><center><form action=\"" + "nw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");

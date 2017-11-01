@@ -73,10 +73,13 @@ public class PersistenceWithPCM extends PersistenceWithTemplate {
         // Add reset button
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
+        int pcmIncidents = 0;
         for (PCM pcm : resultList) {        	
         	// April = 3, John H = 6
         	if (pcm.getId() == 3 || pcm.getId()== 6) {
-        	
+        		// Calculate incident number
+        		pcmIncidents += pcm.getPcm();
+        		
         		// Get score
 	        	String score = "0";
 	        	
@@ -103,14 +106,17 @@ public class PersistenceWithPCM extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(pcm.getName() + ": UNAVAILABLE") + "</center></td>");
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-		        	response.getWriter().println("<td height=\"30\"><center>" + (pcm.getPcm()-FIXEDVALUE) + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + (pcm.getSum()-FIXEDVALUE) + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + pcm.getPcm() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + pcm.getSum() + "</center></td>");
 				}
 	        	
 				response.getWriter().println("</tr>");
         	}
         }
-		response.getWriter().println("</table></center></p></body>");
+        response.getWriter().println("</table></center></p>");
+		
+		response.getWriter().println("<p><center>PCM has <mark>" + pcmIncidents + "</mark> incidents" + "</center></p>");
+		response.getWriter().println("</body>");
         	     
 		// Home button
 		response.getWriter().println("<p><center><form action=\"" + "nw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");

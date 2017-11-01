@@ -73,10 +73,13 @@ public class PersistenceWithMS extends PersistenceWithTemplate {
         // Add reset button
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
+        int msIncidents = 0;
         for (MS ms : resultList) {        	
         	// Graham = 4, Stefan = 12, April = 3, John L = 7
         	if (ms.getId() == 4 || ms.getId()== 12 || ms.getId()== 3 || ms.getId()== 7) {
-        	
+        		// Calculate incident number
+        		msIncidents += ms.getMs();
+        		
         		// Get score
 	        	String score = "0";
 	        	
@@ -102,14 +105,17 @@ public class PersistenceWithMS extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(ms.getName() + ": UNAVAILABLE") + "</center></td>");
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-		        	response.getWriter().println("<td height=\"30\"><center>" + (ms.getMs()-FIXEDVALUE) + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + (ms.getSum()-FIXEDVALUE) + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + ms.getMs() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + ms.getSum() + "</center></td>");
 				}
 	        	
 				response.getWriter().println("</tr>");
         	}
         }
-		response.getWriter().println("</table></center></p></body>");
+    	response.getWriter().println("</table></center></p>");
+		
+		response.getWriter().println("<p><center>MS has <mark>" + msIncidents + "</mark> incidents" + "</center></p>");
+		response.getWriter().println("</body>");
         	     
 		// Home button
 		response.getWriter().println("<p><center><form action=\"" + "nw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");

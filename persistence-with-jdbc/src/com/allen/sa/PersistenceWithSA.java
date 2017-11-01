@@ -73,10 +73,13 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         // Add reset button
         response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
+        int saIncidents = 0;
         for (SA sa : resultList) {        	
         	// Hitomi = 5, JohnH = 6
         	if (sa.getId() == 5 || sa.getId()== 6) {
-        	
+        		// Calculate incident number
+        		saIncidents += sa.getSa();
+        		
         		// Get score
 	        	String score = "0";
 	        	
@@ -103,14 +106,17 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(sa.getName() + ": UNAVAILABLE") + "</center></td>");
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-		        	response.getWriter().println("<td height=\"30\"><center>" + (sa.getSa()-FIXEDVALUE) + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + (sa.getSum()-FIXEDVALUE) + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + sa.getSa() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + sa.getSum() + "</center></td>");
 				}
 	        	
 				response.getWriter().println("</tr>");
         	}
         }
-		response.getWriter().println("</table></center></p></body>");
+        response.getWriter().println("</table></center></p>");
+		
+		response.getWriter().println("<p><center>SA has <mark>" + saIncidents + "</mark> incidents" + "</center></p>");
+		response.getWriter().println("</body>");
         	     
 		// Home button
 		response.getWriter().println("<p><center><form action=\"" + "nw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
