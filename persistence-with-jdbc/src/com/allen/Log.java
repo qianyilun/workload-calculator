@@ -29,6 +29,9 @@ public class Log extends HttpServlet {
 		
 		response.getWriter().println("<h2>version_1.1.0</h2>");
 		response.getWriter().println("<p>" + version_1_1_0 + "</p>");
+		
+		response.getWriter().println("<h2>version_1.1.1</h2>");
+		response.getWriter().println("<p>" + version_1_1_1 + "</p>");
 	}
 
 	/**
@@ -40,9 +43,14 @@ public class Log extends HttpServlet {
 	}
 	
 	private String version_1_1_0 = ""
-			+ "•	Maintained week 44 “Queue Days” <br />" + 
-			"•	Number display issue fixed <br />" + 
-			"•	Bug fixes and improvements <br />" + 
+			+ "1.Maintained week 44 \"Queue Days\" <br />" + 
+			"2.Number display issue fixed <br />" + 
+			"3.Bug fixes and improvements <br />" + 
 			"";
 
+	private String version_1_1_1 = ""
+			+ "1.Reduce the auto refresh frequency <br />"
+			+ "2.Display the number of all incidents <br />"
+			+ "3.Display the number of incidents for each component <br />"
+			+ "4.'Amount and Total' of unavailable engineers are able to see now";
 }

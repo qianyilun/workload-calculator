@@ -214,7 +214,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
 		response.getWriter().println("</body>");
        
         
-        response.getWriter().println("<center><p>We have been serving " + nwDAO.getTimes() + " times</p></center>");
+        response.getWriter().println("<center><p>We have been serving " + nwDAO.getTimes() + " times. Click <a style=\"color:blue\" href=\"log\">here</a> to see what's new</center></p>");
         
     }
     
