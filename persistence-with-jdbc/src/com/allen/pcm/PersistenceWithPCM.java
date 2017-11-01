@@ -103,8 +103,8 @@ public class PersistenceWithPCM extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(pcm.getName() + ": UNAVAILABLE") + "</center></td>");
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
-					response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + (pcm.getPcm()-FIXEDVALUE) + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + (pcm.getSum()-FIXEDVALUE) + "</center></td>");
 				}
 	        	
 				response.getWriter().println("</tr>");

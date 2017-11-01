@@ -103,8 +103,8 @@ public class PersistenceWithFC extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(fc.getName() + ": UNAVAILABLE") + "</center></td>");
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
-					response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + (fc.getFc()-FIXEDVALUE) + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + (fc.getSum()-FIXEDVALUE) + "</center></td>");
 				}
 	        	
 				response.getWriter().println("</tr>");

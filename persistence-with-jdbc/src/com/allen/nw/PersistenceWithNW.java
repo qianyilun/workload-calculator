@@ -181,15 +181,14 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
 	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
 	        	response.getWriter().println("<td height=\"30\"><center>" + nw.getNw() + "</center></td>");
 				response.getWriter().println("<td height=\"30\"><center>" + nw.getSum() + "</center></td>" + "<td height=\"30\"><center>" + score + "</center></td>");
-//	        	response.getWriter().println("<td height=\"30\"><center>" + nw.getSum() + "</center></td>");
 	        	response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=ignore\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('This person will be unavailable and you can undo anytime!')\" value=\"unavailable\" />" + "</form></center></td>");
         	} else {
 	        	response.getWriter().println("<tr><td height=\"30\"><center>" + (index++) + "</center></td>");
 	        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(nw.getName() + ": UNAVAILABLE") + "</center></td>");
 	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-	        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
-				response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+	        	response.getWriter().println("<td height=\"30\"><center>" + (nw.getNw()-FIXEDVALUE) + "</center></td>");
+				response.getWriter().println("<td height=\"30\"><center>" + (nw.getSum()-FIXEDVALUE) + "</center></td>");
 				response.getWriter().println("<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=undo\" method=\"post\">" + "<input type=\"submit\" value=\"undo\" />" + "</form></center></td>");
         	}
         	

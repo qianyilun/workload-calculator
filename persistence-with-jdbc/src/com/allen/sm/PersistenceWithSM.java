@@ -103,8 +103,8 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td height=\"30\"><center>" + xssEncoder.encodeHTML(sm.getName() + ": UNAVAILABLE") + "</center></td>");
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
-		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
-					response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>");
+		        	response.getWriter().println("<td height=\"30\"><center>" + (sm.getSm()-FIXEDVALUE) + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + (sm.getSum()-FIXEDVALUE) + "</center></td>");
 	        	}
 	        	
 				response.getWriter().println("</tr>");
