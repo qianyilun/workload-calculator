@@ -71,7 +71,7 @@ public class PersistenceWithMS extends PersistenceWithTemplate {
         Collections.sort(resultList); 
      
         // Add reset button
-        response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
+        response.getWriter().println("<p><center>Monday Morning or not? If yes, click <form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
 
         int msIncidents = 0;
         for (MS ms : resultList) {        	
