@@ -157,7 +157,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         // Add [qm assign] button
     	response.getWriter().println("<p><center> Click here &#8594;  <input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: ','[qm assign]')\" value=\"[qm assign]\"></center></p>");
         
-        response.getWriter().println("<h2>NW / XLS</h2>");
+        response.getWriter().println("<h2>NW / XLS / RTC</h2>");
         
         int nwIncidents = 0;
         int globalIncidents = 0;
