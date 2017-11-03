@@ -57,9 +57,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         
     	// Append table that lists all persons
     	List<DSM> resultList = dsmDAO.selectAllEntries();
-        
-//    	response.getWriter().println(super.checkRCC());
-    	
+           	
     	
     	response.getWriter().println(
                 "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
@@ -74,8 +72,8 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         int index = 1;
         Collections.sort(resultList); 
      
-        // Add reset button
-        response.getWriter().println("<p><center>Monday Morning or not? If yes, click <form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
+        // Add [qm assign] button
+    	response.getWriter().println("<p><center> Click here &#8594;  <input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: ','[qm assign]')\" value=\"[qm assign]\"></center></p>");
         
         int dsmIncidents = 0;
         for (DSM dsm : resultList) {
@@ -124,8 +122,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
     
 		// Home button
 		response.getWriter().println("<p><center><form action=\"" + "nw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
-        	
-        
+        	       
     }
     
     @Override

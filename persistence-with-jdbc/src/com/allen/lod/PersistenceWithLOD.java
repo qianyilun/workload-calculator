@@ -70,9 +70,9 @@ public class PersistenceWithLOD extends PersistenceWithTemplate {
         int index = 1;
         Collections.sort(resultList); 
      
-        // Add reset button
-        response.getWriter().println("<p><center>Monday Morning or not? If yes, click <form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
-
+        // Add [qm assign] button
+    	response.getWriter().println("<p><center> Click here &#8594;  <input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: ','[qm assign]')\" value=\"[qm assign]\"></center></p>");
+        
         int lodIncidents = 0;
         for (LOD lod : resultList) {        	
         	// John L = 7, Julie = 8

@@ -154,6 +154,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         int index = 1;
         Collections.sort(resultList); 
         
+        // Add [qm assign] button
     	response.getWriter().println("<p><center> Click here &#8594;  <input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: ','[qm assign]')\" value=\"[qm assign]\"></center></p>");
         
         response.getWriter().println("<h2>NW / XLS</h2>");
@@ -210,12 +211,14 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         response.getWriter().println("</table></center></p>");
 		
 		response.getWriter().println("<p><b><center>NW has <mark>" + nwIncidents + "</mark> incidents" + " and SUM is <mark>" + globalIncidents + "</mark></center></b></p>");
-		response.getWriter().println("</body>");
+//		response.getWriter().println("</body>");
        
 		// Add reset button
         response.getWriter().println("<p><center>Monday Morning or not? If yes, click <form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
         
         response.getWriter().println("<center><p>We have been serving " + nwDAO.getTimes() + " times. Click <a style=\"color:blue\" href=\"log\">here</a> to see what's new</center></p>");
+        
+        response.getWriter().println("</body>");
         
     }
     
