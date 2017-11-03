@@ -154,10 +154,6 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         int index = 1;
         Collections.sort(resultList); 
         
-//        // Add reset button
-//        response.getWriter().println("<p><center>Monday Morning or not? If yes, click <form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
-        // Copy [QM Assign]
-//        response.getWriter().println("<p><center><form action=\"" + LINKNAME + "\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: ','[qm assign]')\" value=\"[qm assign]\" />" + "</center></p>");
     	response.getWriter().println("<p><center> Click here &#8594;  <input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: ','[qm assign]')\" value=\"[qm assign]\"></center></p>");
         
         response.getWriter().println("<h2>NW / XLS</h2>");
