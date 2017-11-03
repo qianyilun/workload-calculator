@@ -60,7 +60,7 @@ public class Log extends HttpServlet {
 			+ "4.'Amount and Total' of unavailable engineers are able to see now";
 	
 	private String version_1_1_2 = ""
-			+ "1.Add the [qm assign] button at the top of each page, which can allow QM to copy “[qm assign]” to BCP internal memo <br />" + 
+			+ "1.Add the [qm assign] button at the top of each page, which can allow QM to copy \"[qm assign]\" to BCP internal memo <br />" + 
 			"2.Fix the total numbers are displayed as 9999 in Other Components <br />" + 
 			"3.Move the RESET button to the bottom to avoid mistaking click <br />" + 
 			"4.Monday Morning reminder is around by RESET button" + 
