@@ -59,10 +59,10 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
             
             // suppose a NORMAL user
             pw.println("<html>");
-            pw.println("<head><title> Welcome back! </title></head>");
+            pw.println("<head><title> Queue Manager Cloud Dispatcher </title></head>");
             pw.println("<body>");
             pw.println("<center>");
-            pw.println("<h1> Welcome back, Queue Manager </h1>");
+            pw.println("<h1> Welcome Back, Queue Manager </h1>");
     
             drawUpperTable(pw);
             
