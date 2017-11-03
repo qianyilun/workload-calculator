@@ -109,7 +109,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + dsm.getDsm() + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + dsm.getSum() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + (dsm.getSum()-FIXEDVALUE) + "</center></td>");
 				}
 	        	
 				response.getWriter().println("</tr>");

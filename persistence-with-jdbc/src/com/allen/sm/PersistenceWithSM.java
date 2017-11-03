@@ -107,7 +107,7 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + sm.getSm() + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + sm.getSum() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + (sm.getSum()-FIXEDVALUE) + "</center></td>");
 	        	}
 	        	
 				response.getWriter().println("</tr>");
