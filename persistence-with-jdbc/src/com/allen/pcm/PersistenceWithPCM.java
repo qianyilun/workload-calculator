@@ -59,19 +59,19 @@ public class PersistenceWithPCM extends PersistenceWithTemplate {
         List<PCM> resultList = pcmDAO.selectAllEntries();
         response.getWriter().println(
                 "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
-                        + "Entries in the Database</th>"
+                        + "Employees in the EPM-BPC team</th>"
                         + "<th colspan=\"3\">" + "Smart Sorted</th></tr>");
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th><th>AVG Q-DAY</th></tr>");
+            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Assign</th><th>Remove</th><th>Amount</th><th>Total</th><th>AVG Q-DAY</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
         Collections.sort(resultList); 
      
-        // Add [qm assign] button
-    	response.getWriter().println("<p><center> Click here &#8594;  <input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: ','[qm assign]')\" value=\"[qm assign]\"></center></p>");
+        // Add [EPM_QM_ASSIGNED] button
+    	response.getWriter().println("<p><center> Click here &#8594;  <input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: ','[EPM_QM_ASSIGNED]')\" value=\"[EPM_QM_ASSIGNED]\"></center></p>");
         
         int pcmIncidents = 0;
         for (PCM pcm : resultList) {        	
@@ -87,7 +87,7 @@ public class PersistenceWithPCM extends PersistenceWithTemplate {
         		score = df.format(((double)pcm.getSum()) / QueueDays.hash.get(pcm.getName()));
         	
 	        	
-	        	String pop = pcm.getName() + " hass been +1, please go for assign.";
+	        	String pop = pcm.getName() + " has been +1, please go for assign.";
 	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ pcm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + pcm.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
 	        	
 	        	if (pcm.getSum() < FIXEDVALUE) {
