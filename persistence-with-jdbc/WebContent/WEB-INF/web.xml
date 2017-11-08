@@ -142,4 +142,14 @@
     <servlet-name>Log</servlet-name>
     <url-pattern>/log</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RCCData</display-name>
+    <servlet-name>RCCData</servlet-name>
+    <servlet-class>com.allen.RCCData</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RCCData</servlet-name>
+    <url-pattern>/rccdata</url-pattern>
+  </servlet-mapping>
 </web-app>
