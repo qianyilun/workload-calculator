@@ -33,6 +33,12 @@ public class RCCData extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
+		
+		
+		
 		// TODO Auto-generated method stub
 		response.getWriter().println("<html>");
 		response.getWriter().println("<html>");
@@ -54,13 +60,24 @@ public class RCCData extends HttpServlet {
 	    	response.getWriter().println(
 	                "<p><center><table width=70% border=\"1\">");
 	        	
-	        response.getWriter().println("<tr><th>#</th><th>Name</th><th>Old Queue Days</th><th>New Queue Days</th><th>Update</th><th>%usage</th></tr>");	
+	        response.getWriter().println("<tr><th>#</th><th>Name</th><th>Current Queue Days</th><th>Increase</th><th>Decrease</th><th>%usage</th></tr>");	
 		
 	        		
 			
 			
 			writeRow(index, response, "Alex", "1.00");
-			   	
+			writeRow(index, response, "Allen", "1.00");
+			writeRow(index, response, "April", "1.00");
+			writeRow(index, response, "Graham", "1.00");
+			writeRow(index, response, "Hitomi", "1.00");
+			writeRow(index, response, "John H", "1.00");
+			writeRow(index, response, "John L", "0.5");
+			writeRow(index, response, "Julie", "1.00");
+			writeRow(index, response, "Leila", "1.00");
+			writeRow(index, response, "Marc", "1.00");
+			writeRow(index, response, "Pedro", "1.00");
+			writeRow(index, response, "Stefan", "1.00");
+			writeRow(index, response, "Yvonne", "0.75");
 	    	
 	    	
 	    	
@@ -83,11 +100,12 @@ public class RCCData extends HttpServlet {
 		
 		response.getWriter().println("<td height=\"30\"><center>" + name + "</center></td>");
     	response.getWriter().println("<td height=\"30\"><center>" + QueueDays.getValue(name) + "</center></td>");
+  
+    	response.getWriter().println("<td><center><form action=\"" + "rccdata" + "?name="+ name + "&operation=increase\" method=\"post\">" + "<input type=\"submit\" value=\"Add\" />" + "</form></center></td>"); 
+		
     	
-    	int value = 55;
-    	response.getWriter().println("<td height=\"30\"><center>" + "input here" + "</center></td>");
-
-    	response.getWriter().println("<td><center><form action=\"" + "rccdata" + "?Name="+ name + "&Value=" + value + "\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
+		response.getWriter().println("<td><center><form action=\"" + "rccdata" + "?name="+ name + "&operation=decrease\" method=\"post\">" + "<input type=\"submit\" value=\"Delete\" />" + "</form></center></td>"); 
+		
     	
 
     	response.getWriter().println("<td height=\"30\"><center>" + usage + "</center></td>");
@@ -99,10 +117,15 @@ public class RCCData extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String name = request.getParameter("Name");
-		String value = request.getParameter("Value");
+		String name = request.getParameter("name");
+		String operation = request.getParameter("operation");
 		
-		QueueDays.changeValue(name, value);
+		if (operation.equals("decrease")) {
+			QueueDays.minusValue(name);
+		} else if (operation.equals("increase")) {
+			QueueDays.addValue(name);
+		}
+
 		doGet(request, response);
 		
 	}
