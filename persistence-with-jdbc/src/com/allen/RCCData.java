@@ -41,7 +41,6 @@ public class RCCData extends HttpServlet {
 		
 		// TODO Auto-generated method stub
 		response.getWriter().println("<html>");
-		response.getWriter().println("<html>");
 		response.getWriter().println("<head><title> Edit Availability</title></head>");
 		response.getWriter().println("<body>");
 		response.getWriter().println("<center><h1> Edit Availability </h1></center>");
@@ -86,6 +85,7 @@ public class RCCData extends HttpServlet {
 		
 			response.getWriter().println("</tr></table></center></p>");
 	        
+			
 	        response.getWriter().println("</body>");
 		} catch (IOException e) {
 			e.printStackTrace();

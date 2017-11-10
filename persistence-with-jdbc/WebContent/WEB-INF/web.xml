@@ -162,4 +162,14 @@
     <servlet-name>Test</servlet-name>
     <url-pattern>/test</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Rcc</display-name>
+    <servlet-name>Rcc</servlet-name>
+    <servlet-class>com.allen.Rcc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Rcc</servlet-name>
+    <url-pattern>/rcc</url-pattern>
+  </servlet-mapping>
 </web-app>

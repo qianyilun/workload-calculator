@@ -213,6 +213,9 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
 		response.getWriter().println("<p><b><center>NW has <mark>" + nwIncidents + "</mark> incidents" + " and SUM is <mark>" + globalIncidents + "</mark></center></b></p>");
 //		response.getWriter().println("</body>");
        
+		
+		response.getWriter().println("<a style=\"color:blue\" href=\"submit\" >RCC      </a>");
+		
 		// Add reset button
         response.getWriter().println("<p><center>Monday Morning or not? If yes, click <form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
         
