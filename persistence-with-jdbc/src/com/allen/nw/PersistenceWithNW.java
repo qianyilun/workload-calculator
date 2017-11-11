@@ -35,6 +35,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
      */
     public PersistenceWithNW() {
         super();
+        QueueDays.initHash();
         // TODO Auto-generated constructor stub
     }
 
@@ -169,8 +170,14 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         	String score = "0";
 
     		DecimalFormat df = new DecimalFormat("#.###");
-    		score = df.format(((double)nw.getSum()) / QueueDays.hash.get(nw.getName()));
-
+    		
+    		if (nw.getName().equals("Yvonne")) {
+    			score = df.format(((double)nw.getSum()) / (QueueDays.hash.get(nw.getName())*0.75));
+    		} else if (nw.getName().equals("John L")) {
+    			score = df.format(((double)nw.getSum()) / (QueueDays.hash.get(nw.getName())*0.5));
+    		} else {
+    			score = df.format(((double)nw.getSum()) / QueueDays.hash.get(nw.getName()));
+    		}
         	
         	String pop = nw.getName() + " has been +1, please go for assign.";
         	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ nw.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + nw.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
@@ -210,15 +217,11 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
          
         response.getWriter().println("</table></center></p>");
 		
-		response.getWriter().println("<p><b><center>NW has <mark>" + nwIncidents + "</mark> incidents" + " and SUM is <mark>" + globalIncidents + "</mark></center></b></p>");
-//		response.getWriter().println("</body>");
-       
+		response.getWriter().println("<p><b><center>NW has <mark>" + nwIncidents + "</mark> incidents" + " and SUM is <mark>" + globalIncidents + "</mark></center></b></p>");      
 		
-		response.getWriter().println("<a style=\"color:blue\" href=\"submit\" >RCC      </a>");
+		response.getWriter().println("<a style=\"color:blue\" href=\"rcc\" >&#9881;Settings</a>");
 		
-		// Add reset button
-        response.getWriter().println("<p><center>Monday Morning or not? If yes, click <form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
-        
+		
         response.getWriter().println("<center><p>We have been serving " + nwDAO.getTimes() + " times. Click <a style=\"color:blue\" href=\"log\">here</a> to see what's new</center></p>");
         
         response.getWriter().println("</body>");

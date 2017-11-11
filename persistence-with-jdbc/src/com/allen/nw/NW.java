@@ -17,18 +17,25 @@ public class NW extends Template implements Comparable<NW>{
 	
 	@Override
 	public int compareTo(NW nw) {
-		// TODO Auto-generated method stub
-//		if (this.getSum() < nw.getSum()) {
-//			return -1;
-//		} else if (this.getSum() > nw.getSum()) {
-//			return 1;
-//		} 
-//		
-//		if (super.getNw()==(double)0 || nw.getNw()==(double)0) {
-//			return 0;
-//		}
-		double thisScore = super.getSum() / QueueDays.hash.get(super.getName());
-		double nwScore = nw.getSum() / QueueDays.hash.get(nw.getName());
+		// TODO Auto-generated method stub	
+		double thisScore;
+		double nwScore;
+		
+		if (super.getName().equals("Yvonne")) {
+			thisScore = super.getSum() / (QueueDays.hash.get(super.getName())*0.75);
+		} else if (super.getName().equals("John L")) {
+			thisScore = super.getSum() / (QueueDays.hash.get(super.getName())*0.5);
+		} else {
+			thisScore = super.getSum() / QueueDays.hash.get(super.getName());
+		}
+		
+		if (nw.getName().equals("Yvonne")) {
+			nwScore = nw.getSum() / (QueueDays.hash.get(nw.getName())*0.75);
+		} else if (super.getName().equals("John L")) {
+			nwScore = nw.getSum() / (QueueDays.hash.get(nw.getName())*0.5);
+		} else {
+			nwScore = nw.getSum() / QueueDays.hash.get(nw.getName());
+		}
 		
 		if (nwScore > thisScore) {
 			return -1;

@@ -84,8 +84,12 @@ public class PersistenceWithFC extends PersistenceWithTemplate {
 	        	String score = "0";
 	        	
         		DecimalFormat df = new DecimalFormat("#.###");
-        		score = df.format(((double)fc.getSum()) / QueueDays.hash.get(fc.getName()));
-	        	
+        		
+        		if (fc.getName().equals("Yvonne")) {
+        			score = df.format(((double)fc.getSum()) / (QueueDays.hash.get(fc.getName())*0.75));
+        		} else {
+        			score = df.format(((double)fc.getSum()) / QueueDays.hash.get(fc.getName()));
+        		}
 	        	
 	        	String pop = fc.getName() + " has been +1, please go for assign.";
 	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ fc.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + fc.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";

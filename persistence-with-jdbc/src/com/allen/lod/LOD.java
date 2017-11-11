@@ -18,17 +18,20 @@ public class LOD extends Template implements Comparable<LOD>{
 	@Override
 	public int compareTo(LOD lod) {
 		// TODO Auto-generated method stub
-//		if (this.getSum() < lod.getSum()) {
-//			return -1;
-//		} else if (this.getSum() > lod.getSum()) {
-//			return 1;
-//		} 
-//		
-//		if (super.getLod()==(double)0 || lod.getLod()==(double)0) {
-//			return 0;
-//		}
-		double thisScore = super.getSum() / QueueDays.hash.get(super.getName());
-		double lodScore = lod.getSum() / QueueDays.hash.get(lod.getName());
+		double thisScore;
+		double lodScore;
+		
+		if (super.getName().equals("John L")) {
+			thisScore = super.getSum() / (QueueDays.hash.get(super.getName())*0.5);
+		} else {
+			thisScore = super.getSum() / QueueDays.hash.get(super.getName());
+		}
+		
+		if (super.getName().equals("John L")) {
+			lodScore = lod.getSum() / (QueueDays.hash.get(lod.getName())*0.5);
+		} else {
+			lodScore = lod.getSum() / QueueDays.hash.get(lod.getName());
+		}
 		
 		if (lodScore > thisScore) {
 			return -1;
