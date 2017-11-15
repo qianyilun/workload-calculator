@@ -18,15 +18,6 @@ public class DSM extends Template implements Comparable<DSM>{
 	@Override
 	public int compareTo(DSM dsm) {
 		// TODO Auto-generated method stub
-//		if (this.getSum() < dsm.getSum()) {
-//			return -1;
-//		} else if (this.getSum() > dsm.getSum()) {
-//			return 1;
-//		} 
-//		
-//		if (super.getDsm()==(double)0 || dsm.getDsm()==(double)0) {
-//			return 0;
-//		}
 		double thisScore = super.getSum() / QueueDays.hash.get(super.getName());
 		double dsmScore = dsm.getSum() / QueueDays.hash.get(dsm.getName());
 

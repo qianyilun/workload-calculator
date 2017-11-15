@@ -27,11 +27,19 @@ public class Log extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().println("<h1>What's new<h1>");
 		
-		response.getWriter().println("<h2>version_1.1.0</h2>");
-		response.getWriter().println("<p>" + version_1_1_0 + "</p>");
+		response.getWriter().println("<h2>version_1.2.1</h2>");
+		response.getWriter().println("<p>" + version_1_2_1 + "</p>");
+		
+		response.getWriter().println("<h2>version_1.1.2</h2>");
+		response.getWriter().println("<p>" + version_1_1_2 + "</p>");
 		
 		response.getWriter().println("<h2>version_1.1.1</h2>");
 		response.getWriter().println("<p>" + version_1_1_1 + "</p>");
+		
+		response.getWriter().println("<h2>version_1.1.0</h2>");
+		response.getWriter().println("<p>" + version_1_1_0 + "</p>");
+		
+		
 	}
 
 	/**
@@ -53,4 +61,16 @@ public class Log extends HttpServlet {
 			+ "2.Display the number of all incidents <br />"
 			+ "3.Display the number of incidents for each component <br />"
 			+ "4.'Amount and Total' of unavailable engineers are able to see now";
+	
+	private String version_1_1_2 = ""
+			+ "1.Add the [qm assign] button at the top of each page, which can allow QM to copy \"[qm assign]\" to BCP internal memo <br />" + 
+			"2.Fix the total numbers are displayed as 9999 in Other Components <br />" + 
+			"3.Move the RESET button to the bottom to avoid mistaking click <br />" + 
+			"4.Monday Morning reminder is around by RESET button" + 
+			"";
+	
+	private String version_1_2_1 = ""
+			+ "1.QMCD now supports engineer customize the number of \"Days in the Queue\" <br />" + 
+			"2.Ahaan has been added to the name list because he will be on the queue starting from this week <br />";
+			
 }

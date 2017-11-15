@@ -59,20 +59,20 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         List<SM> resultList = smDAO.selectAllEntries();
         response.getWriter().println(
                 "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
-                        + "Entries in the Database</th>"
+                        + "Employees in the EPM-BPC team</th>"
                         + "<th colspan=\"3\">" + "Smart Sorted</th></tr>");
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th><th>AVG Q-DAY</th></tr>");
+            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Assign</th><th>Remove</th><th>Amount</th><th>Total</th><th>AVG Q-DAY</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
         Collections.sort(resultList); 
      
-        // Add reset button
-        response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
-
+        // Add [EPM_QM_ASSIGNED] button
+    	response.getWriter().println("<p><center> Click here &#8594;  <input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: ','[EPM_QM_ASSIGNED]')\" value=\"[EPM_QM_ASSIGNED]\"></center></p>");
+        
         int smIncidents = 0;
         for (SM sm : resultList) {        	
         	// Graham = 4, Stefan = 12
@@ -87,7 +87,7 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
         		score = df.format(((double)sm.getSum()) / QueueDays.hash.get(sm.getName()));
         	
 	        	
-	        	String pop = sm.getName() + " hass been +1, please go for assign.";
+	        	String pop = sm.getName() + " has been +1, please go for assign.";
 	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ sm.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + sm.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
 	        	
 	        	if (sm.getSum() < FIXEDVALUE) {
@@ -107,7 +107,7 @@ public class PersistenceWithSM extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + sm.getSm() + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + sm.getSum() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + (sm.getSum()-FIXEDVALUE) + "</center></td>");
 	        	}
 	        	
 				response.getWriter().println("</tr>");

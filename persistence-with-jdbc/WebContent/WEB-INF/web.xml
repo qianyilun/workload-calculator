@@ -142,4 +142,34 @@
     <servlet-name>Log</servlet-name>
     <url-pattern>/log</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RCCData</display-name>
+    <servlet-name>RCCData</servlet-name>
+    <servlet-class>com.allen.RCCData</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RCCData</servlet-name>
+    <url-pattern>/rccdata</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Test</display-name>
+    <servlet-name>Test</servlet-name>
+    <servlet-class>com.allen.Test</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Test</servlet-name>
+    <url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Rcc</display-name>
+    <servlet-name>Rcc</servlet-name>
+    <servlet-class>com.allen.Rcc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Rcc</servlet-name>
+    <url-pattern>/rcc</url-pattern>
+  </servlet-mapping>
 </web-app>

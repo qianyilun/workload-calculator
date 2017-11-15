@@ -18,15 +18,6 @@ public class SA extends Template implements Comparable<SA>{
 	@Override
 	public int compareTo(SA sa) {
 		// TODO Auto-generated method stub
-//		if (this.getSum() < sa.getSum()) {
-//			return -1;
-//		} else if (this.getSum() > sa.getSum()) {
-//			return 1;
-//		} 
-//		
-//		if (super.getSa()==(double)0 || sa.getSa()==(double)0) {
-//			return 0;
-//		}
 		double thisScore = super.getSum() / QueueDays.hash.get(super.getName());
 		double saScore = sa.getSum() / QueueDays.hash.get(sa.getName());
 		

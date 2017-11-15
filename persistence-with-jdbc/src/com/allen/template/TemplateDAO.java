@@ -24,7 +24,7 @@ public class TemplateDAO {
 	public TemplateDAO(DataSource newDataSource) throws SQLException {
         setDataSource(newDataSource);
         NameHashTable.initHash();
-        QueueDays.initHash();
+        
     }
 	
 	/**

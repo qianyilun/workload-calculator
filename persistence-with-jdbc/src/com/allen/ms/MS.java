@@ -18,17 +18,20 @@ public class MS extends Template implements Comparable<MS>{
 	@Override
 	public int compareTo(MS ms) {
 		// TODO Auto-generated method stub
-//		if (this.getSum() < ms.getSum()) {
-//			return -1;
-//		} else if (this.getSum() > ms.getSum()) {
-//			return 1;
-//		} 
-//		
-//		if (super.getMs()==(double)0 || ms.getMs()==(double)0) {
-//			return 0;
-//		}
-		double thisScore = super.getSum() / QueueDays.hash.get(super.getName());
-		double msScore = ms.getSum() / QueueDays.hash.get(ms.getName());
+		double thisScore;
+		double msScore;
+		
+		if (super.getName().equals("John L")) {
+			thisScore = super.getSum() / (QueueDays.hash.get(super.getName())*0.5);
+		} else {
+			thisScore = super.getSum() / QueueDays.hash.get(super.getName());
+		}
+		
+		if (ms.getName().equals("John L")) {
+			msScore = ms.getSum() / (QueueDays.hash.get(ms.getName())*0.5);
+		} else {
+			msScore = ms.getSum() / QueueDays.hash.get(ms.getName());
+		}
 		
 		if (msScore > thisScore) {
 			return -1;

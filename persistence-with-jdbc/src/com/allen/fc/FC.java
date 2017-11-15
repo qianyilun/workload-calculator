@@ -18,17 +18,20 @@ public class FC extends Template implements Comparable<FC>{
 	@Override
 	public int compareTo(FC fc) {
 		// TODO Auto-generated method stub
-//		if (this.getSum() < fc.getSum()) {
-//			return -1;
-//		} else if (this.getSum() > fc.getSum()) {
-//			return 1;
-//		} 
-//		
-//		if (super.getFc()==(double)0 || fc.getFc()==(double)0) {
-//			return 0;
-//		}
-		double thisScore = super.getSum() / QueueDays.hash.get(super.getName());
-		double fcScore = fc.getSum() / QueueDays.hash.get(fc.getName());
+		double thisScore;
+		double fcScore;
+		
+		if (super.getName().equals("Yvonne")) {
+			thisScore = super.getSum() / (QueueDays.hash.get(super.getName())*0.75);
+		} else {
+			thisScore = super.getSum() / QueueDays.hash.get(super.getName());
+		}
+		
+		if (fc.getName().equals("Yvonne")) {
+			fcScore = fc.getSum() / (QueueDays.hash.get(fc.getName())*0.75);
+		} else {
+			fcScore = fc.getSum() / QueueDays.hash.get(fc.getName());
+		}
 		
 		if (fcScore > thisScore) {
 			return -1;

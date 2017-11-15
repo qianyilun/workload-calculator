@@ -57,25 +57,23 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
         
     	// Append table that lists all persons
     	List<DSM> resultList = dsmDAO.selectAllEntries();
-        
-//    	response.getWriter().println(super.checkRCC());
-    	
+           	
     	
     	response.getWriter().println(
                 "<p><center><table width=70% border=\"1\"><tr><th colspan=\"1\"></th>" + "<th colspan=\"3\">" + (resultList.isEmpty() ? "" : resultList.size() + " ")
-                        + "Entries in the Database</th>"
+                        + "Employees in the EPM-BPC team</th>"
                         + "<th colspan=\"3\">" + "Smart Sorted</th></tr>");
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th><th>AVG Q-DAY</th></tr>");
+            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Assign</th><th>Remove</th><th>Amount</th><th>Total</th><th>AVG Q-DAY</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
         Collections.sort(resultList); 
      
-        // Add reset button
-        response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
+        // Add [qm assign] button
+    	response.getWriter().println("<p><center> Click here &#8594;  <input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: ','[EPM_QM_ASSIGNED]')\" value=\"[EPM_QM_ASSIGNED]\"></center></p>");
         
         int dsmIncidents = 0;
         for (DSM dsm : resultList) {
@@ -109,7 +107,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + dsm.getDsm() + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + dsm.getSum() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + (dsm.getSum()-FIXEDVALUE) + "</center></td>");
 				}
 	        	
 				response.getWriter().println("</tr>");
@@ -124,8 +122,7 @@ public class PersistenceWithDSM extends PersistenceWithTemplate {
     
 		// Home button
 		response.getWriter().println("<p><center><form action=\"" + "nw" + "\" method=\"get\">" + "<input type=\"submit\" value=\"Return to Home\" />" + "</form></center></p>");
-        	
-        
+        	       
     }
     
     @Override

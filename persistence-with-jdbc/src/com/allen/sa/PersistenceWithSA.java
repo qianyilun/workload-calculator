@@ -64,15 +64,15 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         if (resultList.isEmpty()) {
             response.getWriter().println("<tr><td colspan=\"4\">Database is empty</td></tr>");
         } else {
-            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Increase</th><th>Decrease</th><th>Amount</th><th>Total</th><th>AVG Q-DAY</th></tr>");
+            response.getWriter().println("<tr><th>#</th><th>Name</th><th>Assign</th><th>Remove</th><th>Amount</th><th>Total</th><th>AVG Q-DAY</th></tr>");
         }
         IXSSEncoder xssEncoder = XSSEncoder.getInstance();
         int index = 1;
         Collections.sort(resultList); 
      
-        // Add reset button
-        response.getWriter().println("<p><center><form action=\"" + LINKNAME + "?operation=reset\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.confirm('Are you sure to RESET all values?')\" value=\"RESET\" />" + "</form></center></p>");
-
+        // Add [EPM_QM_ASSIGNED] button
+    	response.getWriter().println("<p><center> Click here &#8594;  <input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: ','[EPM_QM_ASSIGNED]')\" value=\"[EPM_QM_ASSIGNED]\"></center></p>");
+        
         int saIncidents = 0;
         for (SA sa : resultList) {        	
         	// Hitomi = 5, JohnH = 6
@@ -87,7 +87,7 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
         		score = df.format(((double)sa.getSum()) / QueueDays.hash.get(sa.getName()));
         	
 	        	
-	        	String pop = sa.getName() + " hass been +1, please go for assign.";
+	        	String pop = sa.getName() + " has been +1, please go for assign.";
 	        	String link = "<td><center><form action=\"" + LINKNAME + "?Id="+ sa.getId() + "&operation=add\" method=\"post\">" + "<input type=\"submit\" onclick=\"return window.prompt('" + pop + " Copy to clipboard: Ctrl+C, Enter','" + sa.getiNumber() + "')\" value=\"Add\" />" + "</form></center></td>";
 	        	
 	        	if (sa.getSum() < FIXEDVALUE) {
@@ -107,7 +107,7 @@ public class PersistenceWithSA extends PersistenceWithTemplate {
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td><center>"+ xssEncoder.encodeHTML("N/A") + "</center></td>"); 
 		        	response.getWriter().println("<td height=\"30\"><center>" + sa.getSa() + "</center></td>");
-					response.getWriter().println("<td height=\"30\"><center>" + sa.getSum() + "</center></td>");
+					response.getWriter().println("<td height=\"30\"><center>" + (sa.getSum()-FIXEDVALUE) + "</center></td>");
 				}
 	        	
 				response.getWriter().println("</tr>");
