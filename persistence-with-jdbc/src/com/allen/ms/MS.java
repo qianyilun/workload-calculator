@@ -27,7 +27,7 @@ public class MS extends Template implements Comparable<MS>{
 			thisScore = super.getSum() / QueueDays.hash.get(super.getName());
 		}
 		
-		if (super.getName().equals("John L")) {
+		if (ms.getName().equals("John L")) {
 			msScore = ms.getSum() / (QueueDays.hash.get(ms.getName())*0.5);
 		} else {
 			msScore = ms.getSum() / QueueDays.hash.get(ms.getName());

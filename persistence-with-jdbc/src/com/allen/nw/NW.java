@@ -31,7 +31,7 @@ public class NW extends Template implements Comparable<NW>{
 		
 		if (nw.getName().equals("Yvonne")) {
 			nwScore = nw.getSum() / (QueueDays.hash.get(nw.getName())*0.75);
-		} else if (super.getName().equals("John L")) {
+		} else if (nw.getName().equals("John L")) {
 			nwScore = nw.getSum() / (QueueDays.hash.get(nw.getName())*0.5);
 		} else {
 			nwScore = nw.getSum() / QueueDays.hash.get(nw.getName());

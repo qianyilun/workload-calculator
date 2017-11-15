@@ -27,7 +27,7 @@ public class LOD extends Template implements Comparable<LOD>{
 			thisScore = super.getSum() / QueueDays.hash.get(super.getName());
 		}
 		
-		if (super.getName().equals("John L")) {
+		if (lod.getName().equals("John L")) {
 			lodScore = lod.getSum() / (QueueDays.hash.get(lod.getName())*0.5);
 		} else {
 			lodScore = lod.getSum() / QueueDays.hash.get(lod.getName());

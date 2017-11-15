@@ -27,6 +27,9 @@ public class Log extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().println("<h1>What's new<h1>");
 		
+		response.getWriter().println("<h2>version_1.2.1</h2>");
+		response.getWriter().println("<p>" + version_1_2_1 + "</p>");
+		
 		response.getWriter().println("<h2>version_1.1.2</h2>");
 		response.getWriter().println("<p>" + version_1_1_2 + "</p>");
 		
@@ -65,4 +68,9 @@ public class Log extends HttpServlet {
 			"3.Move the RESET button to the bottom to avoid mistaking click <br />" + 
 			"4.Monday Morning reminder is around by RESET button" + 
 			"";
+	
+	private String version_1_2_1 = ""
+			+ "1.QMCD now supports engineer customize the number of \"Days in the Queue\" <br />" + 
+			"2.Ahaan has been added to the name list because he will be on the queue starting from this week <br />";
+			
 }
