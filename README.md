@@ -1,2 +1,2 @@
-# QueueManager_Web
-QueueManager_Web provide the basic assign and deletion counter for engineer
+# Queue Manager Cloud Dispatcher
+Queue Manager Cloud Dispatcher provides the basic assign and deletion counter for engineer
