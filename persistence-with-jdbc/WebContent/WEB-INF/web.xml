@@ -172,4 +172,14 @@
     <servlet-name>Rcc</servlet-name>
     <url-pattern>/rcc</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PersistenceWithRTC</display-name>
+    <servlet-name>PersistenceWithRTC</servlet-name>
+    <servlet-class>com.allen.rtc.PersistenceWithRTC</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersistenceWithRTC</servlet-name>
+    <url-pattern>/rtc</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -123,7 +123,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
                     "  <tr>" + 
                     "    <td><center><a style=\"color:blue\" href=\"dsm\">DSM</a></center></td>" + 
                     "    <td><center><a style=\"color:blue\" href=\"pcm\">PCM</a></center></td>" + 
-                    "    <td><center>--></center></td>" + 
+                    "    <td><center><a style=\"color:blue\" href=\"rtc\">RTC</a></center></td>" + 
                     "    <td><center><a style=\"color:blue\" href=\"lod\">LOD-ANA-PL</a></center></td>" + 
                     "  </tr>" + 
                     "</table>" + 
@@ -158,7 +158,7 @@ public class PersistenceWithNW extends PersistenceWithTemplate {
         // Add [EPM_QM_ASSIGNED] button
     	response.getWriter().println("<p><center> Click here &#8594;  <input type=\"submit\" onclick=\"return window.prompt('Copy to clipboard: ','[EPM_QM_ASSIGNED]')\" value=\"[EPM_QM_ASSIGNED]\"></center></p>");
         
-        response.getWriter().println("<h2>NW / XLS / RTC</h2>");
+        response.getWriter().println("<h2>NW / XLS</h2>");
         
         int nwIncidents = 0;
         int globalIncidents = 0;
