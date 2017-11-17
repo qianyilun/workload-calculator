@@ -17,6 +17,7 @@ public class Template {
 	private int lod;
 	private int pcm;
 	private int sa;
+	private int rtc;
 	
 	private int total;
 	
@@ -156,5 +157,11 @@ public class Template {
 		if (this.name.equals("Ahaan")) {
 			iNumber = "I864363";
 		}
+	}
+	public int getRtc() {
+		return rtc;
+	}
+	public void setRtc(int rtc) {
+		this.rtc = rtc;
 	}
 }

@@ -27,6 +27,9 @@ public class Log extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().println("<h1>What's new<h1>");
 		
+		response.getWriter().println("<h2>version_1.2.2</h2>");
+		response.getWriter().println("<p>" + version_1_2_2 + "</p>");
+		
 		response.getWriter().println("<h2>version_1.2.1</h2>");
 		response.getWriter().println("<p>" + version_1_2_1 + "</p>");
 		
@@ -72,5 +75,8 @@ public class Log extends HttpServlet {
 	private String version_1_2_1 = ""
 			+ "1.QMCD now supports engineer customize the number of \"Days in the Queue\" <br />" + 
 			"2.Ahaan has been added to the name list because he will be on the queue starting from this week <br />";
-			
+
+	private String version_1_2_2 = ""
+			+ "1.Add \"RTC\" tab<br />";
+
 }

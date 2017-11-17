@@ -142,7 +142,7 @@ public class TemplateDAO {
         try {
             PreparedStatement pstmt = connection
                     .prepareStatement("UPDATE ROOT"
-                					+ " SET NW=0,MS=0,SM=0,DSM=0,FC=0,LOD=0,PCM=0,SA=0,TOTAL=0"
+                					+ " SET NW=0,MS=0,SM=0,DSM=0,FC=0,LOD=0,PCM=0,SA=0,TOTAL=0,RTC=0"
                 					+ " WHERE 1=1");
             pstmt.executeUpdate();
         } finally {
