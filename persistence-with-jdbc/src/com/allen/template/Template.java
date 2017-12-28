@@ -118,9 +118,6 @@ public class Template {
 		if (this.name.equals("Alex")) {
 			iNumber = "I819350";
 		} 
-		if (this.name.equals("Allen")) {
-			iNumber = "I860745";
-		}
 		if (this.name.equals("April")) {
 			iNumber = "I817290";
 		}
