@@ -26,6 +26,9 @@ public class Log extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().println("<h1>What's new<h1>");
+
+		response.getWriter().println("<h2>version_1.3.0</h2>");
+		response.getWriter().println("<p>" + version_1_3_0 + "</p>");
 		
 		response.getWriter().println("<h2>version_1.2.2</h2>");
 		response.getWriter().println("<p>" + version_1_2_2 + "</p>");
@@ -52,6 +55,9 @@ public class Log extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
+	private String version_1_3_0 = ""
+			+ "1.In the QM tool, removed Allen's records";
 	
 	private String version_1_1_0 = ""
 			+ "1.Maintained week 44 \"Queue Days\" <br />" + 
