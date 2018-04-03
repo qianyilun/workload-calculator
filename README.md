@@ -5,3 +5,5 @@ Queue Manager Cloud Dispatcher is a RESTful Java web application to dispatch inc
 All confidential information has been removed.
 
 This is not an SAP paid product but a project that I (qianyilun) tried to solve some redundancy issues in my working procedure. Please send me an email (qianyilun@gmail.com) for copyright related or any other issues. I will delete this project immediately. 
+
+Author: @qianyilun
